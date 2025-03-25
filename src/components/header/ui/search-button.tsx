@@ -3,9 +3,7 @@ import HeaderIconButton from "./header-icon-button";
 
 function SearchButton() {
   return (
-    <HeaderIconButton>
-      <SearchIcon className="h-[24px] w-[24px]" />
-    </HeaderIconButton>
+    <HeaderIconButton icon={<SearchIcon className="h-[24px] w-[24px]" />} />
   );
 }
 

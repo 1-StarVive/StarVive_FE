@@ -1,14 +1,14 @@
 type HeaderIconButtonProps = {
-  children: React.ReactNode;
+  icon: React.ReactNode;
   onClick?: () => void;
 };
-function HeaderIconButton({ children, onClick }: HeaderIconButtonProps) {
+function HeaderIconButton({ icon, onClick }: HeaderIconButtonProps) {
   return (
     <button
       className="flex items-center justify-center h-[32px] w-[32px]"
       onClick={onClick}
     >
-      {children}
+      {icon}
     </button>
   );
 }

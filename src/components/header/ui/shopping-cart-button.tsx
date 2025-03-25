@@ -3,9 +3,9 @@ import ShoppingCartIcon from "@/components/icons/shopping-cart-icon";
 
 function ShoppingCartButton() {
   return (
-    <HeaderIconButton>
-      <ShoppingCartIcon className="h-[24px] w-[24px]" />
-    </HeaderIconButton>
+    <HeaderIconButton
+      icon={<ShoppingCartIcon className="h-[24px] w-[24px]" />}
+    />
   );
 }
 

@@ -1,4 +1,3 @@
-import useBlockBodyScroll from "@/hooks/use-block-interaction";
 import { motion } from "framer-motion";
 
 export type DimmedProps = {
@@ -7,8 +6,6 @@ export type DimmedProps = {
 };
 
 function Dimmed({ children, onClick }: DimmedProps) {
-  useBlockBodyScroll();
-
   return (
     <motion.div
       className="fixed grid inset-0 place-items-center items-center"
