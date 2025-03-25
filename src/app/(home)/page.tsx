@@ -8,13 +8,13 @@ import CategoriesHeader from "@/components/categories-header";
 export default function Home() {
   return (
     <>
-      <Header subHeader={<CategoriesHeader />} />
+      <Header subHeader={<CategoriesHeader selected="/" />} />
       <main className="space-y-[50px]">
         <Banner />
 
         <SectionWrap>
           <Title>TREND TAG</Title>
-          <TagWrapUl>
+          <TagsWrap>
             <Tag src="/temp-square.png" alt="temp">
               #더스트 백
             </Tag>
@@ -30,12 +30,12 @@ export default function Home() {
             <Tag src="/temp-square.png" alt="temp">
               #더스트 백
             </Tag>
-          </TagWrapUl>
+          </TagsWrap>
         </SectionWrap>
 
         <SectionWrap>
           <Title>MD FESTA</Title>
-          <ProductUl>
+          <ProductsWrap>
             <Product
               src="/temp-square.png"
               alt="temp"
@@ -46,52 +46,49 @@ export default function Home() {
               isBest={true}
               isNew={true}
             />
-          </ProductUl>
+          </ProductsWrap>
         </SectionWrap>
 
         <SectionWrap>
           <Title>Ways of Working</Title>
-          <ProductUl>
+          <ProductsWrap>
             <Product
               src="/temp-square.png"
               alt="temp"
               name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
               originalPrice={20000}
             />
-
             <Product
               src="/temp-square.png"
               alt="temp"
               name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
               originalPrice={20000}
             />
-
             <Product
               src="/temp-square.png"
               alt="temp"
               name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
               originalPrice={20000}
             />
-
             <Product
               src="/temp-square.png"
               alt="temp"
               name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
               originalPrice={20000}
             />
-          </ProductUl>
+          </ProductsWrap>
         </SectionWrap>
 
         <SectionWrap>
           <Title>Flower Market</Title>
-          <ProductUl>
+          <ProductsWrap>
             <Product
               src="/temp-square.png"
               alt="temp"
               name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
               originalPrice={20000}
             />
-          </ProductUl>
+          </ProductsWrap>
         </SectionWrap>
       </main>
     </>
@@ -102,7 +99,7 @@ function SectionWrap({ children }: React.PropsWithChildren) {
   return <section className="flex flex-col gap-[30px]">{children}</section>;
 }
 
-function TagWrapUl({ children }: React.PropsWithChildren) {
+function TagsWrap({ children }: React.PropsWithChildren) {
   return (
     <ul className="flex overflow-auto flex-nowrap gap-[20px] p-[24px]">
       {children}
@@ -110,9 +107,9 @@ function TagWrapUl({ children }: React.PropsWithChildren) {
   );
 }
 
-function ProductUl({ children }: React.PropsWithChildren) {
+function ProductsWrap({ children }: React.PropsWithChildren) {
   return (
-    <ul className="flex overflow-auto flex-nowrap gap-[18px] p-[24px]">
+    <ul className="grid grid-flow-col auto-cols-[40%] overflow-auto gap-[18px] p-[24px]">
       {children}
     </ul>
   );

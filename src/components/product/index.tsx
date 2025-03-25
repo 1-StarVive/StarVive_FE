@@ -21,10 +21,7 @@ function Product({
 }: ProductLiProps) {
   return (
     <li>
-      <Link
-        className="w-[40dvw] flex flex-col gap-[16px] max-w-[300px]"
-        href="/."
-      >
+      <Link className="w-full flex flex-col gap-[16px]" href="/.">
         <div className="aspect-square relative w-full">
           <Image
             className="rounded-sm"

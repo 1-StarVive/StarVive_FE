@@ -1,14 +1,20 @@
-import { headerCategories } from "@/components/categories-header/etc/const";
+import {
+  headerCategories,
+  HeaderCategory,
+} from "@/components/categories-header/etc/const";
 import CategoryLink from "./ui/category-link";
 
-function CategoriesHeader() {
+type CategoriesHeaderProps = {
+  selected: HeaderCategory["href"];
+};
+function CategoriesHeader({ selected }: CategoriesHeaderProps) {
   return (
     <Wrap>
       {headerCategories.map((category, i) => (
         <CategoryLink
           key={i}
           href={category.href}
-          selected={i === 1 ? "active" : "none"}
+          selected={category.href === selected ? "active" : "none"}
         >
           {category.title}
         </CategoryLink>
