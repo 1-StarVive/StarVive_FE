@@ -1,7 +1,7 @@
 import HamburgerButton from "./ui/hamburger-button";
 import SearchButton from "./ui/search-button";
 import ShoppingCartButton from "./ui/shopping-cart-button";
-import XButton from "./ui/x-button";
+import CloseButton from "./ui/close-button";
 
 type HeaderProps = {
   subHeader?: React.ReactNode;
@@ -17,7 +17,7 @@ function Header({ subHeader }: HeaderProps) {
         <RightWrap>
           <SearchButton />
           <ShoppingCartButton />
-          <XButton />
+          <CloseButton />
         </RightWrap>
       </MainWrap>
 

@@ -1,8 +1,8 @@
 import XIcon from "@/components/icons/x-icon";
-import useCategoriesModalStore from "@/store/categories-modal.store";
+import useSearchModalStore from "@/store/search-modal.store";
 
 function CloseButton() {
-  const close = useCategoriesModalStore((state) => state.close);
+  const close = useSearchModalStore((state) => state.close);
 
   return (
     <button

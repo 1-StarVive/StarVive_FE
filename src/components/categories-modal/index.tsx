@@ -18,13 +18,7 @@ function CategoriesModal() {
 
   if (!hasMounted) return null;
   return createPortal(
-    <motion.div
-      className="inset-0 fixed z-50 bg-white flex flex-col gap-[30px] overflow-auto"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-    >
+    <ModalWrap>
       <HeadWrap>
         <CloseButton />
       </HeadWrap>
@@ -69,12 +63,26 @@ function CategoriesModal() {
           content="스타벅스 베스트 MD 상품만 모아보세요."
         />
       </CategoriesFooter>
-    </motion.div>,
+    </ModalWrap>,
     document.body
   );
 }
 
 export default CategoriesModal;
+
+function ModalWrap({ children }: React.PropsWithChildren) {
+  return (
+    <motion.div
+      className="inset-0 fixed z-50 bg-white flex flex-col gap-[30px] overflow-auto"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function HeadWrap({ children }: React.PropsWithChildren) {
   return (

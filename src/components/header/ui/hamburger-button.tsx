@@ -1,14 +1,14 @@
 "use client";
 
-import useCategoriesStore from "@/store/categories.store";
+import useCategoriesModalStore from "@/store/categories-modal.store";
 import HeaderIconButton from "./header-icon-button";
 import HamburgerIcon from "@/components/icons/hamburger-icon";
 import CategoriesModal from "@/components/categories-modal";
 import { AnimatePresence } from "framer-motion";
 
 function HamburgerButton() {
-  const isOpen = useCategoriesStore((state) => state.isOpen);
-  const open = useCategoriesStore((state) => state.open);
+  const isOpen = useCategoriesModalStore((state) => state.isOpen);
+  const open = useCategoriesModalStore((state) => state.open);
 
   return (
     <>

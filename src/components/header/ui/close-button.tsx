@@ -1,8 +1,8 @@
 import XIcon from "@/components/icons/x-icon";
 import HeaderIconButton from "./header-icon-button";
 
-function XButton() {
+function CloseButton() {
   return <HeaderIconButton icon={<XIcon className="h-[24px] w-[24px]" />} />;
 }
 
-export default XButton;
+export default CloseButton;

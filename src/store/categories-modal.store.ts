@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
-type UseCategoriesStore = {
+type UseCategoriesModalStore = {
   isOpen: boolean;
   open: () => void;
   close: () => void;
 };
 
-const useCategoriesStore = create<UseCategoriesStore>((set) => ({
+const useCategoriesModalStore = create<UseCategoriesModalStore>((set) => ({
   isOpen: false,
   open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false }),
 }));
 
-export default useCategoriesStore;
+export default useCategoriesModalStore;
