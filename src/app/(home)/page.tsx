@@ -4,13 +4,14 @@ import Tag from "./ui/tag";
 import Product from "../../components/product";
 import Header from "@/components/header";
 import CategoriesHeader from "@/components/categories-header";
+import MainCarousel from './ui/main-carousel';
 
 export default function Home() {
   return (
     <>
       <Header subHeader={<CategoriesHeader />} />
       <main className="space-y-[50px]">
-        <Banner />
+        <MainCarousel />
 
         <SectionWrap>
           <Title>TREND TAG</Title>
