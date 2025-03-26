@@ -8,7 +8,7 @@ export type DimmedProps = {
 function Dimmed({ children, onClick }: DimmedProps) {
   return (
     <motion.div
-      className="fixed grid inset-0 place-items-center items-center"
+      className="fixed grid inset-0 place-items-center"
       onClick={onClick}
       initial={{ background: "#00000000" }}
       animate={{ backgroundColor: "#00000015" }}
