@@ -4,7 +4,7 @@ import Tag from "./ui/tag";
 import Product from "../../components/product";
 import Header from "@/components/header";
 import CategoriesHeader from "@/components/categories-header";
-import MainCarousel from './ui/main-carousel';
+import MainCarousel from './ui/carousel/main-carousel';
 
 export default function Home() {
   return (
