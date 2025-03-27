@@ -10,17 +10,16 @@ type Props = {
 
 export default function CarouselSection(props: Props): JSX.Element {
     return (
-        <section className="px-4 py-6">
-            <header className="mb-4">
+        <section className="w-full aspect-[390/322] pl-[6.15vw]">
+            <header className="">
                 <h2 className="text-lg font-semibold">{props.title}</h2>
             </header>
 
             {/* 슬라이드 영역 */}
 
             {/* 스크롤 정렬 기준을 왼쪽(start)으로 설정 */}
-            <Carousel opts={{ align: "start" }} className="w-full">
-                
-                <CarouselContent className="-ml-2">
+            <Carousel opts={{ align: "start" }} className="w-full overflow-hidden">               
+                <CarouselContent className="">
                 {props.items.map(function (item: string, index: number): React.JSX.Element {
                     return (
                     <CarouselItem key={index} className="pl-2 basis-[160px]">
