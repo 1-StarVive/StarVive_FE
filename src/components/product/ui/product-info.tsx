@@ -28,14 +28,14 @@ function ProductInfo({
 
 export default ProductInfo;
 
-function InfoWrap({ children }: React.PropsWithChildren) {
+export function InfoWrap({ children }: React.PropsWithChildren) {
   return <div className="flex flex-col gap-[8px]">{children}</div>;
 }
 
-function LabelWrap({ children }: React.PropsWithChildren) {
+export function LabelWrap({ children }: React.PropsWithChildren) {
   return <div className="space-x-[9px]">{children}</div>;
 }
 
-function NameWrap({ children }: React.PropsWithChildren) {
+export function NameWrap({ children }: React.PropsWithChildren) {
   return <span className="line-clamp-2 text-[15px]">{children}</span>;
 }

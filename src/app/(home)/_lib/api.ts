@@ -1,14 +1,21 @@
 import { getFeaturedSectionProducts } from "@/lib/api/featured-section/products";
-import { FeaturedSectionProductsRes } from "@/types/featured-section";
 import * as R from "fp-ts/Record";
 import * as NEA from "fp-ts/NonEmptyArray";
 import { pipe } from "fp-ts/function";
+import { getFeaturedSections } from "@/lib/api/featured-sections";
+import {
+  FeaturedSectionProductsRes,
+  FeaturedSectionsRes,
+} from "@/types/featured-section";
 
-export async function getProductsByFeaturedSectionId(
-  featuredSectionsIds: string[]
-): Promise<
-  Record<string, FeaturedSectionProductsRes[0]["products"] | undefined>
-> {
+type GetFeaturedSectionIdWithProductsReturn = (Partial<
+  Pick<FeaturedSectionProductsRes[number], "products">
+> &
+  FeaturedSectionsRes[number])[];
+
+export async function getFeaturedSectionIdWithProducts(): Promise<GetFeaturedSectionIdWithProductsReturn> {
+  const featuredSections = await getFeaturedSections();
+  const featuredSectionsIds = featuredSections.map((o) => o.featuredSectionsId);
   const featuredSectionProducts = await getFeaturedSectionProducts({
     featuredSectionsIds,
   });
@@ -18,5 +25,10 @@ export async function getProductsByFeaturedSectionId(
     R.map(NEA.head),
     R.map((o) => o.products)
   );
-  return productsByFeaturedSectionId;
+  const res = featuredSections.map((featuredSection) => {
+    const products =
+      productsByFeaturedSectionId[featuredSection.featuredSectionsId];
+    return { ...featuredSection, products };
+  });
+  return res;
 }

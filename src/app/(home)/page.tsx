@@ -1,9 +1,11 @@
-import Banner from "./ui/banner";
-import Title from "./ui/title";
-import Tag from "./ui/tag";
+import Banner from "./_ui/banner";
+import Title from "./_ui/title";
+import Tag from "./_ui/tag";
 import Header from "@/components/header";
 import CategoriesHeader from "@/components/categories-header";
-import ProductSections from "./ui/product-sections";
+import ProductSections from "./_ui/product-sections";
+import { Suspense } from "react";
+import ProductSectionsSkeleton from "./_ui/product-sections-skeleton";
 
 export default async function Home() {
   return (
@@ -32,7 +34,9 @@ export default async function Home() {
           </TagsWrap>
         </SectionWrap>
 
-        <ProductSections />
+        <Suspense fallback={<ProductSectionsSkeleton />}>
+          <ProductSections />
+        </Suspense>
       </main>
     </>
   );

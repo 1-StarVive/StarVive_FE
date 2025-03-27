@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import CategoriesHeader from "@/components/categories-header";
-import SubCategoriesHeader from "./ui/sub-categories-header";
+import SubCategoriesHeader from "./_ui/sub-categories-header";
 import Accordion from "@/components/arccordion";
 import Product from "@/components/product";
 

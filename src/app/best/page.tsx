@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import CategoriesHeader from "@/components/categories-header";
-import SubBestHeader from "./ui/sub-best-header";
+import SubBestHeader from "./_ui/sub-best-header";
 import Product from "@/components/product";
 
 function Promotion() {

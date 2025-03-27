@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ChevronDownIcon from "../icons/chevron-down-icon";
-import { motion } from "framer-motion";
+import ChevronDownIcon from "./icons/chevron-down-icon";
 import { cn } from "@/lib/utils";
 
 type AccordionProps = {
