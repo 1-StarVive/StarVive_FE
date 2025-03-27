@@ -17,38 +17,38 @@ function Promotion() {
       <main>
         <ProductsWrap>
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
             rank={1}
           />
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
             rank={2}
           />
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
             rank={3}
           />
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
             rank={4}
           />
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
             rank={5}
           />
         </ProductsWrap>

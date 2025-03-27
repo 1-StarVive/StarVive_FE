@@ -4,8 +4,8 @@ import ProductPrice, { ProductPriceProps } from "./ui/product-price";
 import ProductInfo, { ProductInfoProps } from "./ui/product-info";
 import RankIcon from "../icons/rank-icon";
 
-export type ProductLiProps = {
-  src: string;
+export type ProductProps = {
+  url: string;
   alt: string;
   rank?: number;
 } & ProductPriceProps &
@@ -13,22 +13,22 @@ export type ProductLiProps = {
 
 function Product({
   alt,
-  src,
-  originalPrice,
-  discountPercent,
-  salePrice,
+  url,
+  price,
+  discountRate,
+  discountedPrice,
   name,
-  isBest,
+  isTop,
   isNew,
   rank,
-}: ProductLiProps) {
+}: ProductProps) {
   return (
     <li>
       <Link className="w-full flex flex-col gap-[16px]" href="/.">
         <div className="aspect-square relative w-full">
           <Image
             className="rounded-sm"
-            src={src}
+            src={url}
             alt={alt}
             fill
             sizes="200px"
@@ -43,12 +43,12 @@ function Product({
           )}
         </div>
 
-        <ProductInfo name={name} isBest={isBest} isNew={isNew} />
+        <ProductInfo name={name} isTop={isTop} isNew={isNew} />
 
         <ProductPrice
-          originalPrice={originalPrice}
-          discountPercent={discountPercent}
-          salePrice={salePrice}
+          price={price}
+          discountRate={discountRate}
+          discountedPrice={discountedPrice}
         />
       </Link>
     </li>
