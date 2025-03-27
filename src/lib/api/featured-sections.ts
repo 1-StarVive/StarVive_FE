@@ -1,4 +1,7 @@
-import { FeaturedSectionsRes } from "@/types/featured-section";
+export type FeaturedSectionsRes = {
+  featuredSectionsId: string;
+  name: string;
+}[];
 
 export async function getFeaturedSections() {
   const res = await fetch("http://localhost:3000/api/featured-sections");

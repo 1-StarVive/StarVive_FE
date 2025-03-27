@@ -1,11 +1,11 @@
 import Product from "@/components/product";
-import { Skeleton } from "@/components/skeleton";
+import Title from "./title";
 
 function ProductSectionsSkeleton() {
   return (
     <>
       <SectionWrap>
-        <Title />
+        <Title.Skeleton />
         <ProductsWrap>
           <Product.Skeleton />
           <Product.Skeleton />
@@ -14,7 +14,7 @@ function ProductSectionsSkeleton() {
       </SectionWrap>
 
       <SectionWrap>
-        <Title />
+        <Title.Skeleton />
         <ProductsWrap>
           <Product.Skeleton />
           <Product.Skeleton />
@@ -23,7 +23,7 @@ function ProductSectionsSkeleton() {
       </SectionWrap>
 
       <SectionWrap>
-        <Title />
+        <Title.Skeleton />
         <ProductsWrap>
           <Product.Skeleton />
           <Product.Skeleton />
@@ -44,14 +44,6 @@ function ProductsWrap({ children }: React.PropsWithChildren) {
   return (
     <div className="grid grid-flow-col auto-cols-[40%] overflow-hidden gap-[18px] p-[24px]">
       {children}
-    </div>
-  );
-}
-
-function Title() {
-  return (
-    <div className="text-[22px] px-[24px]">
-      <Skeleton className="w-[200px] h-[30px]" />
     </div>
   );
 }

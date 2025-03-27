@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import TagSkeleton from "./tag.skeleton";
 
 type TagProps = {
   src: string;
@@ -29,3 +30,5 @@ function Tag({ alt, src, children }: TagProps) {
 }
 
 export default Tag;
+
+Tag.Skeleton = TagSkeleton;

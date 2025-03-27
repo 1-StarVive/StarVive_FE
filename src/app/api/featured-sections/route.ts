@@ -1,11 +1,11 @@
-import { FeaturedSectionsRes } from "@/types/featured-section";
+import { FeaturedSectionsRes } from "@/lib/api/featured-sections";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   return NextResponse.json<FeaturedSectionsRes>([
     {
       featuredSectionsId: "1",
-      name: "TREND TAG",
+      name: "케이ㅋ",
     },
     {
       featuredSectionsId: "2",

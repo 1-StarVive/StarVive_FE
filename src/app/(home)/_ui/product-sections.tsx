@@ -1,38 +1,45 @@
 import { getFeaturedSectionIdWithProducts } from "../_lib/api";
+import ProductSectionsSkeleton from "./product-sections.skeleton";
 import Title from "./title";
 import Product from "@/components/product";
 
 async function ProductSections() {
-  const featuredSectionIdWithProducts =
-    await getFeaturedSectionIdWithProducts();
+  try {
+    const featuredSectionIdWithProducts =
+      await getFeaturedSectionIdWithProducts();
 
-  return (
-    <>
-      {featuredSectionIdWithProducts.map((f) => (
-        <SectionWrap key={f.featuredSectionsId}>
-          <Title>{f.name}</Title>
-          <ProductsWrap>
-            {f.products?.map((p) => (
-              <Product
-                key={p.productId}
-                name={p.name}
-                price={p.price}
-                discountRate={p.discountRate}
-                discountedPrice={p.discountedPrice}
-                url={p.url}
-                alt={p.alt}
-                isTop={p.isTop}
-                isLimitedEdition={p.isLimitedEdition}
-              />
-            ))}
-          </ProductsWrap>
-        </SectionWrap>
-      ))}
-    </>
-  );
+    return (
+      <>
+        {featuredSectionIdWithProducts.map((f) => (
+          <SectionWrap key={f.featuredSectionsId}>
+            <Title>{f.name}</Title>
+            <ProductsWrap>
+              {f.products?.map((p) => (
+                <Product
+                  key={p.productId}
+                  name={p.name}
+                  price={p.price}
+                  discountRate={p.discountRate}
+                  discountedPrice={p.discountedPrice}
+                  url={p.url}
+                  alt={p.alt}
+                  isTop={p.isTop}
+                  isLimitedEdition={p.isLimitedEdition}
+                />
+              ))}
+            </ProductsWrap>
+          </SectionWrap>
+        ))}
+      </>
+    );
+  } catch (error) {
+    return <div>에러남ㅠ</div>;
+  }
 }
 
 export default ProductSections;
+
+ProductSections.Skeleton = ProductSectionsSkeleton;
 
 function SectionWrap({ children }: React.PropsWithChildren) {
   return <section className="flex flex-col gap-[30px]">{children}</section>;
