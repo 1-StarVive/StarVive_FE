@@ -1,16 +1,23 @@
 export type ProductInfoProps = {
-  isBest?: boolean;
+  isTop?: boolean;
+  isLimitedEdition?: boolean;
   isNew?: boolean;
   name: string;
 };
 
-function ProductInfo({ isBest, isNew, name }: ProductInfoProps) {
-  const isLabel = isBest || isNew;
+function ProductInfo({
+  isTop,
+  isNew,
+  isLimitedEdition,
+  name,
+}: ProductInfoProps) {
+  const isLabel = isTop || isNew;
   return (
     <InfoWrap>
       {isLabel && (
         <LabelWrap>
-          {isBest && <span className="text-[#E53535]">Best</span>}
+          {isLimitedEdition && <span className="text-[#997e64]">Limited</span>}
+          {isTop && <span className="text-[#E53535]">Best</span>}
           {isNew && <span className="text-[#30BB7A]">New</span>}
         </LabelWrap>
       )}
