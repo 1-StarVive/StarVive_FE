@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function ProductSkeleton() {
   return (
-    <Link className="w-full flex flex-col gap-[16px]" href="/.">
+    <Link className="w-full flex flex-col gap-[6px]" href="/.">
       <ImageSkeleton />
       <InfoSkeleton />
       <PriceSkeleton />

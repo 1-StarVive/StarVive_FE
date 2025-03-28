@@ -1,3 +1,5 @@
+import Badge from "@/components/badge";
+
 export type ProductInfoProps = {
   isTop?: boolean;
   isLimitedEdition?: boolean;
@@ -16,9 +18,9 @@ function ProductInfo({
     <InfoWrap>
       {isLabel && (
         <LabelWrap>
-          {isLimitedEdition && <span className="text-[#997e64]">Limited</span>}
-          {isTop && <span className="text-[#E53535]">Best</span>}
-          {isNew && <span className="text-[#30BB7A]">New</span>}
+          {isLimitedEdition && <Badge color="brown">Limited</Badge>}
+          {isNew && <Badge color="green">New</Badge>}
+          {isTop && <Badge color="red">Best</Badge>}
         </LabelWrap>
       )}
       <NameWrap>{name}</NameWrap>
@@ -29,7 +31,7 @@ function ProductInfo({
 export default ProductInfo;
 
 export function InfoWrap({ children }: React.PropsWithChildren) {
-  return <div className="flex flex-col gap-[8px]">{children}</div>;
+  return <div className="flex flex-col gap-[4px]">{children}</div>;
 }
 
 export function LabelWrap({ children }: React.PropsWithChildren) {

@@ -25,7 +25,7 @@ function Product({
 }: ProductProps) {
   return (
     <li>
-      <Link className="w-full flex flex-col gap-[16px]" href="/.">
+      <Link className="w-full flex flex-col gap-[6px]" href="/.">
         <ProductImageWrap>
           <Image
             className="rounded-sm"

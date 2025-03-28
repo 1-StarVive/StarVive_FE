@@ -1,10 +1,7 @@
 import Link, { LinkProps } from "next/link";
 
-type FooterLinkProps = React.PropsWithChildren &
-  LinkProps & {
-    asChild?: boolean;
-  };
-function FooterLink({ children, asChild, ...props }: FooterLinkProps) {
+type FooterLinkProps = React.PropsWithChildren & LinkProps;
+function FooterLink({ children, ...props }: FooterLinkProps) {
   return (
     <li>
       <Link

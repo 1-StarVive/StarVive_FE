@@ -19,7 +19,7 @@ async function TagSection() {
         </TagsWrap>
       </SectionWrap>
     );
-  } catch (error) {
+  } catch {
     return <div>오류나뮤ㅠ</div>;
   }
 }

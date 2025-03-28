@@ -5,7 +5,7 @@ type SearchInputProps = {
   onClickSearch: (value: string) => void;
 } & React.ComponentProps<"input">;
 
-function SearchInput({ className, onClickSearch, ...props }: SearchInputProps) {
+function SearchInput({ className, ...props }: SearchInputProps) {
   return (
     <div className="flex rounded-sm bg-[#F7F7F7] h-[34px] items-center px-[8px]">
       <input

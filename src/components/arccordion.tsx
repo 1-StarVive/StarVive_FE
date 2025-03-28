@@ -25,9 +25,7 @@ function Accordion({ title, contents }: AccordionProps) {
       >
         <span className="text-[16px] font-bold">{title}</span>
         <ChevronDownIcon
-          className={cn("w-[15px] h-[9px]", {
-            "rotate-180": isOpen,
-          })}
+          className={cn("w-[15px] h-[9px]", { "rotate-180": isOpen })}
         />
       </button>
 

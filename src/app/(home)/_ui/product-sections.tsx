@@ -32,7 +32,7 @@ async function ProductSections() {
         ))}
       </>
     );
-  } catch (error) {
+  } catch {
     return <div>에러남ㅠ</div>;
   }
 }

@@ -2,15 +2,23 @@ import HamburgerButton from "./ui/hamburger-button";
 import SearchButton from "./ui/search-button";
 import ShoppingCartButton from "./ui/shopping-cart-button";
 import CloseButton from "./ui/close-button";
+import BackButton from "./ui/back-button";
 
 type HeaderProps = {
   subHeader?: React.ReactNode;
+  /**
+   * 햄버거 버튼이 있는 자리에 뒤로가기 버튼을 사용할지 여부
+   *
+   * @default false
+   */
+  showBackButton?: boolean;
 };
-function Header({ subHeader }: HeaderProps) {
+
+function Header({ subHeader, showBackButton }: HeaderProps) {
   return (
     <HeaderWrap>
       <MainWrap>
-        <HamburgerButton />
+        {showBackButton ? <BackButton /> : <HamburgerButton />}
 
         <LogoWrap>온라인 스토어</LogoWrap>
 
@@ -34,7 +42,7 @@ function HeaderWrap({ children }: React.PropsWithChildren) {
 
 function MainWrap({ children }: React.PropsWithChildren) {
   return (
-    <div className="grid grid-flow-col auto-cols-[minmax(min-content,1fr)] gap-1 items-center h-[56px] px-[16px] py-[8px]">
+    <div className="grid shadow-sm grid-flow-col auto-cols-[minmax(min-content,1fr)] gap-1 items-center h-[56px] px-[16px] py-[8px]">
       {children}
     </div>
   );
