@@ -1,6 +1,7 @@
 import Header from "@/components/header";
 import Image from "next/image";
 import ProductInfo from "./_ui/product-info";
+import AutoImage from "@/components/auto-image";
 
 function Product() {
   return (
@@ -15,18 +16,14 @@ function Product() {
 
         <section className="px-[24]">
           <div className="py-2">
-            <span className="font-bold text-lg">상품정보</span>
+            <span className="text-lg font-bold">상품정보</span>
           </div>
 
           <InfoImageWrap>
-            <Image
-              src={"/big.png"}
-              alt="나는설명"
-              sizes="100vw"
-              width={99999}
-              height={99999}
-              className="w-full"
-            />
+            <div className="relative flex w-full">
+              <Image src="/big.png" alt="나는설명" sizes="400px" fill />
+            </div>
+            <AutoImage src={"/big.png"} alt="나는설명" />
           </InfoImageWrap>
         </section>
       </main>
@@ -37,9 +34,9 @@ function Product() {
 export default Product;
 
 function ImageWrap({ children }: React.PropsWithChildren) {
-  return <div className="flex w-full aspect-square relative">{children}</div>;
+  return <div className="relative flex aspect-square w-full">{children}</div>;
 }
 
 function InfoImageWrap({ children }: React.PropsWithChildren) {
-  return <div className="flex relative">{children}</div>;
+  return <div className="relative">{children}</div>;
 }
