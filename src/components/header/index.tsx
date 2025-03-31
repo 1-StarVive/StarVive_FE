@@ -1,6 +1,6 @@
 import HamburgerButton from "./ui/hamburger-button";
 import SearchButton from "./ui/search-button";
-import ShoppingCartButton from "./ui/shopping-cart-button";
+import ShoppingCartLink from "./ui/shopping-cart-link";
 import CloseButton from "./ui/close-button";
 import BackButton from "./ui/back-button";
 
@@ -24,7 +24,7 @@ function Header({ subHeader, showBackButton }: HeaderProps) {
 
         <RightWrap>
           <SearchButton />
-          <ShoppingCartButton />
+          <ShoppingCartLink />
           <CloseButton />
         </RightWrap>
       </MainWrap>
@@ -37,12 +37,12 @@ function Header({ subHeader, showBackButton }: HeaderProps) {
 export default Header;
 
 function HeaderWrap({ children }: React.PropsWithChildren) {
-  return <header className="top-0 z-10 bg-white sticky">{children}</header>;
+  return <header className="sticky top-0 z-10 bg-white">{children}</header>;
 }
 
 function MainWrap({ children }: React.PropsWithChildren) {
   return (
-    <div className="grid shadow-sm grid-flow-col auto-cols-[minmax(min-content,1fr)] gap-1 items-center h-[56px] px-[16px] py-[8px]">
+    <div className="grid h-[56px] auto-cols-[minmax(min-content,1fr)] grid-flow-col items-center gap-1 px-[16px] py-[8px] shadow-sm">
       {children}
     </div>
   );
@@ -50,7 +50,7 @@ function MainWrap({ children }: React.PropsWithChildren) {
 
 function LogoWrap({ children }: React.PropsWithChildren) {
   return (
-    <span className="text-center whitespace-nowrap text-[1rem] font-bold">
+    <span className="text-center text-[1rem] font-bold whitespace-nowrap">
       {children}
     </span>
   );

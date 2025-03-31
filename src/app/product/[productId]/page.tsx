@@ -2,6 +2,7 @@ import Header from "@/components/header";
 import Image from "next/image";
 import ProductInfo from "./_ui/product-info";
 import AutoImage from "@/components/auto-image";
+import ProductFooter from "./_ui/product-footer";
 
 function Product() {
   return (
@@ -9,23 +10,37 @@ function Product() {
       <Header showBackButton={true} />
       <main className="flex flex-col gap-[20px]">
         <ImageWrap>
-          <Image src="/temp-square.png" alt="나는설명" sizes="400px" fill />
+          <Image
+            src="/temp-square.png"
+            alt="나는설명"
+            sizes="400px"
+            fill
+            priority
+          />
         </ImageWrap>
 
         <ProductInfo />
 
-        <section className="px-[24]">
-          <div className="py-2">
+        <ProductImagesWrap>
+          <div className="px-[24] py-2">
             <span className="text-lg font-bold">상품정보</span>
           </div>
 
           <InfoImageWrap>
-            <div className="relative flex w-full">
-              <Image src="/big.png" alt="나는설명" sizes="400px" fill />
-            </div>
             <AutoImage src={"/big.png"} alt="나는설명" />
           </InfoImageWrap>
-        </section>
+          <InfoImageWrap>
+            <AutoImage src={"/big.png"} alt="나는설명" />
+          </InfoImageWrap>
+          <InfoImageWrap>
+            <AutoImage src={"/big.png"} alt="나는설명" />
+          </InfoImageWrap>
+          <InfoImageWrap>
+            <AutoImage src={"/big.png"} alt="나는설명" />
+          </InfoImageWrap>
+        </ProductImagesWrap>
+
+        <ProductFooter />
       </main>
     </>
   );
@@ -39,4 +54,8 @@ function ImageWrap({ children }: React.PropsWithChildren) {
 
 function InfoImageWrap({ children }: React.PropsWithChildren) {
   return <div className="relative">{children}</div>;
+}
+
+function ProductImagesWrap({ children }: React.PropsWithChildren) {
+  return <section>{children}</section>;
 }

@@ -11,16 +11,17 @@ function Tag({ alt, src, children }: TagProps) {
   return (
     <li>
       <Link
-        className="min-w-[110px] flex items-center flex-col gap-[16px] w-fit"
+        className="flex w-fit min-w-[110px] flex-col items-center gap-[16px]"
         href="/."
       >
-        <div className="aspect-square relative w-full">
+        <div className="relative aspect-square w-full">
           <Image
             className="rounded-full"
             src={src}
             alt={alt}
             fill
             sizes="110px"
+            priority
           />
         </div>
         <span className="text-[16px]">{children}</span>
