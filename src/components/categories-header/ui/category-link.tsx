@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import Link, { LinkProps } from "next/link";
+import Link from "next/link";
 
 const buttonVariants = cva(
   "flex items-center relative justify-center w-full h-full whitespace-nowrap",

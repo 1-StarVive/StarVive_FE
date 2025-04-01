@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import CategoriesHeader from "@/components/categories-header";
-import SubCategoriesHeader from "./ui/sub-categories-header";
+import SubCategoriesHeader from "./_ui/sub-categories-header";
 import Accordion from "@/components/arccordion";
 import Product from "@/components/product";
 
@@ -35,34 +35,34 @@ function Promotion() {
 
         <ProductsWrap>
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
           />
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
           />
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
           />
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
           />
           <Product
-            src="/temp-square.png"
+            url="/temp-square.png"
             alt="temp"
             name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            originalPrice={20000}
+            price={20000}
           />
         </ProductsWrap>
       </main>

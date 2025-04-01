@@ -2,53 +2,47 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductPrice, { ProductPriceProps } from "./ui/product-price";
 import ProductInfo, { ProductInfoProps } from "./ui/product-info";
-import RankIcon from "../icons/rank-icon";
+import ProductRank, { ProductRankProps } from "./ui/product-rank";
+import ProductSkeleton from "./ui/product-skeleton";
 
-export type ProductLiProps = {
-  src: string;
+export type ProductProps = {
+  url: string;
   alt: string;
-  rank?: number;
 } & ProductPriceProps &
-  ProductInfoProps;
+  ProductInfoProps &
+  Partial<ProductRankProps>;
 
 function Product({
   alt,
-  src,
-  originalPrice,
-  discountPercent,
-  salePrice,
+  url,
+  price,
+  discountRate,
+  discountedPrice,
   name,
-  isBest,
+  isTop,
   isNew,
   rank,
-}: ProductLiProps) {
+}: ProductProps) {
   return (
     <li>
-      <Link className="w-full flex flex-col gap-[16px]" href="/.">
-        <div className="aspect-square relative w-full">
+      <Link className="w-full flex flex-col gap-[6px]" href="/.">
+        <ProductImageWrap>
           <Image
             className="rounded-sm"
-            src={src}
+            src={url}
             alt={alt}
             fill
             sizes="200px"
           />
-          {rank !== undefined && (
-            <div className="absolute right-[8px]">
-              <RankIcon className="w-[22px] h-[30px]" />
-              <span className="text-white top-0 left-1/2 absolute -translate-x-1/2">
-                {rank}
-              </span>
-            </div>
-          )}
-        </div>
+          {rank !== undefined && <ProductRank rank={rank} />}
+        </ProductImageWrap>
 
-        <ProductInfo name={name} isBest={isBest} isNew={isNew} />
+        <ProductInfo name={name} isTop={isTop} isNew={isNew} />
 
         <ProductPrice
-          originalPrice={originalPrice}
-          discountPercent={discountPercent}
-          salePrice={salePrice}
+          price={price}
+          discountRate={discountRate}
+          discountedPrice={discountedPrice}
         />
       </Link>
     </li>
@@ -56,3 +50,9 @@ function Product({
 }
 
 export default Product;
+
+function ProductImageWrap({ children }: React.PropsWithChildren) {
+  return <div className="aspect-square relative w-full">{children}</div>;
+}
+
+Product.Skeleton = ProductSkeleton;

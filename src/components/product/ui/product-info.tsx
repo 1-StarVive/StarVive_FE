@@ -1,17 +1,26 @@
+import Badge from "@/components/badge";
+
 export type ProductInfoProps = {
-  isBest?: boolean;
+  isTop?: boolean;
+  isLimitedEdition?: boolean;
   isNew?: boolean;
   name: string;
 };
 
-function ProductInfo({ isBest, isNew, name }: ProductInfoProps) {
-  const isLabel = isBest || isNew;
+function ProductInfo({
+  isTop,
+  isNew,
+  isLimitedEdition,
+  name,
+}: ProductInfoProps) {
+  const isLabel = isTop || isNew;
   return (
     <InfoWrap>
       {isLabel && (
         <LabelWrap>
-          {isBest && <span className="text-[#E53535]">Best</span>}
-          {isNew && <span className="text-[#30BB7A]">New</span>}
+          {isLimitedEdition && <Badge color="brown">Limited</Badge>}
+          {isNew && <Badge color="green">New</Badge>}
+          {isTop && <Badge color="red">Best</Badge>}
         </LabelWrap>
       )}
       <NameWrap>{name}</NameWrap>
@@ -21,14 +30,14 @@ function ProductInfo({ isBest, isNew, name }: ProductInfoProps) {
 
 export default ProductInfo;
 
-function InfoWrap({ children }: React.PropsWithChildren) {
-  return <div className="flex flex-col gap-[8px]">{children}</div>;
+export function InfoWrap({ children }: React.PropsWithChildren) {
+  return <div className="flex flex-col gap-[4px]">{children}</div>;
 }
 
-function LabelWrap({ children }: React.PropsWithChildren) {
+export function LabelWrap({ children }: React.PropsWithChildren) {
   return <div className="space-x-[9px]">{children}</div>;
 }
 
-function NameWrap({ children }: React.PropsWithChildren) {
+export function NameWrap({ children }: React.PropsWithChildren) {
   return <span className="line-clamp-2 text-[15px]">{children}</span>;
 }

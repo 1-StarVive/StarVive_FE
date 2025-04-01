@@ -5,18 +5,20 @@ type SearchInputProps = {
   onClickSearch: (value: string) => void;
 } & React.ComponentProps<"input">;
 
-function SearchInput({ className, onClickSearch, ...props }: SearchInputProps) {
+function SearchInput({ className, ...props }: SearchInputProps) {
   return (
-    <div className="flex rounded-sm bg-[#F7F7F7] h-[34px] items-center px-[8px]">
+    <div className="flex h-[34px] items-center rounded-sm bg-[#F7F7F7] px-[8px]">
       <input
         className={cn(
-          "flex-1 h-full outline-none placeholder:text-[#D9D9D9] placeholder:font-bold",
-          className
+          "h-full flex-1 outline-none placeholder:font-bold placeholder:text-[#D9D9D9]",
+          className,
         )}
         placeholder="검색어를 입력해주세요"
         {...props}
       />
-      <SearchIcon className="h-[24px] w-[24px]" />
+      <button>
+        <SearchIcon className="h-[24px] w-[24px]" />
+      </button>
     </div>
   );
 }

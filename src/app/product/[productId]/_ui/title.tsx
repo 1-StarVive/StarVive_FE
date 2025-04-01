@@ -1,5 +1,5 @@
 function Title({ children }: React.PropsWithChildren) {
-  return <h1 className="text-[22px] px-[24px] font-bold">{children}</h1>;
+  return <span className="text-2xl font-bold break-all">{children}</span>;
 }
 
 export default Title;

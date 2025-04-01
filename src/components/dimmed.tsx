@@ -8,12 +8,12 @@ export type DimmedProps = {
 function Dimmed({ children, onClick }: DimmedProps) {
   return (
     <motion.div
-      className="fixed grid inset-0 place-items-center"
+      className="fixed inset-0 top-0 left-0 z-50 grid place-items-center"
       onClick={onClick}
-      initial={{ background: "#00000000" }}
+      initial={{ backgroundColor: "#00000000" }}
       animate={{ backgroundColor: "#00000015" }}
-      exit={{ background: "#00000000" }}
-      transition={{ duration: 1 }}
+      exit={{ backgroundColor: "#00000000" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       {children}
     </motion.div>
