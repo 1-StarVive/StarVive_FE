@@ -1,8 +1,8 @@
-import Header from "@/components/header";
 import Image from "next/image";
 import ProductInfo from "./_ui/product-info";
 import AutoImage from "@/components/auto-image";
 import ProductFooter from "./_ui/product-footer";
+import Header from "@/components/headers/header";
 
 function Product() {
   return (
@@ -10,13 +10,7 @@ function Product() {
       <Header showBackButton={true} />
       <main className="flex flex-col gap-[20px]">
         <ImageWrap>
-          <Image
-            src="/temp-square.png"
-            alt="나는설명"
-            sizes="400px"
-            fill
-            priority
-          />
+          <Image src="/temp-square.png" alt="나는설명" sizes="400px" fill priority />
         </ImageWrap>
 
         <ProductInfo />

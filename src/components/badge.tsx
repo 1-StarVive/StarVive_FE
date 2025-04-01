@@ -27,9 +27,7 @@ function Badge({
   }) {
   const Comp = asChild ? Slot : "span";
 
-  return (
-    <Comp className={cn(BadgeVariants({ color, className }))} {...props} />
-  );
+  return <Comp className={cn(BadgeVariants({ color, className }))} {...props} />;
 }
 
 export default Badge;

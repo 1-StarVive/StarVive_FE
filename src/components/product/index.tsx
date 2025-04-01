@@ -12,38 +12,18 @@ export type ProductProps = {
   ProductInfoProps &
   Partial<ProductRankProps>;
 
-function Product({
-  alt,
-  url,
-  price,
-  discountRate,
-  discountedPrice,
-  name,
-  isTop,
-  isNew,
-  rank,
-}: ProductProps) {
+function Product({ alt, url, price, discountRate, discountedPrice, name, isTop, isNew, rank }: ProductProps) {
   return (
     <li>
-      <Link className="w-full flex flex-col gap-[6px]" href="/.">
+      <Link className="flex w-full flex-col gap-[6px]" href="/.">
         <ProductImageWrap>
-          <Image
-            className="rounded-sm"
-            src={url}
-            alt={alt}
-            fill
-            sizes="200px"
-          />
+          <Image className="rounded-sm" src={url} alt={alt} fill sizes="200px" />
           {rank !== undefined && <ProductRank rank={rank} />}
         </ProductImageWrap>
 
         <ProductInfo name={name} isTop={isTop} isNew={isNew} />
 
-        <ProductPrice
-          price={price}
-          discountRate={discountRate}
-          discountedPrice={discountedPrice}
-        />
+        <ProductPrice price={price} discountRate={discountRate} discountedPrice={discountedPrice} />
       </Link>
     </li>
   );
@@ -52,7 +32,7 @@ function Product({
 export default Product;
 
 function ProductImageWrap({ children }: React.PropsWithChildren) {
-  return <div className="aspect-square relative w-full">{children}</div>;
+  return <div className="relative aspect-square w-full">{children}</div>;
 }
 
 Product.Skeleton = ProductSkeleton;

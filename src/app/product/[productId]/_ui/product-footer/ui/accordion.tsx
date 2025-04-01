@@ -10,8 +10,7 @@ export type AccordionProps = {
 };
 
 function Accordion({ initialFolded, title, children }: AccordionProps) {
-  const { ref, isFolded, close, open } =
-    useFlodable<HTMLUListElement>(initialFolded);
+  const { ref, isFolded, close, open } = useFlodable<HTMLUListElement>(initialFolded);
 
   return (
     <div className="rounded border">

@@ -1,7 +1,7 @@
-import Header from "@/components/header";
-import CategoriesHeader from "@/components/categories-header";
 import SubBestHeader from "./_ui/sub-best-header";
 import Product from "@/components/product";
+import Header from "@/components/headers/header";
+import CategoriesSubHeader from "@/components/headers/categories-sub-header";
 
 function Promotion() {
   return (
@@ -9,7 +9,7 @@ function Promotion() {
       <Header
         subHeader={
           <>
-            <CategoriesHeader selected="/best" />
+            <CategoriesSubHeader selected="/best" />
             <SubBestHeader />
           </>
         }
@@ -62,7 +62,7 @@ export default Promotion;
 function ProductsWrap({ children }: React.PropsWithChildren) {
   return (
     <section className="p-[24px]">
-      <ul className="grid-cols-2 grid gap-x-[12px] gap-y-[20px]">{children}</ul>
+      <ul className="grid grid-cols-2 gap-x-[12px] gap-y-[20px]">{children}</ul>
     </section>
   );
 }

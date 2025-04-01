@@ -19,10 +19,7 @@ function ProductInfo() {
         <ShareButton />
       </TitleWrap>
 
-      <Description>
-        3종의 다른 디자인이 돋보이는 473ml 용량의 리유저블 컵 3ea 세트
-        상품입니다.
-      </Description>
+      <Description>3종의 다른 디자인이 돋보이는 473ml 용량의 리유저블 컵 3ea 세트 상품입니다.</Description>
 
       <PriceWrap>
         <OriginPrice>9,000</OriginPrice>
@@ -38,17 +35,11 @@ function ProductInfo() {
 export default ProductInfo;
 
 function Wrap({ children }: React.PropsWithChildren) {
-  return (
-    <section className="flex flex-col gap-[12px] px-[24]">{children}</section>
-  );
+  return <section className="flex flex-col gap-[12px] px-[24]">{children}</section>;
 }
 
 function TitleWrap({ children }: React.PropsWithChildren) {
-  return (
-    <div className="grid grid-flow-col grid-cols-[1fr_fit] gap-5">
-      {children}
-    </div>
-  );
+  return <div className="grid grid-flow-col grid-cols-[1fr_fit] gap-5">{children}</div>;
 }
 
 function TitleAndBadgeWrap({ children }: React.PropsWithChildren) {

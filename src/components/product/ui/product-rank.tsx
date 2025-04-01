@@ -7,10 +7,8 @@ export type ProductRankProps = {
 function ProductRank({ rank }: ProductRankProps) {
   return (
     <div className="absolute right-[8px]">
-      <RankIcon className="w-[22px] h-[30px]" />
-      <span className="text-white top-0 left-1/2 absolute -translate-x-1/2">
-        {rank}
-      </span>
+      <RankIcon className="h-[30px] w-[22px]" />
+      <span className="absolute top-0 left-1/2 -translate-x-1/2 text-white">{rank}</span>
     </div>
   );
 }

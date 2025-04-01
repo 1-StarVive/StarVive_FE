@@ -1,17 +1,7 @@
 function ShareIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 22 19"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10.8335 11L10.8335 1"
-        stroke="black"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg className={className} viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10.8335 11L10.8335 1" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
       <path
         d="M14.1665 4.33334L10.8332 1.00001L7.49984 4.33334"
         stroke="black"
