@@ -1,4 +1,3 @@
-import Banner from "./_ui/banner";
 import Header from "@/components/header";
 import CategoriesHeader from "@/components/categories-header";
 import MainCarousel from "./ui/carousel/main-carousel";
@@ -12,7 +11,6 @@ export default async function Home() {
       <Header subHeader={<CategoriesHeader selected="/" />} />
       <MainWrap>
         <MainCarousel />
-        <Banner />
 
         <Suspense fallback={<TagSection.Skeleton />}>
           <TagSection />

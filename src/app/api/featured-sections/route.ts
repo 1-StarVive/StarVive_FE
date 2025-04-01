@@ -5,7 +5,7 @@ export async function GET() {
   return NextResponse.json<FeaturedSectionsRes>([
     {
       featuredSectionsId: "1",
-      name: "케이ㅋ",
+      name: "api/featured-section/routs.ts",
     },
     {
       featuredSectionsId: "2",
