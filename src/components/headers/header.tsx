@@ -36,7 +36,7 @@ function Header({ subHeader, showBackButton }: HeaderProps) {
 export default Header;
 
 export function HeaderWrap({ children }: React.PropsWithChildren) {
-  return <header className="sticky top-0 z-10 bg-white">{children}</header>;
+  return <header className="sticky top-0 z-30 bg-white">{children}</header>;
 }
 
 export function MainWrap({ children }: React.PropsWithChildren) {

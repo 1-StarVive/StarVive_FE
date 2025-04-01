@@ -1,4 +1,4 @@
-import MainCarousel from "./ui/carousel/main-carousel";
+import MainCarousel from "./_ui/carousel/main-carousel";
 import ProductSections from "./_ui/product-sections";
 import { Suspense } from "react";
 import TagSection from "./_ui/tag-section";
