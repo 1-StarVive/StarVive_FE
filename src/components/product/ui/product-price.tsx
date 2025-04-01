@@ -4,28 +4,16 @@ export type ProductPriceProps = {
   discountRate?: number;
 };
 
-function ProductPrice({
-  price,
-  discountRate: discountPercent,
-  discountedPrice: salePrice,
-}: ProductPriceProps) {
+function ProductPrice({ price, discountRate: discountPercent, discountedPrice: salePrice }: ProductPriceProps) {
   return (
-    <div className="flex justify-between gap-1 items-end">
+    <div className="flex items-end justify-between gap-1">
       <div className="flex flex-col overflow-hidden">
         {salePrice && (
-          <span className="text-[14px] line-through text-gray-500 truncate">
-            {salePrice.toLocaleString("ko-KR")}원
-          </span>
+          <span className="truncate text-[14px] text-gray-500 line-through">{salePrice.toLocaleString("ko-KR")}원</span>
         )}
-        <span className="text-[16px] font-bold truncate">
-          {price.toLocaleString("ko-KR")}원
-        </span>
+        <span className="truncate text-[16px] font-bold">{price.toLocaleString("ko-KR")}원</span>
       </div>
-      {discountPercent && (
-        <span className="text-primary font-bold text-[18px]">
-          {discountPercent}%
-        </span>
-      )}
+      {discountPercent && <span className="text-primary text-[18px] font-bold">{discountPercent}%</span>}
     </div>
   );
 }

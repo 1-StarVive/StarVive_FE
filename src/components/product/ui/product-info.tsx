@@ -7,12 +7,7 @@ export type ProductInfoProps = {
   name: string;
 };
 
-function ProductInfo({
-  isTop,
-  isNew,
-  isLimitedEdition,
-  name,
-}: ProductInfoProps) {
+function ProductInfo({ isTop, isNew, isLimitedEdition, name }: ProductInfoProps) {
   const isLabel = isTop || isNew;
   return (
     <InfoWrap>

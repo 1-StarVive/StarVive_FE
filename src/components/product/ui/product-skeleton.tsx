@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function ProductSkeleton() {
   return (
-    <Link className="w-full flex flex-col gap-[6px]" href="/.">
+    <Link className="flex w-full flex-col gap-[6px]" href="/.">
       <ImageSkeleton />
       <InfoSkeleton />
       <PriceSkeleton />
@@ -14,14 +14,14 @@ function ProductSkeleton() {
 export default ProductSkeleton;
 
 function ImageSkeleton() {
-  return <Skeleton className="aspect-square flex w-full" />;
+  return <Skeleton className="flex aspect-square w-full" />;
 }
 
 function InfoSkeleton() {
   return (
     <div className="flex flex-col gap-[8px]">
-      <Skeleton className="w-full h-[20px]" />
-      <Skeleton className="w-2/3 h-[20px]" />
+      <Skeleton className="h-[20px] w-full" />
+      <Skeleton className="h-[20px] w-2/3" />
     </div>
   );
 }
@@ -29,7 +29,7 @@ function InfoSkeleton() {
 function PriceSkeleton() {
   return (
     <div className="flex flex-col gap-[8px]">
-      <Skeleton className="w-full h-[21px]" />
+      <Skeleton className="h-[21px] w-full" />
     </div>
   );
 }

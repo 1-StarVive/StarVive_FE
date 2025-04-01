@@ -19,21 +19,15 @@ function Accordion({ title, contents }: AccordionProps) {
   return (
     <div>
       <button
-        className="w-full h-[60px] flex gap-2 items-center justify-between px-[24px]"
+        className="flex h-[60px] w-full items-center justify-between gap-2 px-[24px]"
         type="button"
         onClick={handleToggle}
       >
         <span className="text-[16px] font-bold">{title}</span>
-        <ChevronDownIcon
-          className={cn("w-[15px] h-[9px]", { "rotate-180": isOpen })}
-        />
+        <ChevronDownIcon className={cn("h-[9px] w-[15px]", { "rotate-180": isOpen })} />
       </button>
 
-      {isOpen && (
-        <div className="bg-[#f5f5f5] text-[#777777] transition-all overflow-hidden">
-          {contents}
-        </div>
-      )}
+      {isOpen && <div className="overflow-hidden bg-[#f5f5f5] text-[#777777] transition-all">{contents}</div>}
     </div>
   );
 }

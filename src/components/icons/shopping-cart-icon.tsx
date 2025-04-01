@@ -1,11 +1,6 @@
 function ShoppingCartIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M20.4 8.40002H6V9.60002H20.4V8.40002Z" fill="#666767" />
       <path
         fillRule="evenodd"

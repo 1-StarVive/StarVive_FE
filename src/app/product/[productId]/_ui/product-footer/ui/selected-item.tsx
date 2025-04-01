@@ -18,11 +18,7 @@ function SelectedItem() {
 export default SelectedItem;
 
 function Wrap({ children }: React.PropsWithChildren) {
-  return (
-    <div className="grid gap-3 rounded-xs bg-[#f7f7f7] px-5 py-4">
-      {children}
-    </div>
-  );
+  return <div className="grid gap-3 rounded-xs bg-[#f7f7f7] px-5 py-4">{children}</div>;
 }
 
 function Title({ children }: React.PropsWithChildren) {
@@ -30,11 +26,7 @@ function Title({ children }: React.PropsWithChildren) {
 }
 
 function CountAndPriceWrap({ children }: React.PropsWithChildren) {
-  return (
-    <div className="grid grid-cols-[auto_auto_auto_1fr] items-center justify-items-end gap-4">
-      {children}
-    </div>
-  );
+  return <div className="grid grid-cols-[auto_auto_auto_1fr] items-center justify-items-end gap-4">{children}</div>;
 }
 
 function Count({ children }: React.PropsWithChildren) {

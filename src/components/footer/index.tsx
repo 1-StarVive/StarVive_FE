@@ -21,13 +21,9 @@ function Footer() {
 export default Footer;
 
 function FooterWrap({ children }: React.PropsWithChildren) {
-  return <footer className="flex flex-col gap-[10px]">{children}</footer>;
+  return <footer className="mb-[150px] flex flex-col gap-[10px]">{children}</footer>;
 }
 
 function FooterLinkWrap({ children }: React.PropsWithChildren) {
-  return (
-    <ul className="px-[24px] py-[20px] bg-[#F2F2F2] space-x-[22px] flex items-center flex-wrap">
-      {children}
-    </ul>
-  );
+  return <ul className="flex flex-wrap items-center space-x-[22px] bg-[#F2F2F2] px-[24px] py-[20px]">{children}</ul>;
 }

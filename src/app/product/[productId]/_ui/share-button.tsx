@@ -2,8 +2,8 @@ import ShareIcon from "@/components/icons/share-icon";
 
 function ShareButton() {
   return (
-    <button className="h-fit mt-2" type="button">
-      <ShareIcon className="w-[22px] h-[19px]" />
+    <button className="mt-2 h-fit" type="button">
+      <ShareIcon className="h-[19px] w-[22px]" />
     </button>
   );
 }

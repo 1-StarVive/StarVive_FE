@@ -1,14 +1,14 @@
-import Header from "@/components/header";
-import CategoriesHeader from "@/components/categories-header";
 import MainCarousel from "./ui/carousel/main-carousel";
 import ProductSections from "./_ui/product-sections";
 import { Suspense } from "react";
 import TagSection from "./_ui/tag-section";
+import Header from "@/components/headers/header";
+import CategoriesSubHeader from "@/components/headers/categories-sub-header";
 
 export default async function Home() {
   return (
     <>
-      <Header subHeader={<CategoriesHeader selected="/" />} />
+      <Header subHeader={<CategoriesSubHeader selected="/" />} />
       <MainWrap>
         <MainCarousel />
 

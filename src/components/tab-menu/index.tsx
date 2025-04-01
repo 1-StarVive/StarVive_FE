@@ -15,9 +15,5 @@ function TabMenu() {
 export default TabMenu;
 
 function Wrap({ children }: React.PropsWithChildren) {
-  return (
-    <ul className="flex h-[55px] border-b border-[#E7E7E7] overflow-y-auto">
-      {children}
-    </ul>
-  );
+  return <ul className="flex h-[55px] overflow-y-auto border-b border-[#E7E7E7]">{children}</ul>;
 }

@@ -4,10 +4,7 @@ type FooterLinkProps = React.PropsWithChildren & LinkProps;
 function FooterLink({ children, ...props }: FooterLinkProps) {
   return (
     <li>
-      <Link
-        className="text-[11px] text-[#808080] whitespace-nowrap px-2"
-        {...props}
-      >
+      <Link className="px-2 text-[11px] whitespace-nowrap text-[#808080]" {...props}>
         {children}
       </Link>
     </li>
