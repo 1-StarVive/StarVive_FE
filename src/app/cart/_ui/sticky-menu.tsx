@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/checkbox";
 import { headerHeight } from "@/components/headers/utils/const";
-import StickyMenuButton from "./sticky-menu-button";
+import TextButton from "../../../components/buttons/text-button";
 
 function StickyMenu() {
   return (
@@ -8,8 +8,8 @@ function StickyMenu() {
       <Checkbox />
       <Label>전체 선택</Label>
       <ButtonsWrap>
-        <StickyMenuButton color="primary">선택 삭제</StickyMenuButton>
-        <StickyMenuButton>전체 삭제</StickyMenuButton>
+        <TextButton color="primary">선택 삭제</TextButton>
+        <TextButton>전체 삭제</TextButton>
       </ButtonsWrap>
     </Wrap>
   );

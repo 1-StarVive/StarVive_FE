@@ -56,7 +56,7 @@ function CategoriesModal() {
 export default CategoriesModal;
 
 function ModalWrap({ children }: React.PropsWithChildren) {
-  return <div className="flex flex-col gap-[30px] overflow-auto">{children}</div>;
+  return <div className="flex flex-col gap-[30px] overflow-auto bg-white">{children}</div>;
 }
 
 function HeadWrap({ children }: React.PropsWithChildren) {

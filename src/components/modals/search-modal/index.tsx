@@ -1,7 +1,6 @@
 import SuggestedTag from "./ui/suggested-tag";
 import Modal from "../modal";
 import SearchModalHeader from "@/components/headers/search-modal-header";
-import useSearchModalStore from "@/store/search-modal.store";
 
 function SearchModal() {
   return (
@@ -32,15 +31,7 @@ function SearchModal() {
 export default SearchModal;
 
 function ModalWrap({ children }: React.PropsWithChildren) {
-  return <div className="flex flex-col gap-[30px]">{children}</div>;
-}
-
-function HeadWrap({ children }: React.PropsWithChildren) {
-  return (
-    <section className="grid max-h-[56px] min-h-[56px] grid-cols-[1fr_auto] items-center px-[16px] py-[8px] shadow-sm">
-      {children}
-    </section>
-  );
+  return <div className="flex flex-col gap-[30px] bg-white">{children}</div>;
 }
 
 function RecentSearchWrap({ children }: React.PropsWithChildren) {

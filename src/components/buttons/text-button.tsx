@@ -16,12 +16,12 @@ const buttonVariants = cva(
   },
 );
 
-type StickyMenuButtonProps = VariantProps<typeof buttonVariants> & {
+type TextButtonProps = VariantProps<typeof buttonVariants> & {
   children?: React.ReactNode;
   onClick?: () => void;
 };
 
-function StickyMenuButton({ color, children, onClick }: StickyMenuButtonProps) {
+function TextButton({ color, children, onClick }: TextButtonProps) {
   return (
     <button type="button" className={cn(buttonVariants({ color }))} onClick={onClick}>
       {children}
@@ -29,4 +29,4 @@ function StickyMenuButton({ color, children, onClick }: StickyMenuButtonProps) {
   );
 }
 
-export default StickyMenuButton;
+export default TextButton;
