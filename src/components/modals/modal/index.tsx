@@ -25,12 +25,11 @@ function Modal({ children, size, className, onClickDimmed }: ModalProps) {
   if (!hasMounted) return null;
 
   return createPortal(
-    <>
-      <Dimmed onClick={onClickDimmed} />
+    <Dimmed onClick={onClickDimmed}>
       <ModalWrap className={className} size={size}>
         {children}
       </ModalWrap>
-    </>,
+    </Dimmed>,
     document.body,
   );
 }

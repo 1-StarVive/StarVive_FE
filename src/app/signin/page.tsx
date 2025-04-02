@@ -9,7 +9,7 @@ import { loginSchema } from "./_lib/schema";
 import Input from "@/components/inputs/input";
 import { Button } from "@/components/buttons/button";
 import TextButton from "@/components/buttons/text-button";
-import Modal from "@/components/imperative/modal";
+import ImperativeUI from "@/components/imperative-ui";
 import { useEffect } from "react";
 
 function Signin() {
@@ -18,7 +18,7 @@ function Signin() {
   });
 
   const onClickId = () => {
-    Modal.alert(() => ({
+    ImperativeUI.alert(() => ({
       title: "안내",
       content: "아이디를 입력해 주세요.",
       buttonText: "확인",

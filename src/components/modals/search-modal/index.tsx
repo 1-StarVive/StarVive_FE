@@ -31,7 +31,7 @@ function SearchModal() {
 export default SearchModal;
 
 function ModalWrap({ children }: React.PropsWithChildren) {
-  return <div className="flex flex-col gap-[30px] bg-white">{children}</div>;
+  return <div className="flex h-full flex-col gap-[30px] bg-white">{children}</div>;
 }
 
 function RecentSearchWrap({ children }: React.PropsWithChildren) {

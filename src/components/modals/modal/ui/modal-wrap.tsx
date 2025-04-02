@@ -30,7 +30,14 @@ function ModalWrap({ children, className, size }: ModalWrapProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      <div className={cn(modalWrapVariants({ size, className }))}>{children}</div>
+      <div
+        className={cn(modalWrapVariants({ size, className }))}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        {children}
+      </div>
     </motion.div>
   );
 }
