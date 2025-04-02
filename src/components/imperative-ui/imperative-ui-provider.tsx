@@ -3,19 +3,21 @@
 import React from "react";
 import { AnimatePresence } from "framer-motion";
 
-type ActiveComponent = {
+type ActiveReactNode = {
   key: number;
-  component: React.ReactNode;
+  reactNode: React.ReactNode;
 };
 
 type State = {
-  activeComponents: ActiveComponent[];
+  activeReactNodes: ActiveReactNode[];
 };
 
-type Close = () => void;
+type GetReactNode = (close: Close) => React.ReactNode;
+
 export type ImperativeUIProps = {
-  close: Close;
+  close: () => void;
 };
+export type Close = () => void;
 
 /**
  * 명령형으로 컴포넌트를 띄운다. Provider위치를 기준으로 띄우기 때문에 보통 Modal을 띄울 때 사용함.
@@ -29,43 +31,38 @@ export type ImperativeUIProps = {
  */
 class ImperativeUIProvider extends React.Component<unknown, State> {
   private static globalThis: ImperativeUIProvider;
-  private i: number = 0;
+  private i = 0;
 
   constructor(props: unknown) {
     super(props);
     this.state = {
-      activeComponents: [],
+      activeReactNodes: [],
     };
     ImperativeUIProvider.globalThis = this;
   }
 
-  private createComponentCloser(key: number) {
-    return () => {
-      this.setState((prev) => ({
-        activeComponents: prev.activeComponents.filter((modal) => modal.key !== key),
-      }));
-    };
-  }
-
-  static show(getComponent: (close: ImperativeUIProps) => React.ReactNode): void {
+  static show(getReactNode: GetReactNode): void {
     const self = ImperativeUIProvider.globalThis;
     const key = self.i++;
-    const close = self.createComponentCloser(key);
-    const Component = getComponent({ close });
-    const newActiveComponent: ActiveComponent = {
+    const close = () =>
+      self.setState((prev) => ({
+        activeReactNodes: prev.activeReactNodes.filter((modal) => modal.key !== key),
+      }));
+    const reactNode = getReactNode(close);
+    const newActiveReactNode: ActiveReactNode = {
       key,
-      component: Component,
+      reactNode,
     };
     self.setState((prev) => ({
-      activeComponents: [...prev.activeComponents, newActiveComponent],
+      activeReactNodes: [...prev.activeReactNodes, newActiveReactNode],
     }));
   }
 
   render(): React.ReactNode {
     return (
       <AnimatePresence>
-        {this.state.activeComponents.map(({ component, key }) => (
-          <React.Fragment key={key}>{component}</React.Fragment>
+        {this.state.activeReactNodes.map(({ reactNode, key }) => (
+          <React.Fragment key={key}>{reactNode}</React.Fragment>
         ))}
       </AnimatePresence>
     );

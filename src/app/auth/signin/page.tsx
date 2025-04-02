@@ -11,7 +11,7 @@ import { Button } from "@/components/buttons/button";
 import TextButton from "@/components/buttons/text-button";
 import ImperativeUI from "@/components/imperative-ui";
 import { useEffect } from "react";
-import UnsupportedFeatureAlert from "./_ui/unsupported-feature-alert";
+import Alert from "@/components/alert";
 
 function Signin() {
   const loginForm = useForm({
@@ -19,7 +19,15 @@ function Signin() {
   });
 
   const onClickFind = () => {
-    ImperativeUI.show(UnsupportedFeatureAlert);
+    ImperativeUI.show((close) => (
+      <Alert
+        title="안내"
+        content="지원하지 않는 기능입니다."
+        buttonText="확인"
+        onClickButton={close}
+        onClickDimmed={close}
+      />
+    ));
   };
 
   const handleSubmit = loginForm.handleSubmit((data) => {
