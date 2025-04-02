@@ -17,10 +17,10 @@ function Signin() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onClickId = () => {
+  const onClickFind = () => {
     ImperativeUI.alert(() => ({
       title: "안내",
-      content: "아이디를 입력해 주세요.",
+      content: "지원하지 않는 기능입니다.",
       buttonText: "확인",
     }));
   };
@@ -75,8 +75,8 @@ function Signin() {
             errorMessage={loginForm.formState.errors.password?.message}
           />
           <div className="flex w-full justify-center gap-4">
-            <TextButton onClick={onClickId}>아이디 찾기</TextButton>
-            <TextButton>비밀번호 찾기</TextButton>
+            <TextButton onClick={onClickFind}>아이디 찾기</TextButton>
+            <TextButton onClick={onClickFind}>비밀번호 찾기</TextButton>
             <TextButton>회원가입</TextButton>
           </div>
           <Button type="submit" size="xl">

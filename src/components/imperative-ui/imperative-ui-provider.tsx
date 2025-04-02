@@ -28,6 +28,7 @@ type GetDefaultProps<Props> = (close: Close) => Partial<Props>;
  * ImperativeUI.alert(...)
  */
 class ImperativeUIProvider extends React.Component<unknown, State> {
+  private static globalThis: ImperativeUIProvider;
   private i: number = 0;
 
   constructor(props: unknown) {
@@ -37,8 +38,6 @@ class ImperativeUIProvider extends React.Component<unknown, State> {
     };
     ImperativeUIProvider.globalThis = this;
   }
-
-  private static globalThis: ImperativeUIProvider;
 
   private showComponent<Props extends Record<string, unknown>>(
     Component: ComponentType<Props>,
