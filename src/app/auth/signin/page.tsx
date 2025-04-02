@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import logo from "../../../public/images/logo.png";
+import logo from "../../../../public/images/logo.png";
 import BackButton from "@/components/headers/ui/back-button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import { Button } from "@/components/buttons/button";
 import TextButton from "@/components/buttons/text-button";
 import ImperativeUI from "@/components/imperative-ui";
 import { useEffect } from "react";
+import UnsupportedFeatureAlert from "./_ui/unsupported-feature-alert";
 
 function Signin() {
   const loginForm = useForm({
@@ -18,11 +19,7 @@ function Signin() {
   });
 
   const onClickFind = () => {
-    ImperativeUI.alert(() => ({
-      title: "안내",
-      content: "지원하지 않는 기능입니다.",
-      buttonText: "확인",
-    }));
+    ImperativeUI.show(UnsupportedFeatureAlert);
   };
 
   const handleSubmit = loginForm.handleSubmit((data) => {
