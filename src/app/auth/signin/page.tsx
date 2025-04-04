@@ -5,53 +5,19 @@ import logo from "../../../../public/images/logo.png";
 import BackButton from "@/components/headers/ui/back-button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema } from "./_lib/schema";
 import Input from "@/components/inputs/input";
 import { Button } from "@/components/buttons/button";
 import TextButton from "@/components/buttons/text-button";
-import ImperativeUI from "@/components/imperative-ui";
-import { useEffect } from "react";
-import Alert from "@/components/alert";
+import { onClickFind } from "./_utils/handle-click-find";
+import { signInRequest } from "@/schemas/api/user";
+import useSubmitSigninForm from "./_hooks/use-submit-signin-form";
 
 function Signin() {
   const loginForm = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signInRequest),
   });
 
-  const onClickFind = () => {
-    ImperativeUI.show((close) => (
-      <Alert
-        title="안내"
-        content="지원하지 않는 기능입니다."
-        buttonText="확인"
-        onClickButton={close}
-        onClickDimmed={close}
-      />
-    ));
-  };
-
-  const handleSubmit = loginForm.handleSubmit((data) => {
-    // fetch("http://52.78.250.41:8082/api/users/signin", {
-    fetch("http://localhost:8080/api/users/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  });
-
-  useEffect(() => {
-    fetch("http://localhost:8080/api/v1/products")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }, []);
+  const submitSigninForm = useSubmitSigninForm();
 
   return (
     <>
@@ -67,11 +33,11 @@ function Signin() {
         </h2>
         <span className="text-sm">회원 서비스 이용을 위해 로그인 해주세요.</span>
 
-        <form className="mt-10 flex flex-col gap-10" onSubmit={handleSubmit}>
+        <form className="mt-10 flex flex-col gap-10" onSubmit={loginForm.handleSubmit(submitSigninForm)}>
           <Input
             label="아이디"
-            {...loginForm.register("email")}
-            errorMessage={loginForm.formState.errors.email?.message}
+            {...loginForm.register("loginId")}
+            errorMessage={loginForm.formState.errors.loginId?.message}
           />
           <Input
             label="비밀번호"
@@ -79,11 +45,13 @@ function Signin() {
             {...loginForm.register("password")}
             errorMessage={loginForm.formState.errors.password?.message}
           />
-          <div className="flex w-full justify-center gap-4">
+
+          <TextButtonWrap>
             <TextButton onClick={onClickFind}>아이디 찾기</TextButton>
             <TextButton onClick={onClickFind}>비밀번호 찾기</TextButton>
             <TextButton>회원가입</TextButton>
-          </div>
+          </TextButtonWrap>
+
           <Button type="submit" size="xl">
             로그인하기
           </Button>
@@ -101,4 +69,8 @@ function HeaderWrap({ children }: React.PropsWithChildren) {
 
 function MainWrap({ children }: React.PropsWithChildren) {
   return <div className="px-6 py-24">{children}</div>;
+}
+
+function TextButtonWrap({ children }: React.PropsWithChildren) {
+  return <div className="flex w-full justify-center gap-4">{children}</div>;
 }
