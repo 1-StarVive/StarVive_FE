@@ -7,14 +7,13 @@ export default function Page() {
     return (
     <>
         <Header/>
-        <section className="flex flex-col gap-[20px]">
-            <main className="w-full h-[71px] py-[20px]  px-[24px] rounded-lg">
-                <h1 className="text-2xl font-bold">쿠폰</h1>
-            </main>
+        <main className="space-y-[20px]">
+            <h1 className="text-2xl font-bold py-[20px]  px-[24px]">쿠폰</h1>
             <CouponTab/>
             <CouponDownloadBar/>
-        </section>
+        </main>
     </>
 
     );
 }
+
