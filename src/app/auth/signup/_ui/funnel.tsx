@@ -1,59 +1,43 @@
 "use client";
 
+import { signUpRequest, SignUpRequest, TermSchema } from "@/schemas/api/user";
+import TermStep from "./term-step";
 import { useFunnel } from "@use-funnel/browser";
-import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-// 1. 아무것도 입력 안됨
-type 이메일입력 = { email?: string; password?: string; other?: unknown };
-// 2. 이메일은 입력됨
-type 비밀번호입력 = { email: string; password?: string; other?: unknown };
-// 3. 이메일과 비밀번호 입력됨
-type 그외정보입력 = { email: string; password: string; other?: unknown };
+function Funnel() {
+  const funnel = useSignupFunnel();
+  const form = useForm<SignUpRequest>({
+    resolver: zodResolver(signUpRequest),
+  });
 
-function Signup() {
+  const values = form.getValues();
+  return (
+    <FormProvider {...form}>
+      <form>
+        <funnel.Render
+          term={({ history }) => <TermStep onClickNext={() => history.push("IdentityVerification", values)} />}
+          IdentityVerification={({ history }) => <div>{}</div>}
+        />
+      </form>
+    </FormProvider>
+  );
+}
+
+export default Funnel;
+
+function useSignupFunnel() {
   const funnel = useFunnel<{
-    이메일입력: 이메일입력;
-    비밀번호입력: 비밀번호입력;
-    그외정보입력: 그외정보입력;
+    term: Partial<TermSchema>;
+    IdentityVerification: TermSchema;
   }>({
-    id: "my-funnel-app",
+    id: "sign-up-funnel",
     initial: {
-      step: "이메일입력",
-      context: {},
+      step: "term",
+      context: { 개인정보_수집_및_이용_동의: false, 이용약관_동의: false, 스타벅스_카드_이용약관: false },
     },
   });
-  return (
-    <funnel.Render
-      이메일입력={({ history }) => <이메일입력 onNext={(email) => history.push("비밀번호입력", { email })} />}
-      비밀번호입력={({ context, history }) => (
-        <비밀번호입력 email={context.email} onNext={(password) => history.push("그외정보입력", { password })} />
-      )}
-      그외정보입력={({ context }) => <그외정보입력 data={context} />}
-    />
-  );
-}
 
-export default Signup;
-
-function 이메일입력({ onNext }: { onNext: (email: string) => void }) {
-  const [email, setEmail] = useState("");
-  return (
-    <div>
-      이메일입력 <input value={email} onChange={(e) => setEmail(e.target.value)} />
-      <button onClick={() => onNext(email)}>다음</button>
-    </div>
-  );
-}
-function 비밀번호입력({ onNext }: { email: string; onNext: (password: string) => void }) {
-  const [password, setPassword] = useState("");
-  return (
-    <div>
-      비밀번호입력 <input value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={() => onNext(password)}>다음</button>
-    </div>
-  );
-}
-function 그외정보입력({ data }: { data: any }) {
-  console.log(data);
-  return <div>그외정보입력</div>;
+  return funnel;
 }

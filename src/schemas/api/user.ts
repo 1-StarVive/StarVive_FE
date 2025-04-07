@@ -24,3 +24,22 @@ export type SignInResponse = {
   refreshToken: string;
   expiresIn: number;
 };
+
+export const termSchema = z.object({
+  이용약관_동의: z.boolean(),
+  //.refine((v) => v === true)
+  개인정보_수집_및_이용_동의: z.boolean(),
+  //.refine((v) => v === true)
+  스타벅스_카드_이용약관: z.boolean(),
+  //.refine((v) => v === true)
+  마케팅_정보_수신_동의_이메일: z.boolean().optional(),
+  마케팅_정보_수신_동의_SMS: z.boolean().optional(),
+});
+export type TermSchema = z.infer<typeof termSchema>;
+
+export const signUpRequest = termSchema;
+export type SignUpRequest = TermSchema;
+
+export const identityVerificationTypeSchema = z.object({
+  type: z.enum(["toss", "phone"]),
+});

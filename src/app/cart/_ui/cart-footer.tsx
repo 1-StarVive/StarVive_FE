@@ -1,8 +1,9 @@
 import { Button } from "@/components/buttons/button";
+import FixedFooter from "@/components/footers/fixed-footer";
 
 function CartFooter() {
   return (
-    <div className="fixed bottom-0 left-0 flex w-full flex-col gap-3 bg-white p-[24px] font-bold shadow-[0_-1px_5px_0_rgba(0,0,0,0.1)]">
+    <FixedFooter>
       <div className="flex items-center justify-between">
         <div className="text-sm">
           <span>총 </span>
@@ -21,7 +22,7 @@ function CartFooter() {
           구매하기
         </Button>
       </div>
-    </div>
+    </FixedFooter>
   );
 }
 

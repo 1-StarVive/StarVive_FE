@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/footer";
+import StaticFooter from "@/components/footers/static-footer";
 import ImperativeUIProvider from "@/components/imperative-ui/imperative-ui-provider";
 
 const geistSans = Geist({
@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
-        <Footer />
+        <StaticFooter />
         <ImperativeUIProvider />
       </body>
     </html>

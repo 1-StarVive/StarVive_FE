@@ -1,6 +1,5 @@
 "use client";
 
-import SearchIcon from "@/components/icons/search-icon";
 import HeaderIconButton from "./header-icon-button";
 import { AnimatePresence } from "framer-motion";
 import useSearchModalStore from "@/store/search-modal.store";
@@ -12,7 +11,7 @@ function SearchButton() {
 
   return (
     <>
-      <HeaderIconButton icon={<SearchIcon className="h-[24px] w-[24px]" />} onClick={open} />
+      <HeaderIconButton icon={"search"} onClick={open} />
 
       <AnimatePresence>{isOpen && <SearchModal />}</AnimatePresence>
     </>

@@ -1,9 +1,9 @@
-import { Checkbox } from "@/components/checkbox";
 import MinusCircleIcon from "@/components/icons/minus-circle-icon";
 import PlusCircleIcon from "@/components/icons/plus-circle-icon";
 import XCircleIcon from "@/components/icons/x-circle-icon";
 import Image from "next/image";
 import ProductTitle from "./product-title";
+import Checkbox from "@/components/checkboxes/checkbox";
 
 function CartItem() {
   return (

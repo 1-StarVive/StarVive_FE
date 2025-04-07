@@ -3,7 +3,7 @@ import Product from "@/components/product";
 import Header from "@/components/headers/header";
 import CategoriesSubHeader from "@/components/headers/categories-sub-header";
 
-function Promotion() {
+function Best() {
   return (
     <>
       <Header
@@ -57,7 +57,7 @@ function Promotion() {
   );
 }
 
-export default Promotion;
+export default Best;
 
 function ProductsWrap({ children }: React.PropsWithChildren) {
   return (
