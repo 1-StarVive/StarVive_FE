@@ -13,11 +13,12 @@ function AllProducts() {
     "케이크",
     "초콜릿/스낵",
     "세트",
-  ];
-  const [selected, setSelected] = useState("전체");
+  ] as const;
+  type Category = (typeof categories)[number];
+  const [selected, setSelected] = useState<Category>("전체");
 
   // 필터 구현중 하드코딩
-  const filterOptions = {
+  const filterOptions: Partial<Record<Category, { [key: string]: string[] }>> = {
     전체: {
       season: ["4월 신규코어 MD", "봄 기획전"],
       price: ["1만원 이하", "1~2만원", "2만원 이상"],
