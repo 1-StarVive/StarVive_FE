@@ -63,7 +63,7 @@ function AllProducts() {
         <div className="mr-4 shrink-0 pl-[24px] text-[14px] font-semibold text-black">{label}</div>
 
         {/* 버튼 리스트: 가로 스크롤 가능하게! */}
-        <div className="flex overflow-x-auto">
+        <div className="scrollbar-hidden flex overflow-x-auto">
           {options.map((item: string) => (
             <button
               key={item}
@@ -85,7 +85,7 @@ function AllProducts() {
       <Header showBackButton />
       <main className="min-h-screen bg-white">
         {/* 하위 탭바 */}
-        <nav className="flex h-[55px] w-full items-center overflow-x-auto border-b border-gray-200">
+        <nav className="scrollbar-hidden flex h-[55px] w-full items-center overflow-x-auto border-b border-gray-200">
           {categories.map((categoryName) => (
             <button
               key={categoryName}
