@@ -48,10 +48,10 @@ function AllProducts() {
 
   const currentFilters = filterOptions[selected] || {};
   const [selectedFilters, setSelectedFilters] = useState<{
-    category?: string;
-    season?: string;
-    volume?: string;
-    price?: string;
+    category?: string[];
+    season?: string[];
+    volume?: string[];
+    price?: string; // 가격만 단일 선택 유지
   }>({});
 
   const renderFilterRow = (label: string, key: keyof typeof selectedFilters) => {
@@ -65,17 +65,34 @@ function AllProducts() {
 
         {/* 버튼 리스트: 가로 스크롤 가능하게! */}
         <div className="scrollbar-hidden flex overflow-x-auto">
-          {options.map((item: string) => (
-            <button
-              key={item}
-              onClick={() => setSelectedFilters((prev) => ({ ...prev, [key]: item }))}
-              className={`px-[14px] text-[14px] whitespace-nowrap ${
-                selectedFilters[key] === item ? "font-semibold text-green-600" : "text-gray-500"
-              }`}
-            >
-              {item}
-            </button>
-          ))}
+          {options.map((item: string) => {
+            const isSelected = Array.isArray(selectedFilters[key])
+              ? (selectedFilters[key] as string[]).includes(item)
+              : selectedFilters[key] === item;
+
+            return (
+              <button
+                key={item}
+                onClick={() => {
+                  if (key === "price") {
+                    // 단일 선택
+                    setSelectedFilters((prev) => ({ ...prev, [key]: item }));
+                  } else {
+                    // 다중 선택 (배열)
+                    const prevList = (selectedFilters[key] as string[]) || [];
+                    const newList = prevList.includes(item) ? prevList.filter((v) => v !== item) : [...prevList, item];
+
+                    setSelectedFilters((prev) => ({ ...prev, [key]: newList }));
+                  }
+                }}
+                className={`px-[14px] text-[14px] whitespace-nowrap ${
+                  isSelected ? "font-semibold text-green-600" : "text-gray-500"
+                }`}
+              >
+                {item}
+              </button>
+            );
+          })}
         </div>
       </div>
     );
@@ -86,7 +103,7 @@ function AllProducts() {
       <Header showBackButton />
       <main className="min-h-screen bg-white">
         {/* 하위 탭바 */}
-        <nav className="scrollbar-hidden flex h-[55px] w-full items-center overflow-x-auto border-b border-gray-200">
+        <nav className="scrollbar-hidden flex h-[55px] w-full items-center overflow-x-auto border-b border-gray-300">
           {categories.map((categoryName) => (
             <button
               key={categoryName}
@@ -100,16 +117,21 @@ function AllProducts() {
 
         {/* 필터 */}
         {/* 필터 항상 보이는 것들 */}
-        {renderFilterRow("카테고리", "category")}
-        {renderFilterRow("시즌", "season")}
+        <section aria-labelledby="filter-section">
+          <h2 id="filter-section" className="sr-only">
+            상품 필터
+          </h2>
+          {renderFilterRow("카테고리", "category")}
+          {renderFilterRow("시즌", "season")}
 
-        {/* 더보기 눌렀을 때만 보이는 필터 */}
-        {isExpanded && (
-          <>
-            {renderFilterRow("용량", "volume")}
-            {renderFilterRow("가격", "price")}
-          </>
-        )}
+          {/* 더보기 눌렀을 때만 보이는 필터 */}
+          {isExpanded && (
+            <>
+              {renderFilterRow("용량", "volume")}
+              {renderFilterRow("가격", "price")}
+            </>
+          )}
+        </section>
         {/* 토글 버튼 */}
         <button
           onClick={() => setIsExpanded((prev) => !prev)}
