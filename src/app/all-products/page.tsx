@@ -16,7 +16,7 @@ function AllProducts() {
   ] as const;
   type Category = (typeof categories)[number];
   const [selected, setSelected] = useState<Category>("전체");
-
+  const [isExpanded, setIsExpanded] = useState(false);
   // 필터 구현중 하드코딩
   const filterOptions: Partial<Record<Category, { [key: string]: string[] }>> = {
     전체: {
@@ -99,10 +99,24 @@ function AllProducts() {
         </nav>
 
         {/* 필터 */}
+        {/* 필터 항상 보이는 것들 */}
         {renderFilterRow("카테고리", "category")}
         {renderFilterRow("시즌", "season")}
-        {renderFilterRow("용량", "volume")}
-        {renderFilterRow("가격", "price")}
+
+        {/* 더보기 눌렀을 때만 보이는 필터 */}
+        {isExpanded && (
+          <>
+            {renderFilterRow("용량", "volume")}
+            {renderFilterRow("가격", "price")}
+          </>
+        )}
+        {/* 토글 버튼 */}
+        <button
+          onClick={() => setIsExpanded((prev) => !prev)}
+          className="w-full border-b border-gray-200 px-[14px] py-[19px] text-[14px] font-semibold text-black"
+        >
+          {isExpanded ? "접기 ▲" : "필터 더보기 ▼"}
+        </button>
       </main>
     </>
   );
