@@ -12,6 +12,8 @@ function useSubmitSigninForm() {
 
   const submitSigninForm: SubmitHandler<SigninRequest> = async (input) => {
     try {
+      ImperativeUI.loading(true);
+
       const data = await signin(input);
       const authStore = useAuthStore.getState();
       authStore.setAccessToken(data);
@@ -38,6 +40,8 @@ function useSubmitSigninForm() {
         />
       ));
       console.error(e);
+    } finally {
+      ImperativeUI.loading(false);
     }
   };
 

@@ -24,6 +24,8 @@ function NicknameStep() {
 
   const handleSubmit: SubmitHandler<SignupSchema> = async (input) => {
     try {
+      ImperativeUI.loading(true);
+
       const { localPart, domain, gender, birth, carrier, confirmPassword, phoneTerm, ...rest } = input;
 
       const full = (gender === 1 || gender === 2 ? "19" : "20") + birth;
@@ -56,6 +58,8 @@ function NicknameStep() {
           <Alert title="회원가입 실패" content="알수없는 오류가 발생했습니다." onClickButton={close} />
         ));
       }
+    } finally {
+      ImperativeUI.loading(false);
     }
   };
 

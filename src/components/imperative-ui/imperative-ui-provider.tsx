@@ -2,6 +2,7 @@
 
 import React from "react";
 import { AnimatePresence } from "framer-motion";
+import Loading from "../loading";
 
 type ActiveReactNode = {
   key: number;
@@ -18,6 +19,8 @@ export type ImperativeUIProps = {
   close: () => void;
 };
 export type Close = () => void;
+
+const loadingKey = -99;
 
 /**
  * 명령형으로 컴포넌트를 띄운다. Provider위치를 기준으로 띄우기 때문에 보통 Modal을 띄울 때 사용함.
@@ -56,6 +59,25 @@ class ImperativeUIProvider extends React.Component<unknown, State> {
     self.setState((prev) => ({
       activeReactNodes: [...prev.activeReactNodes, newActiveReactNode],
     }));
+  }
+
+  static loading(on: boolean): void {
+    const self = ImperativeUIProvider.globalThis;
+    const isOn = self.state.activeReactNodes.some((modal) => modal.key === loadingKey);
+
+    if (!on && isOn) {
+      self.setState((prev) => ({
+        activeReactNodes: prev.activeReactNodes.filter((modal) => modal.key !== loadingKey),
+      }));
+    } else if (on && !isOn) {
+      const newActiveReactNode: ActiveReactNode = {
+        key: loadingKey,
+        reactNode: <Loading />,
+      };
+      self.setState((prev) => ({
+        activeReactNodes: [...prev.activeReactNodes, newActiveReactNode],
+      }));
+    }
   }
 
   render(): React.ReactNode {

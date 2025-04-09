@@ -23,16 +23,17 @@ function Funnel() {
   });
 
   const values = form.getValues();
+
   return (
     <>
       <SignupHeader step={stepOrder[funnel.step]} />
       <FormProvider {...form}>
         <funnel.Render
-          term={({ history, historySteps }) => <TermStep onClickNext={() => history.push("phone", values)} />}
+          term={({ history }) => <TermStep onClickNext={() => history.push("phone", values)} />}
           phone={({ history }) => <PhoneStep onClickNext={() => history.push("idPassword", values)} />}
           idPassword={({ history }) => <IdPasswordStep onClickNext={() => history.push("email", values)} />}
           email={({ history }) => <EmailStep onClickNext={() => history.push("nickname", values)} />}
-          nickname={({ history }) => <NicknameStep />}
+          nickname={() => <NicknameStep />}
         />
       </FormProvider>
     </>
