@@ -1,21 +1,19 @@
 "use client";
 
-import CloseButton from "./ui/close-button";
+import CloseButton from "../../headers/categories-header/ui/close-button";
 import GreetingTitle from "./ui/greeting-title";
 import Greeting from "./ui/greeting";
 import ShowAllLink from "./ui/show-all-link";
 import Category from "./ui/category";
 import CategoriesFooterItem from "./ui/categories-footer-item";
 import Modal from "../modal";
+import CategoriesHeader from "@/components/headers/categories-header";
 
 function CategoriesModal() {
   return (
     <Modal size="full">
       <ModalWrap>
-        <HeadWrap>
-          <CloseButton />
-        </HeadWrap>
-
+        <CategoriesHeader />
         <GreetingWrap>
           <GreetingTitle />
           <Greeting />
@@ -57,12 +55,6 @@ export default CategoriesModal;
 
 function ModalWrap({ children }: React.PropsWithChildren) {
   return <div className="flex flex-col gap-[30px] overflow-auto bg-white">{children}</div>;
-}
-
-function HeadWrap({ children }: React.PropsWithChildren) {
-  return (
-    <section className="flex max-h-[56px] min-h-[56px] items-center justify-end px-[16px] py-[8px]">{children}</section>
-  );
 }
 
 function GreetingWrap({ children }: React.PropsWithChildren) {

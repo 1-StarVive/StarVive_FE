@@ -5,7 +5,7 @@ import ChevronDownIcon from "./icons/chevron-down-icon";
 import { cn } from "@/lib/utils";
 
 type AccordionProps = {
-  title: string;
+  title: React.ReactNode;
   contents: React.ReactNode;
 };
 

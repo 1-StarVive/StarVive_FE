@@ -5,7 +5,7 @@ import { useId } from "react";
 
 type InputProps = React.ComponentProps<"input"> & { label?: string; required?: boolean; errorMessage?: string };
 
-function Input({ id, label, placeholder, errorMessage, ...props }: InputProps) {
+function Input({ id, label, required, placeholder, errorMessage, ...props }: InputProps) {
   const uniqueId = useId();
   const htmlId = `${id}-${uniqueId}`;
 
@@ -30,6 +30,7 @@ function Input({ id, label, placeholder, errorMessage, ...props }: InputProps) {
           )}
         >
           {label}
+          {required && <span className="text-primary font-bold"> *</span>}
         </label>
       </div>
       {errorMessage && <span className="text-xs leading-none text-red-500">{errorMessage}</span>}

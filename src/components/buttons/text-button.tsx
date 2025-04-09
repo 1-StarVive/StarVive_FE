@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
@@ -16,16 +17,18 @@ const buttonVariants = cva(
   },
 );
 
-type TextButtonProps = VariantProps<typeof buttonVariants> & {
-  children?: React.ReactNode;
-  onClick?: () => void;
-};
+type TextButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+  };
 
-function TextButton({ color, children, onClick }: TextButtonProps) {
+function TextButton({ color, children, asChild, className, ...props }: TextButtonProps) {
+  const Comp = asChild ? Slot : "button";
+
   return (
-    <button type="button" className={cn(buttonVariants({ color }))} onClick={onClick}>
+    <Comp data-slot="button" className={cn(buttonVariants({ color, className }))} {...props}>
       {children}
-    </button>
+    </Comp>
   );
 }
 

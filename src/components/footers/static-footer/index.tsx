@@ -2,7 +2,7 @@ import FooterLink from "./ui/footer-link";
 import FooterCopyright from "./ui/footer-copyright";
 import FooterMetadata from "./ui/footer-metadata";
 
-function Footer() {
+function StaticFooter() {
   return (
     <FooterWrap>
       <FooterLinkWrap>
@@ -18,7 +18,7 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default StaticFooter;
 
 function FooterWrap({ children }: React.PropsWithChildren) {
   return <footer className="mb-[150px] flex flex-col gap-[10px]">{children}</footer>;

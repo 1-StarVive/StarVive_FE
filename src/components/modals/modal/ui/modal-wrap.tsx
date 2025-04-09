@@ -3,7 +3,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const modalWrapVariants = cva("bg-transparent", {
+const modalWrapVariants = cva("bg-transparent relative", {
   variants: {
     size: {
       default: "w-fit h-fit",
