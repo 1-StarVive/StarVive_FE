@@ -9,19 +9,20 @@ import Input from "@/components/inputs/input";
 import { Button } from "@/components/buttons/button";
 import TextButton from "@/components/buttons/text-button";
 import { onClickFind } from "./_utils/handle-click-find";
-import useSubmitSigninForm from "./_hooks/use-submit-signin-form";
+import useSubmitSignin from "./_hooks/use-submit-signin";
 import { signinRequest } from "@/lib/api/users_signin";
 import Link from "next/link";
+import GuestGuard from "@/components/guards/quest-guard";
 
 function Signin() {
   const loginForm = useForm({
     resolver: valibotResolver(signinRequest),
   });
 
-  const submitSigninForm = useSubmitSigninForm();
+  const submitSignin = useSubmitSignin();
 
   return (
-    <>
+    <GuestGuard>
       <HeaderWrap>
         <BackButton />
       </HeaderWrap>
@@ -34,7 +35,7 @@ function Signin() {
         </h2>
         <span className="text-sm">회원 서비스 이용을 위해 로그인 해주세요.</span>
 
-        <form className="mt-10 flex flex-col gap-10" onSubmit={loginForm.handleSubmit(submitSigninForm)}>
+        <form className="mt-10 flex flex-col gap-10" onSubmit={loginForm.handleSubmit(submitSignin)}>
           <Input
             label="아이디"
             {...loginForm.register("loginId")}
@@ -60,7 +61,7 @@ function Signin() {
           </Button>
         </form>
       </MainWrap>
-    </>
+    </GuestGuard>
   );
 }
 
