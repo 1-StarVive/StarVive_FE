@@ -35,7 +35,7 @@ function Step({ children, isNow }: React.PropsWithChildren<{ isNow: boolean }>) 
         { "border-black bg-black text-white": isNow },
       )}
     >
-      {children}
+      <span>{children}</span>
     </div>
   );
 }

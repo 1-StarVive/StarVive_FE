@@ -1,14 +1,16 @@
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 export type DimmedProps = {
+  className?: string;
   children?: React.ReactNode;
   onClick?: () => void;
 };
 
-function Dimmed({ children, onClick }: DimmedProps) {
+function Dimmed({ children, className, onClick }: DimmedProps) {
   return (
     <motion.div
-      className="fixed inset-0 top-0 left-0 z-50 grid place-items-center"
+      className={cn("fixed inset-0 top-0 left-0 z-50 grid place-items-center", className)}
       onClick={onClick}
       initial={{ backgroundColor: "#00000000" }}
       animate={{ backgroundColor: "#00000015" }}
