@@ -5,16 +5,13 @@ import { cn } from "@/lib/utils";
 
 type DetailCheckboxProps = {
   className?: string;
-  id?: string;
+  label?: React.ReactNode;
   onClickDetail?: () => void;
-  children?: React.ReactNode;
 } & CheckboxProps;
-function DetailCheckbox({ id, children, onClickDetail, ...props }: DetailCheckboxProps) {
+function DetailCheckbox({ label, onClickDetail, ...props }: DetailCheckboxProps) {
   return (
     <div className={cn("flex items-center justify-between")}>
-      <LabeledCheckbox id={id} {...props}>
-        {children}
-      </LabeledCheckbox>
+      <LabeledCheckbox label={label} {...props} />
       {onClickDetail && (
         <button onClick={onClickDetail}>
           <ChevronLeftIcon className="h-[12px] w-[7px]" />

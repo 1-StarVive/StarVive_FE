@@ -1,4 +1,4 @@
-import { FeaturedSectionProductsRes } from "@/lib/api/featured-section/products";
+import { FeaturedSectionProductsRes } from "@/lib/api/featured-section_products";
 import { NextResponse } from "next/server";
 
 export async function GET() {

@@ -1,18 +1,10 @@
-import {
-  FeaturedSectionProductsRes,
-  getFeaturedSectionProducts,
-} from "@/lib/api/featured-section/products";
+import { FeaturedSectionProductsRes, getFeaturedSectionProducts } from "@/lib/api/featured-section_products";
 import * as R from "fp-ts/Record";
 import * as NEA from "fp-ts/NonEmptyArray";
 import { pipe } from "fp-ts/function";
-import {
-  FeaturedSectionsRes,
-  getFeaturedSections,
-} from "@/lib/api/featured-sections";
+import { FeaturedSectionsRes, getFeaturedSections } from "@/lib/api/featured-sections";
 
-type GetFeaturedSectionIdWithProductsReturn = (Partial<
-  Pick<FeaturedSectionProductsRes[number], "products">
-> &
+type GetFeaturedSectionIdWithProductsReturn = (Partial<Pick<FeaturedSectionProductsRes[number], "products">> &
   FeaturedSectionsRes[number])[];
 
 export async function getFeaturedSectionIdWithProducts(): Promise<GetFeaturedSectionIdWithProductsReturn> {
@@ -25,7 +17,7 @@ export async function getFeaturedSectionIdWithProducts(): Promise<GetFeaturedSec
     featuredSectionProducts,
     NEA.groupBy((o) => o.featuredSectionsId),
     R.map(NEA.head),
-    R.map((o) => o.products)
+    R.map((o) => o.products),
   );
   const res = featuredSections.map(({ featuredSectionsId, name }) => ({
     featuredSectionsId,

@@ -1,49 +1,54 @@
 import DetailCheckbox from "@/components/checkboxes/detail-checkbox";
 import LabeledCheckbox from "@/components/checkboxes/labeled-checkbox";
-import { SignUpRequest } from "@/schemas/api/user";
 import { useFormContext } from "react-hook-form";
-import AllAgreedCheckbox from "./all-agreed-checkbox";
+import TermAllAgreedCheckbox from "./term-all-agreed-checkbox";
 import OptionalAgreedCheckbox from "./optional-agreed-checkbox";
 import FixedFooter from "@/components/footers/fixed-footer";
 import TermNextButton from "./term-next-button";
+import { SignupSchema } from "../_schema/signup";
+import Image from "next/image";
+import logo from "@/../public/images/logo.png";
 
 type TermStepProps = {
   onClickNext: () => void;
 };
 function TermStep({ onClickNext }: TermStepProps) {
-  const form = useFormContext<SignUpRequest>();
+  const form = useFormContext<SignupSchema>();
 
   return (
-    <>
+    <form>
       <TermWrap>
-        <AllAgreedCheckbox />
+        <Image src={logo} alt="logo" width={64} height={64} />
+        <h2 className="text-2xl font-bold">
+          고객님
+          <br />
+          환영합니다!
+        </h2>
+        <TermAllAgreedCheckbox />
         <hr />
-        <DetailCheckbox {...form.register("이용약관_동의")}>[필수] 이용약관 동의</DetailCheckbox>
-        <DetailCheckbox {...form.register("개인정보_수집_및_이용_동의")}>
-          [필수] 개인정보 수집 및 이용 동의
-        </DetailCheckbox>
-        <DetailCheckbox {...form.register("스타벅스_카드_이용약관")}>[필수] 스타벅스 카드 이용약관</DetailCheckbox>
-
+        <DetailCheckbox label={"[필수] 이용약관 동의"} {...form.register("termsAgreed")} />
+        <DetailCheckbox label={"[필수] 개인정보 수집 및 이용 동의"} {...form.register("privacyAgreed")} />
+        <DetailCheckbox label={"[필수] 스타벅스 카드 이용약관"} {...form.register("cardTermsAgreed")} />
         <OptionalAgreedCheckbox />
         <SubTermWrap>
           <SubTermTitle>광고성 정보 수신 팝업</SubTermTitle>
           <SubTermItemWrap>
-            <LabeledCheckbox {...form.register("마케팅_정보_수신_동의_이메일")}>E-mail</LabeledCheckbox>
-            <LabeledCheckbox {...form.register("마케팅_정보_수신_동의_SMS")}>SMS</LabeledCheckbox>
+            <LabeledCheckbox label={"E-mail"} {...form.register("marketingEmailAgreed")} />
+            <LabeledCheckbox label={"SMS"} {...form.register("marketingSmsAgreed")} />
           </SubTermItemWrap>
         </SubTermWrap>
       </TermWrap>
       <FixedFooter>
         <TermNextButton onClick={onClickNext} />
       </FixedFooter>
-    </>
+    </form>
   );
 }
 
 export default TermStep;
 
 function TermWrap({ children }: React.PropsWithChildren) {
-  return <div className="flex flex-col gap-4">{children}</div>;
+  return <div className="flex flex-col gap-6 p-6">{children}</div>;
 }
 
 function SubTermWrap({ children }: React.PropsWithChildren) {

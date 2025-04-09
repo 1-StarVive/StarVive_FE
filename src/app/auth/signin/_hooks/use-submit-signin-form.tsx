@@ -3,17 +3,16 @@ import api from "@/lib/axios-api";
 import axios from "axios";
 import ImperativeUI from "@/components/imperative-ui";
 import Alert from "@/components/alert";
-import { SignInRequest, SignInResponse, signInResponse } from "@/schemas/api/user";
 import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
+import signin, { SigninRequest } from "@/lib/api/users_signin";
 
 function useSubmitSigninForm() {
   const router = useRouter();
 
-  const submitSigninForm: SubmitHandler<SignInRequest> = async (input) => {
+  const submitSigninForm: SubmitHandler<SigninRequest> = async (input) => {
     try {
-      const res = await api.post<SignInResponse>("/users/signin", input);
-      const data = signInResponse.parse(res.data);
+      const data = await signin(input);
       const authStore = useAuthStore.getState();
       authStore.setAccessToken(data);
       router.push("/");

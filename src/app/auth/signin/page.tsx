@@ -4,17 +4,18 @@ import Image from "next/image";
 import logo from "../../../../public/images/logo.png";
 import BackButton from "@/components/headers/ui/back-button";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { valibotResolver } from "@hookform/resolvers/valibot";
 import Input from "@/components/inputs/input";
 import { Button } from "@/components/buttons/button";
 import TextButton from "@/components/buttons/text-button";
 import { onClickFind } from "./_utils/handle-click-find";
-import { signInRequest } from "@/schemas/api/user";
 import useSubmitSigninForm from "./_hooks/use-submit-signin-form";
+import { signinRequest } from "@/lib/api/users_signin";
+import Link from "next/link";
 
 function Signin() {
   const loginForm = useForm({
-    resolver: zodResolver(signInRequest),
+    resolver: valibotResolver(signinRequest),
   });
 
   const submitSigninForm = useSubmitSigninForm();
@@ -49,7 +50,9 @@ function Signin() {
           <TextButtonWrap>
             <TextButton onClick={onClickFind}>아이디 찾기</TextButton>
             <TextButton onClick={onClickFind}>비밀번호 찾기</TextButton>
-            <TextButton>회원가입</TextButton>
+            <TextButton>
+              <Link href="/auth/signup">회원가입</Link>
+            </TextButton>
           </TextButtonWrap>
 
           <Button type="submit" size="xl">

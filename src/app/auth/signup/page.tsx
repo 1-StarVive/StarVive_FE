@@ -1,33 +1,17 @@
-"use client";
-
 import SignupHeader from "@/components/headers/signup-header";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import logo from "@/../public/images/logo.png";
-
-const Funnel = dynamic(() => import("./_ui/funnel"), {
-  ssr: false,
-});
+import Link from "next/link";
 
 function Signup() {
   return (
     <>
       <SignupHeader />
-      <Wrap>
-        <Image src={logo} alt="logo" width={64} height={64} />
-        <h2 className="text-2xl font-bold">
-          고객님
-          <br />
-          환영합니다!
-        </h2>
-        <Funnel />
-      </Wrap>
+      <div className="flex flex-col items-center gap-6 p-6">
+        <button>(구글로고) 구글로 계속하기</button>
+        <button>(카카오로고) 카카오로 계속하기</button>
+        <Link href={"/auth/signup/basic"}>휴대폰 번호로 가입하기</Link>
+      </div>
     </>
   );
 }
 
 export default Signup;
-
-function Wrap({ children }: React.PropsWithChildren) {
-  return <div className="mt-8 flex flex-col gap-6 p-6">{children}</div>;
-}

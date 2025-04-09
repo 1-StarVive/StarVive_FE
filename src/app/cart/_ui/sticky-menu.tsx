@@ -5,7 +5,7 @@ import LabeledCheckbox from "@/components/checkboxes/labeled-checkbox";
 function StickyMenu() {
   return (
     <Wrap>
-      <LabeledCheckbox>전체 선택</LabeledCheckbox>
+      <LabeledCheckbox label={"전체 선택"} />
       <ButtonsWrap>
         <TextButton color="primary">선택 삭제</TextButton>
         <TextButton>전체 삭제</TextButton>
