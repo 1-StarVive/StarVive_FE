@@ -1,9 +1,11 @@
 "use client";
-
+import { useSearchParams, useRouter } from "next/navigation"; // ✅ 추가
 import { useState } from "react"; // ✅ 반드시 필요
 import Header from "@/components/headers/header";
 
 function AllProducts() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const categories = [
     "전체",
     "텀블러/보온병",
@@ -15,7 +17,7 @@ function AllProducts() {
     "세트",
   ] as const;
   type Category = (typeof categories)[number];
-  const [selected, setSelected] = useState<Category>("전체");
+  const selected = (searchParams.get("category") as Category) || "전체";
   const [isExpanded, setIsExpanded] = useState(false);
   // 필터 구현중 하드코딩
   const filterOptions: Partial<Record<Category, { [key: string]: string[] }>> = {
@@ -48,10 +50,9 @@ function AllProducts() {
 
   const currentFilters = filterOptions[selected] || {};
   const [selectedFilters, setSelectedFilters] = useState<{
-    category?: string[];
-    season?: string[];
-    volume?: string[];
-    price?: string; // 가격만 단일 선택 유지
+    category1?: string; // 대분류
+    category2?: string; // 중분류
+    category3?: string; // 소분류
   }>({});
 
   const renderFilterRow = (label: string, key: keyof typeof selectedFilters) => {
@@ -107,7 +108,12 @@ function AllProducts() {
           {categories.map((categoryName) => (
             <button
               key={categoryName}
-              onClick={() => setSelected(categoryName)}
+              onClick={() => {
+                const params = new URLSearchParams(searchParams.toString());
+                params.set("category", categoryName);
+                params.set("page", "1"); // 페이지도 초기화
+                router.push(`/products?${params.toString()}`, { scroll: false });
+              }}
               className={`shrink-0 px-[14px] py-[19px] text-[14px] font-medium whitespace-nowrap ${selected === categoryName ? "font-semibold text-green-600" : "text-gray-500"}`}
             >
               {categoryName}
