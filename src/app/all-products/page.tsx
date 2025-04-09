@@ -47,7 +47,17 @@ function AllProducts() {
       price: ["1만원 이하", "1~2만원"],
     },
   };
-
+  const category1Options: Record<Category, string[]> = {
+    전체: [],
+    "텀블러/보온병": ["보온", "보냉", "스테인리스"],
+    "머그/컵": ["머그", "컵"],
+    라이프스타일: ["피크닉", "문구"],
+    "티/커피용품": ["필터", "티스푼"],
+    케이크: ["조각", "홀케이크"],
+    "초콜릿/스낵": ["초콜릿", "쿠키"],
+    세트: ["선물세트", "디저트세트"],
+  };
+  const selectedCategory1 = searchParams.get("category1") || "";
   const currentFilters = filterOptions[selected] || {};
   const [selectedFilters, setSelectedFilters] = useState<{
     category1?: string; // 대분류
@@ -120,7 +130,27 @@ function AllProducts() {
             </button>
           ))}
         </nav>
-
+        {category1Options[selected].length > 0 && (
+          <nav className="scrollbar-hidden flex h-[50px] w-full items-center overflow-x-auto border-b border-gray-200 bg-gray-50">
+            {category1Options[selected].map((item) => (
+              <button
+                key={item}
+                onClick={() => {
+                  const params = new URLSearchParams(searchParams.toString());
+                  params.set("category", selected); // 대분류 유지
+                  params.set("category1", item);
+                  params.set("page", "1");
+                  router.push(`/products?${params.toString()}`, { scroll: false });
+                }}
+                className={`shrink-0 px-[14px] py-[14px] text-[14px] whitespace-nowrap ${
+                  selectedCategory1 === item ? "font-semibold text-green-600" : "text-gray-500"
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+          </nav>
+        )}
         {/* 필터 */}
         {/* 필터 항상 보이는 것들 */}
         <section aria-labelledby="filter-section">
