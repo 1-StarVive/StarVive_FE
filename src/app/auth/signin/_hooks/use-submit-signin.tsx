@@ -1,5 +1,4 @@
 import { SubmitHandler } from "react-hook-form";
-import api from "@/lib/axios-api";
 import axios from "axios";
 import ImperativeUI from "@/components/imperative-ui";
 import Alert from "@/components/alert";
@@ -7,16 +6,16 @@ import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
 import signin, { SigninRequest } from "@/lib/api/users_signin";
 
-function useSubmitSigninForm() {
+function useSubmitSignin() {
   const router = useRouter();
 
-  const submitSigninForm: SubmitHandler<SigninRequest> = async (input) => {
+  const submitSignin: SubmitHandler<SigninRequest> = async (input) => {
     try {
       ImperativeUI.loading(true);
 
       const data = await signin(input);
       const authStore = useAuthStore.getState();
-      authStore.setAccessToken(data);
+      authStore.setToken(data);
       router.push("/");
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -45,7 +44,7 @@ function useSubmitSigninForm() {
     }
   };
 
-  return submitSigninForm;
+  return submitSignin;
 }
 
-export default useSubmitSigninForm;
+export default useSubmitSignin;

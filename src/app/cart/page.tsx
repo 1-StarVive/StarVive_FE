@@ -5,10 +5,11 @@ import CartItem from "./_ui/cart-item";
 import Summaries from "./_ui/summaries";
 import Notice from "./_ui/notice";
 import CartFooter from "./_ui/cart-footer";
+import AuthGuard from "@/components/guards/auth-guard";
 
 function Cart() {
   return (
-    <>
+    <AuthGuard>
       <CartHeader />
       <CartWrap>
         <ShippingAddress />
@@ -22,7 +23,7 @@ function Cart() {
 
         <CartFooter />
       </CartWrap>
-    </>
+    </AuthGuard>
   );
 }
 
