@@ -1,7 +1,7 @@
 import api from "../axios-api";
 import * as v from "valibot";
 
-const signupRequest = v.object({
+export const signupRequest = v.object({
   loginId: v.string(),
   email: v.string(),
   password: v.string(),

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import StaticFooter from "@/components/footers/static-footer";
 import ImperativeUIProvider from "@/components/imperative-ui/imperative-ui-provider";
-import { QueryClientProvider } from "@tanstack/react-query";
 import ReactQueryProvider from "@/lib/react-query-provider";
+import { Suspense } from "react";
+import Loading from "@/components/loading";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryProvider>
-          {children}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
           <ImperativeUIProvider />
         </ReactQueryProvider>
       </body>

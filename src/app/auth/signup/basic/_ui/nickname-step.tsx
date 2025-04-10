@@ -26,14 +26,14 @@ function NicknameStep() {
     try {
       ImperativeUI.loading(true);
 
-      const { localPart, domain, gender, birth, carrier, confirmPassword, phoneTerm, ...rest } = input;
+      const { localPart, domain, gender, birth, carrier: _, confirmPassword: __, phoneTerm: ___, ...rest } = input;
 
       const full = (gender === 1 || gender === 2 ? "19" : "20") + birth;
       const formatted = `${full.slice(0, 4)}-${full.slice(4, 6)}-${full.slice(6, 8)}`;
 
       await signupMutation.mutateAsync({
         birth: formatted,
-        email: `${input.localPart}@${input.domain}`,
+        email: `${localPart}@${domain}`,
         gender: gender % 2 === 0 ? "FEMALE" : "MALE",
         ...rest,
       });
@@ -63,7 +63,7 @@ function NicknameStep() {
     }
   };
 
-  const handleSubmitError: SubmitErrorHandler<SignupSchema> = (e) => {
+  const handleSubmitError: SubmitErrorHandler<SignupSchema> = () => {
     setHasClickedNext(true);
   };
 

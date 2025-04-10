@@ -15,7 +15,7 @@ api.interceptors.request.use(function setAuthHeader(config) {
   return config;
 });
 
-let refreshingPromise: Promise<AxiosResponse<RefreshedTokenDto, any>> | null = null;
+let refreshingPromise: Promise<AxiosResponse<RefreshedTokenDto, unknown>> | null = null;
 api.interceptors.request.use(async function refreshToken(config) {
   const store = useAuthStore.getState();
   if (!store.auth) return config;

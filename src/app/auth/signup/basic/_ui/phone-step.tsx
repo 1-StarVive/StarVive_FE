@@ -30,7 +30,7 @@ function PhoneStep({ onClickNext }: PhoneStepProps) {
       if (phoneTerm) close();
       else open();
     },
-    [phoneTerm],
+    [phoneTerm, close, open],
   );
 
   return (

@@ -1,6 +1,5 @@
 "use client";
 
-import CloseButton from "../../headers/categories-header/ui/close-button";
 import GreetingTitle from "./ui/greeting-title";
 import Greeting from "./ui/greeting";
 import ShowAllLink from "./ui/show-all-link";

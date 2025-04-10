@@ -1,6 +1,5 @@
 "use client";
 
-import { useId } from "react";
 import Checkbox, { CheckboxProps } from "./checkbox";
 
 type LabeledCheckboxProps = {

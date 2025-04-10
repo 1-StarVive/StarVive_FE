@@ -39,7 +39,7 @@ function Callback() {
           router.replace("/");
         });
     }
-  }, [searchParams]);
+  }, [searchParams, router, setToken]);
 
   return <div>로그인중...</div>;
 }
