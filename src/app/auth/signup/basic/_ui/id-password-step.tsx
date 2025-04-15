@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import IdPasswordNextButton, { IdPasswordNextButtonProps } from "./id-password-next-button";
 import { SignupSchema } from "../_schema/signup";
 import { useState } from "react";
-import InputBase from "@/components/inputs/input-base";
+import InputUnderline from "@/components/inputs/input-underline";
 import ErrorMessage from "@/components/error-message";
 
 type IdPasswordStepProps = {
@@ -24,33 +24,33 @@ function IdPasswordStep({ onClickNext }: IdPasswordStepProps) {
     <form className="p-6">
       <Greeting />
 
-      <InputBase>
+      <InputUnderline>
         <input
           className="h-12 w-full outline-none"
           placeholder="아이디 (4~13자리 이내)"
           {...form.register("loginId")}
         />
-      </InputBase>
+      </InputUnderline>
       <ErrorMessage>{hasClickedNext && form.formState.errors.loginId?.message}</ErrorMessage>
 
-      <InputBase>
+      <InputUnderline>
         <input
           className="h-12 w-full outline-none"
           placeholder="비밀번호 (10~20자리 이내)"
           type="password"
           {...form.register("password")}
         />
-      </InputBase>
+      </InputUnderline>
       <ErrorMessage>{hasClickedNext && form.formState.errors.password?.message}</ErrorMessage>
 
-      <InputBase>
+      <InputUnderline>
         <input
           className="h-12 w-full outline-none"
           placeholder="비밀번호 확인"
           type="password"
           {...form.register("confirmPassword")}
         />
-      </InputBase>
+      </InputUnderline>
       <ErrorMessage>{hasClickedNext && form.formState.errors.confirmPassword?.message}</ErrorMessage>
 
       <FixedFooter>

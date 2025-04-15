@@ -11,7 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ValiError } from "valibot";
-import InputBase from "@/components/inputs/input-base";
+import InputUnderline from "@/components/inputs/input-underline";
 import ErrorMessage from "@/components/error-message";
 
 function NicknameStep() {
@@ -73,13 +73,13 @@ function NicknameStep() {
 
       <LabeledCheckbox label={"선택적 개인정보 수집동의 및 이용약관"} {...signUpForm.register("nicknameTermAgreed")} />
 
-      <InputBase>
+      <InputUnderline>
         <input
           className="h-12 w-full outline-none"
           placeholder="닉네임 (한글 6자리 이내)"
           {...signUpForm.register("nickname")}
         />
-      </InputBase>
+      </InputUnderline>
       <ErrorMessage>{hasClickedNext && signUpForm.formState.errors.nickname?.message}</ErrorMessage>
 
       <FixedFooter>

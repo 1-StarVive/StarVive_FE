@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import TagSection from "./_ui/tag-section";
 import Header from "@/components/headers/header";
 import CategoriesSubHeader from "@/components/headers/categories-sub-header";
+import StaticFooter from "@/components/footers/static-footer";
 
 export default async function Home() {
   return (
@@ -20,6 +21,7 @@ export default async function Home() {
           <ProductSections />
         </Suspense>
       </MainWrap>
+      <StaticFooter />
     </>
   );
 }

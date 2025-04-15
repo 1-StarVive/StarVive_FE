@@ -6,6 +6,7 @@ import Summaries from "./_ui/summaries";
 import Notice from "./_ui/notice";
 import CartFooter from "./_ui/cart-footer";
 import AuthGuard from "@/components/guards/auth-guard";
+import StaticFooter from "@/components/footers/static-footer";
 
 function Cart() {
   return (
@@ -23,6 +24,7 @@ function Cart() {
 
         <CartFooter />
       </CartWrap>
+      <StaticFooter />
     </AuthGuard>
   );
 }

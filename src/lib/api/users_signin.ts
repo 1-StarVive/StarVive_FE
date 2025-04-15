@@ -23,7 +23,7 @@ export const signinResponse = v.object({
 export type SigninResponse = v.InferOutput<typeof signinResponse>;
 
 async function signin(input: SigninRequest): Promise<SigninResponse> {
-  const res = await api.post<SigninResponse>("/users/signin", input);
+  const res = await api.post<SigninResponse>("/v1/users/signin", input);
   const data = v.parse(signinResponse, res.data);
   return data;
 }

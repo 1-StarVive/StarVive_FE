@@ -3,7 +3,7 @@ import EmailNextButton, { EmailNextButtonProps } from "./email-next-button";
 import { useFormContext } from "react-hook-form";
 import { SignupSchema } from "../_schema/signup";
 import { useState } from "react";
-import InputBase from "@/components/inputs/input-base";
+import InputUnderline from "@/components/inputs/input-underline";
 import ErrorMessage from "@/components/error-message";
 
 type EmailStepProps = {
@@ -22,7 +22,7 @@ function EmailStep({ onClickNext }: EmailStepProps) {
     <div className="p-6">
       <Greeting />
 
-      <InputBase>
+      <InputUnderline>
         <div className="flex gap-2">
           <input className="h-12 min-w-0 flex-1 outline-none" {...form.register("localPart")} />
           <div className="flex items-center text-gray-500">@</div>
@@ -34,7 +34,7 @@ function EmailStep({ onClickNext }: EmailStepProps) {
             <option value="kakao.com">kakao.com</option>
           </select>
         </div>
-      </InputBase>
+      </InputUnderline>
       <ErrorMessage>
         {hasClickedNext && (form.formState.errors.localPart?.message || form.formState.errors.domain?.message)}
       </ErrorMessage>

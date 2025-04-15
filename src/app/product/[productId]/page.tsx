@@ -3,6 +3,7 @@ import ProductInfo from "./_ui/product-info";
 import AutoImage from "@/components/auto-image";
 import ProductFooter from "./_ui/product-footer";
 import Header from "@/components/headers/header";
+import StaticFooter from "@/components/footers/static-footer";
 
 function Product() {
   return (
@@ -36,6 +37,7 @@ function Product() {
 
         <ProductFooter />
       </main>
+      <StaticFooter />
     </>
   );
 }

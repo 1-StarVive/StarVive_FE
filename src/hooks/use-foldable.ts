@@ -24,36 +24,42 @@ function useFlodable<T extends HTMLElement>(initialFolded: boolean = true) {
     setIsFolded(true);
   }, []);
 
-  useEffect(
-    function handleChangeFold() {
-      const el = ref.current;
-      if (!el) return;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-      if (isFolded) {
-        el.style.height = el.scrollHeight + "px";
-        el.style.overflow = "hidden";
-        requestAnimationFrame(() => {
-          el.style.transition = "height 500ms ease";
-          el.style.height = "0px";
-        });
-      } else {
-        el.style.height = "0px";
-        el.style.overflow = "hidden";
-        requestAnimationFrame(() => {
-          el.style.transition = "height 500ms ease";
-          el.style.height = el.scrollHeight + "px";
-        });
+    const clearTransition = () => {
+      el.style.transition = "none";
+      el.removeEventListener("transitionend", onEnd);
+    };
 
-        const onEnd = () => {
-          el.style.height = "auto";
-          el.style.overflow = "auto";
-          el.removeEventListener("transitionend", onEnd);
-        };
-        el.addEventListener("transitionend", onEnd);
-      }
-    },
-    [isFolded],
-  );
+    const onEnd = () => {
+      el.style.height = "auto";
+      el.style.overflow = "auto";
+      clearTransition();
+    };
+
+    clearTransition();
+
+    if (isFolded) {
+      el.style.height = el.scrollHeight + "px";
+      el.style.overflow = "hidden";
+      void el.offsetHeight;
+
+      el.style.transition = "height 500ms ease";
+      el.style.height = "0px";
+    } else {
+      el.style.height = "0px";
+      el.style.overflow = "hidden";
+      void el.offsetHeight;
+
+      el.style.transition = "height 500ms ease";
+      el.style.height = el.scrollHeight + "px";
+      el.addEventListener("transitionend", onEnd);
+    }
+
+    return clearTransition;
+  }, [isFolded]);
 
   return {
     isFolded,

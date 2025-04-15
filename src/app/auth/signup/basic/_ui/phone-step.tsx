@@ -8,7 +8,7 @@ import { SignupSchema } from "../_schema/signup";
 import { useEffect, useState } from "react";
 import useFlodable from "@/hooks/use-foldable";
 import ChevronLeftIcon from "@/components/icons/chevron-left-icon";
-import InputBase from "@/components/inputs/input-base";
+import InputUnderline from "@/components/inputs/input-underline";
 import ErrorMessage from "@/components/error-message";
 
 type PhoneStepProps = {
@@ -50,12 +50,12 @@ function PhoneStep({ onClickNext }: PhoneStepProps) {
         </TermWrap>
         <Hr />
         <InputsWrap>
-          <InputBase>
+          <InputUnderline>
             <input className="h-12 w-full outline-none" placeholder="이름" {...form.register("name")} />
-          </InputBase>
+          </InputUnderline>
           <ErrorMessage>{hasClickedNext && form.formState.errors.name?.message}</ErrorMessage>
 
-          <InputBase>
+          <InputUnderline>
             <div className="flex">
               <input
                 className="h-12 min-w-0 flex-1 outline-none"
@@ -74,12 +74,12 @@ function PhoneStep({ onClickNext }: PhoneStepProps) {
                 <input className="flex h-12 w-10 items-center" value="••••••" disabled />
               </div>
             </div>
-          </InputBase>
+          </InputUnderline>
           <ErrorMessage>
             {hasClickedNext && (form.formState.errors.birth?.message || form.formState.errors.gender?.message)}
           </ErrorMessage>
 
-          <InputBase>
+          <InputUnderline>
             <div className="flex gap-2">
               <select className="outline-none" {...form.register("carrier")}>
                 <option value="KT">KT</option>
@@ -91,7 +91,7 @@ function PhoneStep({ onClickNext }: PhoneStepProps) {
               </select>
               <input className="h-12 outline-none" placeholder="휴대폰 번호" {...form.register("phoneNumber")} />
             </div>
-          </InputBase>
+          </InputUnderline>
           <ErrorMessage>{hasClickedNext && form.formState.errors.phoneNumber?.message}</ErrorMessage>
         </InputsWrap>
         <div className="p-6 text-xs text-gray-400">
@@ -128,7 +128,7 @@ function Greeting() {
 
 function TermDetailButton({ children }: React.PropsWithChildren) {
   return (
-    <button className="flex w-full items-center justify-between p-2">
+    <button className="flex w-full items-center justify-between p-2" type="button">
       <span className="text-xs text-gray-500">{children}</span>
       <ChevronLeftIcon className="h-[12px] w-[7px]" />
     </button>
