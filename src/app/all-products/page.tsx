@@ -1,12 +1,16 @@
 import Header from "@/components/headers/header";
 import Link from "next/link";
-
+import ProductListInfinite from "./_ui/product-list-infinite";
 // ✅ 상품 타입 정의
 type Product = {
   productId: string;
   imageThumbUrl: string;
   name: string;
   price: number;
+  // 👇 향후 카테고리별 필터링용으로 사용할 예정
+  topCategoryId: string;
+  middleCategoryId: string;
+  bottomCategoryId: string;
 };
 
 // ✅ 대분류 타입 정의
@@ -43,9 +47,15 @@ export default async function AllProductsPage({ searchParams }: Props) {
   const selectedBottomId = resolvedSearchParams.bottom ?? "";
 
   // ✅ 상품 API 호출
-  const productRes = await fetch("http://52.78.250.41:8082/api/v1/product/all", {
-    cache: "no-store",
-  });
+  const lastProductId = resolvedSearchParams.lastProductId ?? "";
+  const size = resolvedSearchParams.size ?? "20";
+
+  const productRes = await fetch(
+    `http://52.78.250.41:8082/api/v1/product/all?lastProductId=${lastProductId}&size=${size}`,
+    {
+      cache: "no-store",
+    },
+  );
   const products: Product[] = await productRes.json();
 
   // ✅ 대분류 API 호출
@@ -129,19 +139,12 @@ export default async function AllProductsPage({ searchParams }: Props) {
         )}
 
         {/* ✅ 상품 리스트 */}
-        <section className="grid grid-cols-2 gap-4 p-4">
-          {products.length > 0 ? (
-            products.map((product) => (
-              <div key={product.productId} className="rounded border p-2">
-                <img src={product.imageThumbUrl} alt={product.name} className="mb-2 w-full" />
-                <div className="text-sm font-semibold">{product.name}</div>
-                <div className="text-xs text-gray-500">{product.price}원</div>
-              </div>
-            ))
-          ) : (
-            <div className="col-span-2 text-center text-gray-500">조건에 맞는 상품이 없습니다.</div>
-          )}
-        </section>
+        <ProductListInfinite
+          initialProducts={products}
+          selectedTopId={selectedTopId}
+          selectedMiddleId={selectedMiddleId}
+          selectedBottomId={selectedBottomId}
+        />
       </main>
     </>
   );
