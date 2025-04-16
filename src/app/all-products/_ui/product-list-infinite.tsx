@@ -25,11 +25,43 @@ export default function ProductListInfinite({
   selectedMiddleId,
   selectedBottomId,
 }: Props) {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
   const observerRef = useRef<HTMLDivElement | null>(null);
+
+  // ✅ 초기 진입 시 sessionStorage에서 복원
+  useEffect(() => {
+    const cached = sessionStorage.getItem("products-state");
+    if (cached) {
+      const { savedProducts, savedScrollY } = JSON.parse(cached);
+      setProducts(savedProducts);
+      setTimeout(() => {
+        window.scrollTo(0, savedScrollY);
+      }, 0);
+    } else {
+      setProducts(initialProducts);
+    }
+  }, [initialProducts]);
+
+  // ✅ 스크롤/데이터 변경 시 sessionStorage에 저장
+  useEffect(() => {
+    const handleSave = () => {
+      sessionStorage.setItem(
+        "products-state",
+        JSON.stringify({
+          savedProducts: products,
+          savedScrollY: window.scrollY,
+        }),
+      );
+    };
+
+    window.addEventListener("scroll", handleSave);
+    return () => {
+      handleSave();
+      window.removeEventListener("scroll", handleSave);
+    };
+  }, [products]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,16 +72,24 @@ export default function ProductListInfinite({
           const lastProductId = products[products.length - 1]?.productId;
           const size = 20;
 
-          const queryParams = new URLSearchParams({
-            lastProductId,
-            size: String(size),
-            top: selectedTopId,
-            middle: selectedMiddleId,
-            bottom: selectedBottomId,
-          });
+          const params = new URLSearchParams();
+          params.set("size", String(size));
 
-          const res = await fetch(`http://52.78.250.41:8082/api/v1/product/all?${queryParams}`);
-          const newProducts: Product[] = await res.json();
+          if (lastProductId) params.set("lastProductId", lastProductId);
+          if (selectedTopId) params.set("top", selectedTopId);
+          if (selectedMiddleId) params.set("middle", selectedMiddleId);
+          if (selectedBottomId) params.set("bottom", selectedBottomId);
+
+          const res = await fetch(`http://52.78.250.41:8082/api/v1/product/all?${params}`);
+          const json = await res.json();
+
+          if (!Array.isArray(json)) {
+            console.error("❌ 예상과 다른 응답 구조:", json);
+            setLoading(false);
+            return;
+          }
+
+          const newProducts: Product[] = json;
 
           setProducts((prev) => [...prev, ...newProducts]);
           setHasMore(newProducts.length === size);
