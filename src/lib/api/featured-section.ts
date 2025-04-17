@@ -14,8 +14,42 @@ export const createFeaturedSectionRequest = v.object({
 });
 export type CreateFeaturedSectionRequest = v.InferOutput<typeof createFeaturedSectionRequest>;
 
-async function creatFeaturedSection(input: CreateFeaturedSectionRequest): Promise<void> {
+export async function creatFeaturedSection(input: CreateFeaturedSectionRequest): Promise<void> {
   await api.post<void>("/users/featured-section", input);
 }
 
-export default creatFeaturedSection;
+export type FeaturedSectionProductsReq = {
+  featuredSectionsIds: string[];
+};
+
+export type FeaturedSectionProductsRes = {
+  featuredSectionsId: string;
+  products: {
+    productId: string;
+    url: string;
+    alt: string;
+    name: string;
+    price: number;
+    discountRate: number;
+    discountedPrice: number;
+    code: string;
+    isLimitedEdition: boolean;
+    isTop: boolean;
+  }[];
+}[];
+
+export async function getFeaturedSectionProducts({
+  featuredSectionsIds,
+}: FeaturedSectionProductsReq): Promise<FeaturedSectionProductsRes> {
+  const params = new URLSearchParams();
+  for (const featuredSectionsId of featuredSectionsIds) params.append("featuredSectionsIds", featuredSectionsId);
+
+  const res = await fetch(`http://localhost:3000/api/featured-section/products?${params.toString()}`);
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err);
+  }
+  const data: FeaturedSectionProductsRes = await res.json();
+  return data;
+}
