@@ -7,6 +7,10 @@ type Product = {
   imageThumbUrl: string;
   name: string;
   price: number;
+  imageThumbAlt?: string;
+  baseDiscountRate?: number;
+  discountedPrice?: number;
+  main?: boolean;
 };
 
 // ✅ 대분류 타입 정의
@@ -46,11 +50,13 @@ export default async function AllProductsPage({ searchParams }: Props) {
   if (selectedTopId) productQuery.set("topId", selectedTopId);
   if (selectedMiddleId) productQuery.set("middleId", selectedMiddleId);
   if (selectedBottomId) productQuery.set("bottomId", selectedBottomId);
+  productQuery.set("pageSize", "20"); // 페이지 크기 설정
 
   const productRes = await fetch(`http://52.78.250.41:8082/api/v1/product-category?${productQuery.toString()}`, {
     cache: "no-store",
   });
-  const products: Product[] = await productRes.json();
+  const productJson = await productRes.json();
+  const products: Product[] = productJson.content ?? [];
 
   // ✅ 중복 제거
   const uniqueProducts = Array.from(new Map(products.map((p) => [p.productId, p])).values());
@@ -142,7 +148,7 @@ export default async function AllProductsPage({ searchParams }: Props) {
               <div key={product.productId} className="rounded border p-2">
                 <img src={product.imageThumbUrl} alt={product.name} className="mb-2 w-full" />
                 <div className="text-sm font-semibold">{product.name}</div>
-                <div className="text-xs text-gray-500">{product.price}원</div>
+                <div className="text-xs text-gray-500">{product.price.toLocaleString()}원</div>
               </div>
             ))
           ) : (
