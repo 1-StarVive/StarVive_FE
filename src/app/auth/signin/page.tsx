@@ -10,9 +10,9 @@ import { Button } from "@/components/buttons/button";
 import TextButton from "@/components/buttons/text-button";
 import { onClickFind } from "./_utils/handle-click-find";
 import useSubmitSignin from "./_hooks/use-submit-signin";
-import { signinRequest } from "@/lib/api/users_signin";
 import Link from "next/link";
 import GuestGuard from "@/components/guards/quest-guard";
+import { signinRequest } from "@/lib/api/user";
 
 function Signin() {
   const loginForm = useForm({

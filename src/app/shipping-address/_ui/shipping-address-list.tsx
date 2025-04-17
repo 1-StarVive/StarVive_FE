@@ -1,23 +1,10 @@
 "use client";
 
-import Alert from "@/components/alert";
 import { Button } from "@/components/buttons/button";
 import FixedFooter from "@/components/footers/fixed-footer";
-import ImperativeUI from "@/components/imperative-ui";
-import {
-  getShippingAddress,
-  updateShippingAddress,
-  UpdateShippingAddressRequest,
-  updateShippingAddressRequest,
-} from "@/lib/api/shipping-address";
+import { getShippingAddress } from "@/lib/api/shipping-address";
 import useUpdateShippingAddressModalStore from "@/store/update-shipping-address-modal";
-import { valibotResolver } from "@hookform/resolvers/valibot";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { SubmitHandler, useForm, useWatch } from "react-hook-form";
-import { ValiError } from "valibot";
+import { useQuery } from "@tanstack/react-query";
 
 function ShippingAddressList() {
   const open = useUpdateShippingAddressModalStore((state) => state.open);
@@ -27,32 +14,6 @@ function ShippingAddressList() {
     queryFn: getShippingAddress,
     select: (data) => data.sort((a, b) => (a.selectedBase ? -1 : b.selectedBase ? 1 : 0)),
   });
-
-  const queryClient = useQueryClient();
-  const mutaion = useMutation({
-    mutationFn: updateShippingAddress,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["shipping-address"] }),
-  });
-
-  const handleSubmit: SubmitHandler<UpdateShippingAddressRequest> = async (input) => {
-    try {
-      ImperativeUI.loading(true);
-      await mutaion.mutateAsync(input);
-    } catch (e) {
-      console.error(e);
-      if (axios.isAxiosError(e)) {
-        ImperativeUI.show((close) => <Alert title="수정실패" content={e.message} onClickButton={close} />);
-      } else if (e instanceof ValiError) {
-        ImperativeUI.show((close) => <Alert title="수정실패" content={e.message} onClickButton={close} />);
-      } else {
-        ImperativeUI.show((close) => (
-          <Alert title="수정실패" content="알수없는 오류가 발생했습니다." onClickButton={close} />
-        ));
-      }
-    } finally {
-      ImperativeUI.loading(false);
-    }
-  };
 
   return (
     <form className="h-full overflow-hidden">

@@ -1,8 +1,8 @@
-import { FeaturedSectionProductsRes, getFeaturedSectionProducts } from "@/lib/api/featured-section_products";
 import * as R from "fp-ts/Record";
 import * as NEA from "fp-ts/NonEmptyArray";
 import { pipe } from "fp-ts/function";
 import { FeaturedSectionsRes, getFeaturedSections } from "@/lib/api/featured-sections";
+import { FeaturedSectionProductsRes, getFeaturedSectionProducts } from "@/lib/api/featured-section";
 
 type GetFeaturedSectionIdWithProductsReturn = (Partial<Pick<FeaturedSectionProductsRes[number], "products">> &
   FeaturedSectionsRes[number])[];

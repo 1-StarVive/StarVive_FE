@@ -4,7 +4,7 @@ import ImperativeUI from "@/components/imperative-ui";
 import Alert from "@/components/alert";
 import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
-import signin, { SigninRequest } from "@/lib/api/users_signin";
+import { signin, SigninRequest } from "@/lib/api/user";
 
 function useSubmitSignin() {
   const router = useRouter();

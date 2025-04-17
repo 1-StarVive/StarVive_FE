@@ -3,7 +3,6 @@ import FixedFooter from "@/components/footers/fixed-footer";
 import { SubmitErrorHandler, SubmitHandler, useFormContext } from "react-hook-form";
 import NicknameNextButton from "./nickname-next-button";
 import { useMutation } from "@tanstack/react-query";
-import signup from "@/lib/api/users_signup";
 import ImperativeUI from "@/components/imperative-ui";
 import Alert from "@/components/alert";
 import { SignupSchema } from "../_schema/signup";
@@ -13,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { ValiError } from "valibot";
 import InputUnderline from "@/components/inputs/input-underline";
 import ErrorMessage from "@/components/error-message";
+import { signup } from "@/lib/api/user";
 
 function NicknameStep() {
   const router = useRouter();
