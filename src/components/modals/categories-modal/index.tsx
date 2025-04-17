@@ -10,7 +10,7 @@ import CategoriesHeader from "@/components/headers/categories-header";
 
 function CategoriesModal() {
   return (
-    <Modal size="full">
+    <Modal className="bg-white" size="full">
       <ModalWrap>
         <CategoriesHeader />
         <GreetingWrap>

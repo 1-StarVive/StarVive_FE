@@ -20,7 +20,7 @@ export const signupRequest = v.object({
 export type SignupRequest = v.InferOutput<typeof signupRequest>;
 
 async function signup(input: SignupRequest): Promise<string> {
-  const res = await api.post<string>("/users/signup", input);
+  const res = await api.post<string>("/v1/users/signup", input);
   const data = v.parse(v.string(), res.data);
   return data;
 }

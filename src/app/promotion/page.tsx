@@ -3,6 +3,7 @@ import Accordion from "@/components/arccordion";
 import Product from "@/components/product";
 import Header from "@/components/headers/header";
 import CategoriesSubHeader from "@/components/headers/categories-sub-header";
+import StaticFooter from "@/components/footers/static-footer";
 
 function Promotion() {
   return (
@@ -32,6 +33,7 @@ function Promotion() {
           <Product url="/temp-square.png" alt="temp" name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml" price={20000} />
         </ProductsWrap>
       </main>
+      <StaticFooter />
     </>
   );
 }
