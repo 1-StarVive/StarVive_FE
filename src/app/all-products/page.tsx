@@ -1,5 +1,6 @@
 import Header from "@/components/headers/header";
 import Link from "next/link";
+import ProductListInfinite from "./_ui/product-list-infinite";
 
 // ✅ 상품 타입 정의
 type Product = {
@@ -13,44 +14,39 @@ type Product = {
   main?: boolean;
 };
 
-// ✅ 대분류 타입 정의
 type TopCategory = {
   topCategoryId: string;
   name: string;
 };
 
-// ✅ 중분류 타입 정의
 type MiddleCategory = {
   middleCategoryId: string;
   name: string;
   topCategoryId: string;
 };
 
-// ✅ 소분류 타입 정의
 type BottomCategory = {
   bottomCategoryId: string;
   name: string;
   middleCategoryId: string;
 };
 
-// ✅ Props 타입 정의 (Next.js 15)
 type Props = {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-// ✅ 서버 컴포넌트
 export default async function AllProductsPage({ searchParams }: Props) {
   const resolvedSearchParams = await searchParams;
   const selectedTopId = resolvedSearchParams.top ?? "";
   const selectedMiddleId = resolvedSearchParams.middle ?? "";
   const selectedBottomId = resolvedSearchParams.bottom ?? "";
 
-  // ✅ 상품 API 호출 (필터링 적용)
+  // ✅ 상품 API 호출
   const productQuery = new URLSearchParams();
   if (selectedTopId) productQuery.set("topId", selectedTopId);
   if (selectedMiddleId) productQuery.set("middleId", selectedMiddleId);
   if (selectedBottomId) productQuery.set("bottomId", selectedBottomId);
-  productQuery.set("pageSize", "20"); // 페이지 크기 설정
+  productQuery.set("pageSize", "20");
 
   const productRes = await fetch(`http://52.78.250.41:8082/api/v1/product-category?${productQuery.toString()}`, {
     cache: "no-store",
@@ -61,26 +57,22 @@ export default async function AllProductsPage({ searchParams }: Props) {
   // ✅ 중복 제거
   const uniqueProducts = Array.from(new Map(products.map((p) => [p.productId, p])).values());
 
-  // ✅ 대분류 API 호출
-  const topRes = await fetch("http://52.78.250.41:8082/api/v1/top-categories/all", {
-    cache: "no-store",
-  });
+  // ✅ 커서 직접 추출 (서버가 준 nextCursor 사용 ❌)
+  const lastProduct = products[products.length - 1];
+  const initialCursor = lastProduct?.productId ?? null;
+  const initialHasNext = products.length === 20;
+
+  // ✅ 카테고리 API
+  const topRes = await fetch("http://52.78.250.41:8082/api/v1/top-categories/all", { cache: "no-store" });
   let topCategories: TopCategory[] = await topRes.json();
   topCategories = [{ topCategoryId: "", name: "전체" }, ...topCategories];
 
-  // ✅ 중분류 API 호출
-  const middleRes = await fetch("http://52.78.250.41:8082/api/v1/middle-categories/all", {
-    cache: "no-store",
-  });
+  const middleRes = await fetch("http://52.78.250.41:8082/api/v1/middle-categories/all", { cache: "no-store" });
   const middleCategories: MiddleCategory[] = await middleRes.json();
 
-  // ✅ 소분류 API 호출
-  const bottomRes = await fetch("http://52.78.250.41:8082/api/v1/bottom-categories/all", {
-    cache: "no-store",
-  });
+  const bottomRes = await fetch("http://52.78.250.41:8082/api/v1/bottom-categories/all", { cache: "no-store" });
   const bottomCategories: BottomCategory[] = await bottomRes.json();
 
-  // ✅ 현재 선택된 top/middle에 해당하는 middle/bottom 필터링
   const filteredMiddleCategories = middleCategories.filter((m) => m.topCategoryId === selectedTopId);
   const filteredBottomCategories = bottomCategories.filter((b) => b.middleCategoryId === selectedMiddleId);
 
@@ -88,7 +80,7 @@ export default async function AllProductsPage({ searchParams }: Props) {
     <>
       <Header showBackButton />
       <main className="min-h-screen bg-white">
-        {/* ✅ 대분류 UI */}
+        {/* 대분류 */}
         <nav className="scrollbar-hidden flex h-[55px] w-full items-center overflow-x-auto border-b border-gray-300">
           {topCategories.map((topCategory) => (
             <Link
@@ -103,7 +95,7 @@ export default async function AllProductsPage({ searchParams }: Props) {
           ))}
         </nav>
 
-        {/* ✅ 중분류 UI */}
+        {/* 중분류 */}
         {filteredMiddleCategories.length > 0 && (
           <nav className="scrollbar-hidden flex h-[50px] w-full items-center overflow-x-auto border-b border-gray-200 bg-gray-50">
             {filteredMiddleCategories.map((middleCategory) => (
@@ -122,7 +114,7 @@ export default async function AllProductsPage({ searchParams }: Props) {
           </nav>
         )}
 
-        {/* ✅ 소분류 UI */}
+        {/* 소분류 */}
         {filteredBottomCategories.length > 0 && (
           <nav className="scrollbar-hidden flex h-[50px] w-full items-center overflow-x-auto border-b border-gray-100 bg-gray-50">
             {filteredBottomCategories.map((bottomCategory) => (
@@ -141,20 +133,15 @@ export default async function AllProductsPage({ searchParams }: Props) {
           </nav>
         )}
 
-        {/* ✅ 상품 리스트 */}
-        <section className="grid grid-cols-2 gap-4 p-4">
-          {uniqueProducts.length > 0 ? (
-            uniqueProducts.map((product) => (
-              <div key={product.productId} className="rounded border p-2">
-                <img src={product.imageThumbUrl} alt={product.name} className="mb-2 w-full" />
-                <div className="text-sm font-semibold">{product.name}</div>
-                <div className="text-xs text-gray-500">{product.price.toLocaleString()}원</div>
-              </div>
-            ))
-          ) : (
-            <div className="col-span-2 text-center text-gray-500">조건에 맞는 상품이 없습니다.</div>
-          )}
-        </section>
+        {/* 상품 리스트 (무한스크롤) */}
+        <ProductListInfinite
+          initialProducts={uniqueProducts}
+          initialCursor={initialCursor}
+          initialHasNext={initialHasNext}
+          selectedTopId={selectedTopId}
+          selectedMiddleId={selectedMiddleId}
+          selectedBottomId={selectedBottomId}
+        />
       </main>
     </>
   );
