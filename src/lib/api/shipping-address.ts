@@ -20,7 +20,7 @@ export const getShippingAddressResponse = v.array(
 export type GetShippingAddressResponse = v.InferOutput<typeof getShippingAddressResponse>;
 
 export async function getShippingAddress(): Promise<GetShippingAddressResponse> {
-  const res = await api.get<GetShippingAddressResponse>("/v1/shipping-address");
+  const res = await api.get<GetShippingAddressResponse>("/api/v1/shipping-address");
   const data = v.parse(getShippingAddressResponse, res.data);
   return data;
 }
@@ -39,7 +39,7 @@ export const addShippingAddressRequest = v.object({
 export type AddShippingAddressRequest = v.InferOutput<typeof addShippingAddressRequest>;
 
 export async function addShippingAddress(input: AddShippingAddressRequest): Promise<void> {
-  await api.post("/v1/shipping-address", input);
+  await api.post("/api/v1/shipping-address", input);
 }
 
 export const updateShippingAddressRequest = v.object({
@@ -57,7 +57,7 @@ export const updateShippingAddressRequest = v.object({
 export type UpdateShippingAddressRequest = v.InferOutput<typeof updateShippingAddressRequest>;
 
 export async function updateShippingAddress(input: UpdateShippingAddressRequest): Promise<void> {
-  await api.put("/v1/shipping-address", input);
+  await api.put("/api/v1/shipping-address", input);
 }
 
 export const getShippingAddressDetailResponse = v.object({
@@ -77,7 +77,7 @@ export const getShippingAddressDetailResponse = v.object({
 export type GetShippingAddressDetailResponse = v.InferOutput<typeof getShippingAddressDetailResponse>;
 
 export async function getShippingAddressDetail(shippingAddressId: string): Promise<GetShippingAddressDetailResponse> {
-  const res = await api.get<GetShippingAddressDetailResponse>("/v1/shipping-address/detail", {
+  const res = await api.get<GetShippingAddressDetailResponse>("/api/v1/shipping-address/detail", {
     params: { shippingAddressId },
   });
   const data = v.parse(getShippingAddressDetailResponse, res.data);

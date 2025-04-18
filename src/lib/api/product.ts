@@ -15,7 +15,7 @@ export const getBestProductResponse = v.array(
 export type GetBestProductResponse = v.InferOutput<typeof getBestProductResponse>;
 
 export async function getBestProduct(): Promise<GetBestProductResponse> {
-  const res = await api.get<GetBestProductResponse>("/v1/product/best");
+  const res = await api.get<GetBestProductResponse>("/api/v1/product/best");
   const data = v.parse(getBestProductResponse, res.data);
   return data;
 }
@@ -34,7 +34,7 @@ export const getProductResponse = v.array(
 export type GetProductResponse = v.InferOutput<typeof getProductResponse>;
 
 export async function getProduct(): Promise<GetProductResponse> {
-  const res = await api.get<GetProductResponse>("/v1/product");
+  const res = await api.get<GetProductResponse>("/api/v1/product");
   const data = v.parse(getProductResponse, res.data);
   return data;
 }

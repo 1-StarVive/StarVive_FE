@@ -14,7 +14,7 @@ export const listPromotionsResponse = v.array(
 export type ListPromotionsResponse = v.InferOutput<typeof listPromotionsResponse>;
 
 export async function getListPromotions(): Promise<ListPromotionsResponse> {
-  const res = await api.get<ListPromotionsResponse>("/v1/promotions/list");
+  const res = await api.get<ListPromotionsResponse>("/api/v1/promotions/list");
   const data = v.parse(listPromotionsResponse, res.data);
   return data;
 }
@@ -33,7 +33,7 @@ export const promotionProductsResponse = v.array(
 export type PromotionProductsResponse = v.InferOutput<typeof promotionProductsResponse>;
 
 export async function getPromotionProducts(promotionId: string): Promise<PromotionProductsResponse> {
-  const res = await api.get<PromotionProductsResponse>("/v1/promotion-products", {
+  const res = await api.get<PromotionProductsResponse>("/api/v1/promotion-products", {
     params: { promotionId },
   });
   const data = v.parse(promotionProductsResponse, res.data);
