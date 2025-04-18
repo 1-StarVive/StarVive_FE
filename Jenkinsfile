@@ -21,21 +21,6 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                // pnpm 사용하여 의존성 설치
-                sh 'pnpm install'
-            }
-        }
-
-        stage('Build Frontend') {
-            steps {
-                // pnpm 사용하여 빌드 스크립트 실행
-                sh 'pnpm run build'
-                // 빌드 결과물은 일반적으로 .next 폴더에 생성됩니다.
-            }
-        }
-
         stage('Docker Build') {
             steps {
                 // 프론트엔드용 Dockerfile을 사용하여 이미지 빌드
@@ -43,17 +28,6 @@ pipeline {
                 sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
-
-        /* // Docker Hub 같은 레지스트리에 이미지를 푸시하는 단계
-        stage('Docker Push') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
-                    sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
-                }
-            }
-        }
-        */
 
         stage('Deploy to EC2 (Same Instance)') { // Stage 이름 변경 (선택 사항)
             steps {
