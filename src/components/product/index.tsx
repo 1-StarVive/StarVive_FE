@@ -6,16 +6,17 @@ import ProductRank, { ProductRankProps } from "./ui/product-rank";
 import ProductSkeleton from "./ui/product-skeleton";
 
 export type ProductProps = {
+  productId: string;
   url: string;
   alt: string;
 } & ProductPriceProps &
   ProductInfoProps &
   Partial<ProductRankProps>;
 
-function Product({ alt, url, price, discountRate, name, isTop, isNew, rank }: ProductProps) {
+function Product({ productId, alt, url, price, discountRate, name, isTop, isNew, rank }: ProductProps) {
   return (
     <li>
-      <Link className="flex w-full flex-col gap-[6px]" href="/.">
+      <Link className="flex w-full flex-col gap-[6px]" href={`/product/${productId}`}>
         <ProductImageWrap>
           <Image className="rounded-sm" src={url} alt={alt} fill sizes="200px" />
           {rank !== undefined && <ProductRank rank={rank} />}

@@ -26,6 +26,7 @@ function PromotionProducts({ productId }: PromotionProductsProps) {
         products.data.map((p, i) => (
           <Product
             key={i}
+            productId={p.productId}
             name={p.name}
             price={p.price}
             discountRate={p.baseDiscountRate}

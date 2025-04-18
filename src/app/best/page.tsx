@@ -21,6 +21,7 @@ function Best() {
           {featuredSections.data.map((o) => (
             <Product
               key={o.productId}
+              productId={o.productId}
               url={o.thumbnailUrl}
               alt={o.nameEn}
               name={o.nameKr}

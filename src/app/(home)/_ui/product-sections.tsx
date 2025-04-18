@@ -46,6 +46,7 @@ function ProductSections() {
             {o.products?.map((p, i) => (
               <Product
                 key={i}
+                productId={p.productId}
                 name={p.name}
                 price={p.price}
                 discountRate={p.baseDiscountRate}
