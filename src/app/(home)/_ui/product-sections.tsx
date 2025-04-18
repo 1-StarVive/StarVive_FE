@@ -43,9 +43,9 @@ function ProductSections() {
         <SectionWrap key={o.featuredSectionId}>
           <Title>{o.name}</Title>
           <ProductsWrap>
-            {o.products?.map((p) => (
+            {o.products?.map((p, i) => (
               <Product
-                key={p.productId}
+                key={i}
                 name={p.name}
                 price={p.price}
                 discountRate={p.baseDiscountRate}
