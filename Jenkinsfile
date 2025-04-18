@@ -25,7 +25,8 @@ pipeline {
             steps {
                 // 프론트엔드용 Dockerfile을 사용하여 이미지 빌드
                 // Dockerfile이 프로젝트 루트에 있다고 가정
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                // --build-arg를 사용하여 빌드 시점에 환경 변수 전달
+                sh "docker build --build-arg NEXT_PUBLIC_API_URL=http://52.78.250.41:8082/ -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
 

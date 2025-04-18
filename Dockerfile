@@ -4,6 +4,11 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
 
+# 빌드 인수로 API URL 받기
+ARG NEXT_PUBLIC_API_URL
+# 받은 빌드 인수를 환경 변수로 설정 (빌드 시점에 사용 가능)
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+
 # pnpm 설치
 RUN npm install -g pnpm
 
