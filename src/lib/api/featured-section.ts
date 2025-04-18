@@ -1,55 +1,67 @@
 import * as v from "valibot";
 import api from "../axios-api";
 
-export const createFeaturedSectionRequest = v.object({
+const featuredSectionsResponse = v.array(
+  v.object({
+    featuredSectionId: v.string(),
+    name: v.string(),
+    activated: v.boolean(),
+  }),
+);
+
+export type FeaturedSectionsResponse = v.InferOutput<typeof featuredSectionsResponse>;
+
+export async function getFeaturedSectionAll() {
+  const res = await api.get<FeaturedSectionsResponse>("/v1/featured-section/all");
+  const data = v.parse(featuredSectionsResponse, res.data);
+  return data;
+}
+
+export const addFeaturedSectionRequest = v.object({
   name: v.pipe(
     v.string("추천섹션명을 입력해 주세요"),
     v.minLength(4, "4자 이상 입력해 주세요"),
     v.maxLength(50, "50자 이하로 입력해 주세요"),
   ),
-  activated: v.pipe(
-    v.boolean(),
-    v.transform((value) => Boolean(value)),
-  ),
+  activated: v.boolean(),
 });
-export type CreateFeaturedSectionRequest = v.InferOutput<typeof createFeaturedSectionRequest>;
+export type AddFeaturedSectionRequest = v.InferOutput<typeof addFeaturedSectionRequest>;
 
-export async function creatFeaturedSection(input: CreateFeaturedSectionRequest): Promise<void> {
-  await api.post<void>("/users/featured-section", input);
+export async function addFeaturedSection(input: AddFeaturedSectionRequest): Promise<void> {
+  await api.post<void>("/v1/featured-section/add", input);
 }
 
-export type FeaturedSectionProductsReq = {
-  featuredSectionsIds: string[];
-};
+export const featuredSectionProductsRequest = v.object({
+  featuredSectionIds: v.array(v.string()),
+});
 
-export type FeaturedSectionProductsRes = {
-  featuredSectionsId: string;
-  products: {
-    productId: string;
-    url: string;
-    alt: string;
-    name: string;
-    price: number;
-    discountRate: number;
-    discountedPrice: number;
-    code: string;
-    isLimitedEdition: boolean;
-    isTop: boolean;
-  }[];
-}[];
+export type FeaturedSectionProductsReqest = v.InferOutput<typeof featuredSectionProductsRequest>;
 
-export async function getFeaturedSectionProducts({
-  featuredSectionsIds,
-}: FeaturedSectionProductsReq): Promise<FeaturedSectionProductsRes> {
-  const params = new URLSearchParams();
-  for (const featuredSectionsId of featuredSectionsIds) params.append("featuredSectionsIds", featuredSectionsId);
+export const featuredSectionProductsResponse = v.array(
+  v.object({
+    featuredSectionsId: v.string(),
+    products: v.array(
+      v.object({
+        productId: v.string(),
+        imageThumbUrl: v.string(),
+        imageThumbAlt: v.string(),
+        name: v.string(),
+        price: v.number(),
+        baseDiscountRate: v.number(),
+      }),
+    ),
+  }),
+);
 
-  const res = await fetch(`http://localhost:3000/api/featured-section/products?${params.toString()}`);
+export type FeaturedSectionProductsResponse = v.InferOutput<typeof featuredSectionProductsResponse>;
 
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err);
-  }
-  const data: FeaturedSectionProductsRes = await res.json();
+export async function getFeaturedSectionProducts(
+  params: FeaturedSectionProductsReqest,
+): Promise<FeaturedSectionProductsResponse> {
+  const res = await api.get<FeaturedSectionProductsResponse>("/v1/featured-section/products", {
+    params,
+    paramsSerializer: { indexes: null },
+  });
+  const data = v.parse(featuredSectionProductsResponse, res.data);
   return data;
 }

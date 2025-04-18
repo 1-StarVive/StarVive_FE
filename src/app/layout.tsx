@@ -6,6 +6,7 @@ import ReactQueryProvider from "@/lib/react-query-provider";
 import { Suspense } from "react";
 import Loading from "@/components/loading";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,10 +32,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryProvider>
-          <Suspense fallback={<Loading />}>
-            <ErrorBoundary>{children}</ErrorBoundary>
-          </Suspense>
-          <ImperativeUIProvider />
+          <ReactQueryStreamedHydration>
+            <Suspense fallback={<Loading />}>
+              <ErrorBoundary>{children}</ErrorBoundary>
+            </Suspense>
+            <ImperativeUIProvider />
+          </ReactQueryStreamedHydration>
         </ReactQueryProvider>
       </body>
     </html>

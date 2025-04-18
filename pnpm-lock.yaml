@@ -27,8 +27,11 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@types/react@19.0.12)(react@19.0.0)
       '@tanstack/react-query':
-        specifier: ^5.71.1
-        version: 5.71.1(react@19.0.0)
+        specifier: ^5.74.3
+        version: 5.74.3(react@19.0.0)
+      '@tanstack/react-query-next-experimental':
+        specifier: ^5.74.3
+        version: 5.74.3(@tanstack/react-query@5.74.3(react@19.0.0))(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       '@use-funnel/browser':
         specifier: ^0.0.13
         version: 0.0.13(react@19.0.0)
@@ -958,11 +961,18 @@ packages:
   '@tailwindcss/postcss@4.0.15':
     resolution: {integrity: sha512-qyrpoDKIO7wzkRbKCvGLo7gXRjT9/Njf7ZJiJhG4njrfZkvOhjwnaHpYbpxYeDysEg+9pB1R4jcd+vQ7ZUDsmQ==}
 
-  '@tanstack/query-core@5.71.1':
-    resolution: {integrity: sha512-4+ZswCHOfJX+ikhXNoocamTUmJcHtB+Ljjz/oJkC7/eKB5IrzEwR4vEwZUENiPi+wISucJHR5TUbuuJ26w3kdQ==}
+  '@tanstack/query-core@5.74.3':
+    resolution: {integrity: sha512-Mqk+5o3qTuAiZML248XpNH8r2cOzl15+LTbUsZQEwvSvn1GU4VQhvqzAbil36p+MBxpr/58oBSnRzhrBevDhfg==}
 
-  '@tanstack/react-query@5.71.1':
-    resolution: {integrity: sha512-6BTkaSIGT58MroI4kIGXNdx/NhirXPU+75AJObLq+WBa39WmoxhzSk0YX+hqWJ/bvqZJFxslbEU4qIHaRZq+8Q==}
+  '@tanstack/react-query-next-experimental@5.74.3':
+    resolution: {integrity: sha512-SHU52CPTovF6RFupa3H9MHXSzdMeRv/gk9BwNximExKeRkS9v8B8EhQOs8oxXiKp13ScThmKAz8FXtKwlcTJqg==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.74.3
+      next: ^13 || ^14 || ^15
+      react: ^18 || ^19
+
+  '@tanstack/react-query@5.74.3':
+    resolution: {integrity: sha512-QrycUn0wxjVPzITvQvOxFRdhlAwIoOQSuav7qWD4SWCoKCdLbyRZ2vji2GuBq/glaxbF4wBx3fqcYRDOt8KDTA==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -3211,11 +3221,17 @@ snapshots:
       postcss: 8.5.3
       tailwindcss: 4.0.15
 
-  '@tanstack/query-core@5.71.1': {}
+  '@tanstack/query-core@5.74.3': {}
 
-  '@tanstack/react-query@5.71.1(react@19.0.0)':
+  '@tanstack/react-query-next-experimental@5.74.3(@tanstack/react-query@5.74.3(react@19.0.0))(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@tanstack/query-core': 5.71.1
+      '@tanstack/react-query': 5.74.3(react@19.0.0)
+      next: 15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react: 19.0.0
+
+  '@tanstack/react-query@5.74.3(react@19.0.0)':
+    dependencies:
+      '@tanstack/query-core': 5.74.3
       react: 19.0.0
 
   '@tybys/wasm-util@0.9.0':
