@@ -1,7 +1,7 @@
 import TabMenu from "@/components/tab-menu";
 
 function SubBestHeader() {
-  return <TabMenu />;
+  return <TabMenu items={[]} />;
 }
 
 export default SubBestHeader;

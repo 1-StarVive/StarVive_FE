@@ -19,3 +19,22 @@ export async function getBestProduct(): Promise<GetBestProductResponse> {
   const data = v.parse(getBestProductResponse, res.data);
   return data;
 }
+
+export const getProductResponse = v.array(
+  v.object({
+    productId: v.string(),
+    nameKr: v.string(),
+    nameEn: v.string(),
+    price: v.number(),
+    thumbnailUrl: v.string(),
+    rank: v.number(),
+  }),
+);
+
+export type GetProductResponse = v.InferOutput<typeof getProductResponse>;
+
+export async function getProduct(): Promise<GetProductResponse> {
+  const res = await api.get<GetProductResponse>("/v1/product");
+  const data = v.parse(getProductResponse, res.data);
+  return data;
+}

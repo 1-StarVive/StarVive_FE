@@ -1,7 +1,6 @@
 "use client";
 
 import Accordion from "@/components/arccordion";
-import Product from "@/components/product";
 import Header from "@/components/headers/header";
 import CategoriesSubHeader from "@/components/headers/categories-sub-header";
 import StaticFooter from "@/components/footers/static-footer";
@@ -39,7 +38,7 @@ function Promotion() {
         router.replace(`/promotion?promotionId=${promotions.data[0].id}`);
       }
     },
-    [nowId, promotions.data],
+    [router, nowId, promotions.data],
   );
 
   const currentItem = promotions.data.find((item) => item.id === nowId);

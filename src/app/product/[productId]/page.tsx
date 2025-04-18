@@ -5,7 +5,12 @@ import ProductFooter from "./_ui/product-footer";
 import Header from "@/components/headers/header";
 import StaticFooter from "@/components/footers/static-footer";
 
-function Product() {
+type ProductProps = {
+  params: Promise<{ productId: string }>;
+};
+async function Product({}: ProductProps) {
+  // const { productId } = await params;
+
   return (
     <>
       <Header showBackButton={true} />
