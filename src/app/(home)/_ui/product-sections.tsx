@@ -1,40 +1,64 @@
-import { getFeaturedSectionIdWithProducts } from "../_lib/api";
+"use client";
+
+import { useSuspenseQuery } from "@tanstack/react-query";
 import ProductSectionsSkeleton from "./product-sections.skeleton";
 import Title from "./title";
 import Product from "@/components/product";
+import { getFeaturedSectionAll, getFeaturedSectionProducts } from "@/lib/api/featured-section";
+import { useMemo } from "react";
+import * as F from "fp-ts/function";
+import * as NEA from "fp-ts/NonEmptyArray";
+import * as R from "fp-ts/Record";
 
-async function ProductSections() {
-  try {
-    const featuredSectionIdWithProducts =
-      await getFeaturedSectionIdWithProducts();
-
-    return (
-      <>
-        {featuredSectionIdWithProducts.map((f) => (
-          <SectionWrap key={f.featuredSectionsId}>
-            <Title>{f.name}</Title>
-            <ProductsWrap>
-              {f.products?.map((p) => (
-                <Product
-                  key={p.productId}
-                  name={p.name}
-                  price={p.price}
-                  discountRate={p.discountRate}
-                  discountedPrice={p.discountedPrice}
-                  url={p.url}
-                  alt={p.alt}
-                  isTop={p.isTop}
-                  isLimitedEdition={p.isLimitedEdition}
-                />
-              ))}
-            </ProductsWrap>
-          </SectionWrap>
-        ))}
-      </>
+function ProductSections() {
+  const featuredSections = useSuspenseQuery({
+    queryKey: ["featuredSectionAll"],
+    queryFn: getFeaturedSectionAll,
+  });
+  const featuredSectionIds = useMemo(
+    () => featuredSections.data.map((o) => o.featuredSectionId),
+    [featuredSections.data],
+  );
+  const featuredSectionProducts = useSuspenseQuery({
+    queryKey: ["featuredSectionProducts", featuredSectionIds] as const,
+    queryFn: async ({ queryKey }) => {
+      const [_, featuredSectionIds] = queryKey;
+      if (featuredSectionIds.length === 0) return [];
+      return await getFeaturedSectionProducts({ featuredSectionIds });
+    },
+  });
+  const datas = useMemo(() => {
+    const productsByFeaturedSectionsId = F.pipe(
+      featuredSectionProducts.data,
+      NEA.groupBy((o) => o.featuredSectionsId),
+      R.map(NEA.head),
+      R.map((o) => o.products),
     );
-  } catch {
-    return <div>에러남ㅠ</div>;
-  }
+    return featuredSections.data.map((o) => ({ ...o, products: productsByFeaturedSectionsId[o.featuredSectionId] }));
+  }, [featuredSections.data, featuredSectionProducts.data]);
+
+  return (
+    <>
+      {datas.map((o) => (
+        <SectionWrap key={o.featuredSectionId}>
+          <Title>{o.name}</Title>
+          <ProductsWrap>
+            {o.products?.map((p) => (
+              <Product
+                key={p.productId}
+                name={p.name}
+                price={p.price}
+                discountRate={p.baseDiscountRate}
+                discountedPrice={(p.price * (100 - p.baseDiscountRate)) / 100}
+                url={p.imageThumbUrl}
+                alt={p.imageThumbAlt}
+              />
+            ))}
+          </ProductsWrap>
+        </SectionWrap>
+      ))}
+    </>
+  );
 }
 
 export default ProductSections;
@@ -46,9 +70,5 @@ function SectionWrap({ children }: React.PropsWithChildren) {
 }
 
 function ProductsWrap({ children }: React.PropsWithChildren) {
-  return (
-    <ul className="grid grid-flow-col auto-cols-[40%] overflow-auto gap-[18px] p-[24px]">
-      {children}
-    </ul>
-  );
+  return <ul className="grid auto-cols-[40%] grid-flow-col gap-[18px] overflow-auto p-[24px]">{children}</ul>;
 }

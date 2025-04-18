@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         port: "9001",
         pathname: "/api/v1/buckets/**",
       },
+      {
+        protocol: "https",
+        hostname: "sitem.ssgcdn.com",
+        pathname: "**",
+      },
     ],
   },
 };
