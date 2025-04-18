@@ -1,57 +1,33 @@
-import SubBestHeader from "./_ui/sub-best-header";
+"use client";
+
 import Product from "@/components/product";
 import Header from "@/components/headers/header";
 import CategoriesSubHeader from "@/components/headers/categories-sub-header";
 import StaticFooter from "@/components/footers/static-footer";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { getBestProduct } from "@/lib/api/product";
 
 function Best() {
+  const featuredSections = useSuspenseQuery({
+    queryKey: ["getBestProduct"],
+    queryFn: getBestProduct,
+  });
+
   return (
     <>
-      <Header
-        subHeader={
-          <>
-            <CategoriesSubHeader selected="/best" />
-            <SubBestHeader />
-          </>
-        }
-      />
+      <Header subHeader={<CategoriesSubHeader selected="/best" />} />
       <main>
         <ProductsWrap>
-          <Product
-            url="/temp-square.png"
-            alt="temp"
-            name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            price={20000}
-            rank={1}
-          />
-          <Product
-            url="/temp-square.png"
-            alt="temp"
-            name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            price={20000}
-            rank={2}
-          />
-          <Product
-            url="/temp-square.png"
-            alt="temp"
-            name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            price={20000}
-            rank={3}
-          />
-          <Product
-            url="/temp-square.png"
-            alt="temp"
-            name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            price={20000}
-            rank={4}
-          />
-          <Product
-            url="/temp-square.png"
-            alt="temp"
-            name="SS 플라워 마켓 스탠리 켄처 텀블러 591ml"
-            price={20000}
-            rank={5}
-          />
+          {featuredSections.data.map((o) => (
+            <Product
+              key={o.productId}
+              url={o.thumbnailUrl}
+              alt={o.nameEn}
+              name={o.nameKr}
+              price={o.price}
+              rank={o.rank}
+            />
+          ))}
         </ProductsWrap>
       </main>
       <StaticFooter />
