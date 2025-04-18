@@ -12,7 +12,7 @@ const featuredSectionsResponse = v.array(
 export type FeaturedSectionsResponse = v.InferOutput<typeof featuredSectionsResponse>;
 
 export async function getFeaturedSectionAll() {
-  const res = await api.get<FeaturedSectionsResponse>("/v1/featured-section/all");
+  const res = await api.get<FeaturedSectionsResponse>("/api/v1/featured-section/all");
   const data = v.parse(featuredSectionsResponse, res.data);
   return data;
 }
@@ -58,7 +58,7 @@ export type FeaturedSectionProductsResponse = v.InferOutput<typeof featuredSecti
 export async function getFeaturedSectionProducts(
   params: FeaturedSectionProductsReqest,
 ): Promise<FeaturedSectionProductsResponse> {
-  const res = await api.get<FeaturedSectionProductsResponse>("/v1/featured-section/products", {
+  const res = await api.get<FeaturedSectionProductsResponse>("/api/v1/featured-section/products", {
     params,
     paramsSerializer: { indexes: null },
   });
