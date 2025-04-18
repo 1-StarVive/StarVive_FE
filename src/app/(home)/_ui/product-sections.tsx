@@ -49,7 +49,6 @@ function ProductSections() {
                 name={p.name}
                 price={p.price}
                 discountRate={p.baseDiscountRate}
-                discountedPrice={(p.price * (100 - p.baseDiscountRate)) / 100}
                 url={p.imageThumbUrl}
                 alt={p.imageThumbAlt}
               />

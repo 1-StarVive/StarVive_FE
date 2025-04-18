@@ -12,7 +12,7 @@ export type ProductProps = {
   ProductInfoProps &
   Partial<ProductRankProps>;
 
-function Product({ alt, url, price, discountRate, discountedPrice, name, isTop, isNew, rank }: ProductProps) {
+function Product({ alt, url, price, discountRate, name, isTop, isNew, rank }: ProductProps) {
   return (
     <li>
       <Link className="flex w-full flex-col gap-[6px]" href="/.">
@@ -23,7 +23,7 @@ function Product({ alt, url, price, discountRate, discountedPrice, name, isTop, 
 
         <ProductInfo name={name} isTop={isTop} isNew={isNew} />
 
-        <ProductPrice price={price} discountRate={discountRate} discountedPrice={discountedPrice} />
+        <ProductPrice price={price} discountRate={discountRate} />
       </Link>
     </li>
   );

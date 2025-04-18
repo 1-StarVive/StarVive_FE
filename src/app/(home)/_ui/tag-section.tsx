@@ -1,17 +1,13 @@
 "use client";
 
-import { getHashTags } from "@/lib/api/hash-tags";
-import Tag from "./tag";
 import TagSectionSkeleton from "./tag-section.skeleton";
 import Title from "./title";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { getFeaturedSectionAll } from "@/lib/api/featured-section";
 
 function TagSection() {
-  const section = useSuspenseQuery({
-    queryKey: ["featuredSectionAll"],
-    queryFn: getFeaturedSectionAll,
-  });
+  // const section = useSuspenseQuery({
+  //   queryKey: ["featuredSectionAll"],
+  //   queryFn: getFeaturedSectionAll,
+  // });
 
   return (
     <SectionWrap>
