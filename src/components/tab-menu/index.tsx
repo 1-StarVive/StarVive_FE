@@ -1,13 +1,17 @@
 import Menu from "./ui/menu";
 
-function TabMenu() {
+type TabMenuProps = {
+  selectedId?: string;
+  items: { id: string; name: string; href: string }[];
+};
+function TabMenu({ items, selectedId }: TabMenuProps) {
   return (
     <Wrap>
-      <Menu>Way of Working</Menu>
-      <Menu>Flower Market</Menu>
-      <Menu>Flower Market</Menu>
-      <Menu>Flower Market</Menu>
-      <Menu>Flower Market</Menu>
+      {items.map((item) => (
+        <Menu key={item.id} isSelected={item.id === selectedId} href={item.href}>
+          {item.name}
+        </Menu>
+      ))}
     </Wrap>
   );
 }

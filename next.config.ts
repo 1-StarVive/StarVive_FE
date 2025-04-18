@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
         hostname: "sitem.ssgcdn.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "image.istarbucks.co.kr",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "cp-image.starbucks.co.kr",
+        pathname: "**",
+      },
     ],
   },
 };
