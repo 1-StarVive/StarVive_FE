@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import ProductCard from "./product-card"; // 위치에 맞게 경로 조정
 
 /* ---------- 타입 ---------- */
 export type Product = {
@@ -32,17 +33,14 @@ export default function ProductListInfinite({
   selectedMiddleId,
   selectedBottomId,
 }: Props) {
-  /* ---------- 상태 ---------- */
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [, setCursor] = useState<string | null>(initialCursor);
   const [hasMore, setHasMore] = useState(initialHasNext);
   const [loading, setLoading] = useState(false);
 
-  /* ---------- refs ---------- */
   const sentinelRef = useRef<HTMLDivElement | null>(null);
-  const cursorRef = useRef<string | null>(initialCursor); // ✅ 최신 cursor 저장용
+  const cursorRef = useRef<string | null>(initialCursor);
 
-  /* ---------- 필터 변경 시 초기화 ---------- */
   useEffect(() => {
     setProducts(initialProducts);
 
@@ -50,17 +48,16 @@ export default function ProductListInfinite({
     const nextCursor = last?.productId ?? null;
 
     setCursor(nextCursor);
-    cursorRef.current = nextCursor; // ✅ ref도 동기화
+    cursorRef.current = nextCursor;
     setHasMore(initialProducts.length === 20);
     setLoading(false);
   }, [initialProducts]);
 
-  /* ---------- 상품 추가 호출 ---------- */
   const fetchMoreProducts = useCallback(async () => {
     if (loading) return;
 
     setLoading(true);
-    const currentCursor = cursorRef.current; // ✅ 항상 최신 값 사용
+    const currentCursor = cursorRef.current;
 
     const params = new URLSearchParams();
     params.set("pageSize", "20");
@@ -73,7 +70,6 @@ export default function ProductListInfinite({
     const res = await fetch(url);
     const { content: newProducts = [], hasNext = false } = await res.json();
 
-    /* --- 상태 업데이트 --- */
     setProducts((prev) => {
       const merged = [...prev, ...newProducts];
       return Array.from(new Map(merged.map((p) => [p.productId, p])).values());
@@ -82,14 +78,11 @@ export default function ProductListInfinite({
     const lastProduct = newProducts[newProducts.length - 1];
     const newCursor = lastProduct?.productId ?? null;
     setCursor(newCursor);
-    cursorRef.current = newCursor; // ✅ ref 갱신
+    cursorRef.current = newCursor;
     setHasMore(hasNext);
     setLoading(false);
-
-    /* eslint-enable no-console */
   }, [loading, selectedTopId, selectedMiddleId, selectedBottomId]);
 
-  /* ---------- IntersectionObserver ---------- */
   useEffect(() => {
     const el = sentinelRef.current;
     if (!el || !hasMore) return () => {};
@@ -107,24 +100,14 @@ export default function ProductListInfinite({
     return () => observer.unobserve(el);
   }, [fetchMoreProducts, hasMore]);
 
-  /* ---------- UI ---------- */
   return (
-    <section className="grid grid-cols-2 gap-4 p-4">
+    <section className="grid grid-cols-2 gap-3 px-6 pt-6">
       {products.length > 0 ? (
-        <>
-          {products.map((product) => (
-            <div key={product.productId} className="rounded border p-2">
-              <img src={product.imageThumbUrl} alt={product.imageThumbAlt ?? product.name} className="mb-2 w-full" />
-              <div className="text-sm font-semibold">{product.name}</div>
-              <div className="text-xs text-gray-500">{product.price.toLocaleString()}원</div>
-            </div>
-          ))}
-          {/* 무한 스크롤 센티널 */}
-          <div ref={sentinelRef} className="col-span-2 h-10" />
-        </>
+        products.map((product) => <ProductCard key={product.productId} product={product} />)
       ) : (
         <div className="col-span-2 text-center text-gray-500">조건에 맞는 상품이 없습니다.</div>
       )}
+      <div ref={sentinelRef} className="col-span-2 h-10" />
     </section>
   );
 }
