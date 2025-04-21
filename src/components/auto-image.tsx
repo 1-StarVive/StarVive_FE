@@ -1,23 +1,11 @@
 "use client";
 
-import Image, { ImageProps } from "next/image";
-import { memo, useState } from "react";
+import { memo } from "react";
 
-type AutoImageProps = Omit<ImageProps, "width" | "height">;
+type AutoImageProps = { src: string; alt: string } & React.ImgHTMLAttributes<HTMLImageElement>;
 
 const AutoImage = memo(function AutoImage({ src, alt, ...rest }: AutoImageProps) {
-  const [size, setSize] = useState<{ width: number; height: number }>();
-
-  const handleLoad: ImageProps["onLoad"] = (event) => {
-    const { naturalWidth, naturalHeight } = event.currentTarget;
-    setSize({ width: naturalWidth, height: naturalHeight });
-  };
-
-  return (
-    <div className="relative" style={{ ...(size && { aspectRatio: size.width / size.height }) }}>
-      <Image src={src} alt={alt} fill onLoad={handleLoad} {...rest} />
-    </div>
-  );
+  return <img src={src} alt={alt} {...rest} />;
 });
 
 export default AutoImage;

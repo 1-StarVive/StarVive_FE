@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
         hostname: "cp-image.starbucks.co.kr",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "starvive-assets.s3.ap-northeast-2.amazonaws.com",
+        pathname: "**",
+      },
     ],
   },
 };

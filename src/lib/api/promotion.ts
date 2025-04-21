@@ -7,6 +7,7 @@ export const listPromotionsResponse = v.array(
     title: v.string(),
     promotionStartAt: v.string(),
     promotionEndAt: v.string(),
+    notice: v.string(),
     promotionDetailContent: v.string(),
   }),
 );

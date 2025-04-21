@@ -1,23 +1,25 @@
-"use client";
-
-import Banner from "./_ui/banner";
-import ProductSections from "./_ui/product-sections";
-import { Suspense } from "react";
-import Header from "@/components/headers/header";
 import CategoriesSubHeader from "@/components/headers/categories-sub-header";
+import ProductSections from "./_ui/product-sections";
+import Header from "@/components/headers/header";
+import MainCarousel from "./_ui/carousel/main-carousel";
+import { Suspense } from "react";
 import StaticFooter from "@/components/footers/static-footer";
+import ProductSectionsSkeleton from "./_ui/product-sections.skeleton";
+import TagSection from "./_ui/tag-section";
+import TagSectionSkeleton from "./_ui/tag-section.skeleton";
 
 export default function Home() {
   return (
     <>
       <Header subHeader={<CategoriesSubHeader selected="/" />} />
       <MainWrap>
-        <Banner />
-        {/* <Suspense fallback={<TagSection.Skeleton />}>
-          <TagSection />
-        </Suspense> */}
+        <MainCarousel />
 
-        <Suspense fallback={<ProductSections.Skeleton />}>
+        <Suspense fallback={<TagSectionSkeleton />}>
+          <TagSection />
+        </Suspense>
+
+        <Suspense fallback={<ProductSectionsSkeleton />}>
           <ProductSections />
         </Suspense>
       </MainWrap>
