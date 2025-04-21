@@ -60,7 +60,7 @@ export const refreshResponse = v.object({
 export type RefreshResponse = v.InferOutput<typeof refreshResponse>;
 
 export async function refresh(refreshToken: string): Promise<RefreshResponse> {
-  const res = await axios.post<RefreshResponse>(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/refresh`, {
+  const res = await axios.post<RefreshResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/refresh`, {
     refreshToken,
   });
   const data = v.parse(refreshResponse, res.data);

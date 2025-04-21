@@ -3,7 +3,7 @@ import { useAuthStore } from "../store/auth.store";
 import { refresh, RefreshResponse } from "./api/user";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
   timeout: 5000,
 });
 
@@ -27,6 +27,7 @@ api.interceptors.response.use(
         store.setAccessToken(refreshed);
 
         error.config.headers.Authorization = `Bearer ${refreshed.accessToken}`;
+
         return api.request(error.config);
       } catch (e) {
         if (axios.isAxiosError(e)) {
