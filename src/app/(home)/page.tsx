@@ -1,9 +1,10 @@
-import MainCarousel from "./_ui/carousel/main-carousel";
-import ProductSections from "./_ui/product-sections";
-import { Suspense } from "react";
 import CategoriesSubHeader from "@/components/headers/categories-sub-header";
-import StaticFooter from "@/components/footers/static-footer";
+import ProductSections from "./_ui/product-sections";
 import Header from "@/components/headers/header";
+import MainCarousel from "./_ui/carousel/main-carousel";
+import { Suspense } from "react";
+import StaticFooter from "@/components/footers/static-footer";
+import ProductSectionsSkeleton from "./_ui/product-sections.skeleton";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       <Header subHeader={<CategoriesSubHeader selected="/" />} />
       <MainWrap>
         <MainCarousel />
-        <Suspense fallback={<ProductSections.Skeleton />}>
+        <Suspense fallback={<ProductSectionsSkeleton />}>
           <ProductSections />
         </Suspense>
       </MainWrap>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
 import ProductSectionsSkeleton from "./product-sections.skeleton";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Title from "./title";
 import Product from "@/components/product";
 import { getFeaturedSectionAll, getFeaturedSectionProducts } from "@/lib/api/featured-section";
@@ -61,9 +61,8 @@ function ProductSections() {
   );
 }
 
-export default ProductSections;
-
 ProductSections.Skeleton = ProductSectionsSkeleton;
+export default ProductSections;
 
 function SectionWrap({ children }: React.PropsWithChildren) {
   return <section className="flex flex-col gap-[30px]">{children}</section>;
