@@ -41,9 +41,5 @@ function SectionWrap({ children }: React.PropsWithChildren) {
 }
 
 function ProductsWrap({ children }: React.PropsWithChildren) {
-  return (
-    <div className="grid grid-flow-col auto-cols-[40%] overflow-hidden gap-[18px] p-[24px]">
-      {children}
-    </div>
-  );
+  return <div className="grid auto-cols-[40%] grid-flow-col gap-[18px] overflow-hidden p-[24px]">{children}</div>;
 }

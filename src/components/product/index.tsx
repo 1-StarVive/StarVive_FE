@@ -30,10 +30,9 @@ function Product({ productId, alt, url, price, discountRate, name, isTop, isNew,
   );
 }
 
+Product.Skeleton = ProductSkeleton;
 export default Product;
 
 function ProductImageWrap({ children }: React.PropsWithChildren) {
   return <div className="relative aspect-square w-full">{children}</div>;
 }
-
-Product.Skeleton = ProductSkeleton;
