@@ -29,6 +29,7 @@ function Promotion() {
         name: o.title,
         href: `/promotion?promotionId=${o.promotionId}`,
         contents: o.promotionDetailContent,
+        notice: o.notice,
       })),
   });
 
@@ -59,7 +60,7 @@ function Promotion() {
       />
       <main>
         <PromotionDetail contents={currentItem.contents} />
-        <Accordion title="기획전 유의사항" contents={<div className="h-[200px]">dasdasads</div>} />
+        <Accordion title="기획전 유의사항" contents={currentItem.notice} />
 
         <PromotionProducts productId={currentItem.id} />
       </main>
