@@ -20,21 +20,29 @@ export async function getBestProduct(): Promise<GetBestProductResponse> {
   return data;
 }
 
-export const getProductResponse = v.array(
-  v.object({
-    productId: v.string(),
-    nameKr: v.string(),
-    nameEn: v.string(),
-    price: v.number(),
-    thumbnailUrl: v.string(),
-    rank: v.number(),
-  }),
-);
+export const getProductDetailResponse = v.object({
+  productId: v.string(),
+  name: v.string(),
+  productStatus: v.string(),
+  productDetailContent: v.string(),
+  imageThumbUrl: v.string(),
+  price: v.number(),
+  baseDiscountRate: v.number(),
+  discountedPrice: v.number(),
+  requiredInfos: v.array(
+    v.object({
+      type: v.string(),
+      value: v.string(),
+    }),
+  ),
+});
 
-export type GetProductResponse = v.InferOutput<typeof getProductResponse>;
+export type GetProductDetailResponse = v.InferOutput<typeof getProductDetailResponse>;
 
-export async function getProduct(): Promise<GetProductResponse> {
-  const res = await api.get<GetProductResponse>("/v1/product");
-  const data = v.parse(getProductResponse, res.data);
+export async function getProductDetail(productId: string): Promise<GetProductDetailResponse> {
+  const res = await api.get<GetProductDetailResponse>("/v1/product/detail", {
+    params: { productId },
+  });
+  const data = v.parse(getProductDetailResponse, res.data);
   return data;
 }

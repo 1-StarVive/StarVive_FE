@@ -2,30 +2,35 @@ import Badge from "@/components/badge";
 import ShareButton from "./share-button";
 import Title from "./title";
 import OriginPrice from "./origin-price";
-import Description from "./description";
 import DiscountRate from "./discount-rate";
 import DiscountedPrice from "./discounted-price";
 
-function ProductInfo() {
+type ProductInfoProps = {
+  name: string;
+  price: number;
+  baseDiscountRate?: number;
+  discountedPrice: number;
+};
+function ProductInfo({ name, baseDiscountRate, discountedPrice, price }: ProductInfoProps) {
   return (
     <Wrap>
       <TitleWrap>
         <TitleAndBadgeWrap>
-          <Title>버라이어티로고 리유저블컵 세트 473ml(3p)</Title>
-          {true && <Badge color="red">Best</Badge>}
-          {true && <Badge color="green">New</Badge>}
-          {true && <Badge color="brown">Limited</Badge>}
+          <Title>{name}</Title>
+          {false && <Badge color="red">Best</Badge>}
+          {false && <Badge color="green">New</Badge>}
+          {false && <Badge color="brown">Limited</Badge>}
         </TitleAndBadgeWrap>
         <ShareButton />
       </TitleWrap>
 
-      <Description>3종의 다른 디자인이 돋보이는 473ml 용량의 리유저블 컵 3ea 세트 상품입니다.</Description>
+      {/* <Description>3종의 다른 디자인이 돋보이는 473ml 용량의 리유저블 컵 3ea 세트 상품입니다.</Description> */}
 
       <PriceWrap>
-        <OriginPrice>9,000</OriginPrice>
+        {baseDiscountRate !== 0 && <OriginPrice>{price.toLocaleString("ko-KR")}</OriginPrice>}
         <DiscountWrap>
-          <DiscountRate>50</DiscountRate>
-          <DiscountedPrice>4,500</DiscountedPrice>
+          {baseDiscountRate !== 0 && <DiscountRate>{baseDiscountRate}</DiscountRate>}
+          <DiscountedPrice>{discountedPrice.toLocaleString("ko-KR")}</DiscountedPrice>
         </DiscountWrap>
       </PriceWrap>
     </Wrap>
