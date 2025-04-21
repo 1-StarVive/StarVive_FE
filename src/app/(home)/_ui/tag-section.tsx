@@ -17,7 +17,7 @@ function TagSection() {
       <Title>TREND TAG</Title>
       <TagsWrap>
         {tagAll.data.map((o) => (
-          <Tag key={o.tagId} src={o.imageThumbUrl} alt={o.imageThumbAlt}>
+          <Tag key={o.tagId} tagId={o.tagId} src={o.imageThumbUrl} alt={o.imageThumbAlt}>
             {o.name}
           </Tag>
         ))}
