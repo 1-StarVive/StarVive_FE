@@ -1,23 +1,26 @@
 "use client";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
 import TagSectionSkeleton from "./tag-section.skeleton";
 import Title from "./title";
+import Tag from "./tag";
+import { getTagAll } from "@/lib/api/tag";
 
 function TagSection() {
-  // const section = useSuspenseQuery({
-  //   queryKey: ["featuredSectionAll"],
-  //   queryFn: getFeaturedSectionAll,
-  // });
+  const tagAll = useSuspenseQuery({
+    queryKey: ["getTagAll"],
+    queryFn: getTagAll,
+  });
 
   return (
     <SectionWrap>
       <Title>TREND TAG</Title>
       <TagsWrap>
-        {/* {hashTags.map((h) => (
-          <Tag key={h.hashTagId} src={h.url} alt={h.alt}>
-            {h.name}
+        {tagAll.data.map((o) => (
+          <Tag key={o.tagId} src={o.imageThumbUrl} alt={o.imageThumbAlt}>
+            {o.name}
           </Tag>
-        ))} */}
+        ))}
       </TagsWrap>
     </SectionWrap>
   );

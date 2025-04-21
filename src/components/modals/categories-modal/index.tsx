@@ -3,12 +3,22 @@
 import GreetingTitle from "./ui/greeting-title";
 import Greeting from "./ui/greeting";
 import ShowAllLink from "./ui/show-all-link";
-import Category from "./ui/category";
 import CategoriesFooterItem from "./ui/categories-footer-item";
 import Modal from "../modal";
 import CategoriesHeader from "@/components/headers/categories-header";
+import { useQuery } from "@tanstack/react-query";
+import { getTopCategoriesAll } from "@/lib/api/top-categories";
+import Link from "next/link";
+import useCategoriesModalStore from "@/store/categories-modal.store";
 
 function CategoriesModal() {
+  const close = useCategoriesModalStore((s) => s.close);
+
+  const topCategories = useQuery({
+    queryKey: ["getTopCategoriesAll"],
+    queryFn: getTopCategoriesAll,
+  });
+
   return (
     <Modal className="bg-white" size="full">
       <ModalWrap>
@@ -20,30 +30,27 @@ function CategoriesModal() {
 
         <CategoriesWrap>
           <LinkWrap>
-            <ShowAllLink />
+            <div onClick={() => close()}>
+              <ShowAllLink />
+            </div>
           </LinkWrap>
-          <CategoryWrap>
-            <Category src="/temp-square.png" alt="음식">
-              텀블러/보온병
-            </Category>
-            <Category src="/temp-square.png" alt="음식">
-              텀블러/보온병
-            </Category>
-            <Category src="/temp-square.png" alt="음식">
-              텀블러/보온병
-            </Category>
-            <Category src="/temp-square.png" alt="음식">
-              텀블러/보온병
-            </Category>
-            <Category src="/temp-square.png" alt="음식">
-              보온병병병병병병병병병병
-            </Category>
-          </CategoryWrap>
+
+          <div className="flex flex-col items-center gap-2">
+            {topCategories.data?.map(({ name, topCategoryId }, i) => (
+              <div key={i} onClick={() => close()}>
+                <Link href={`./all-products?top=${topCategoryId}`}>{name}</Link>
+              </div>
+            ))}
+          </div>
         </CategoriesWrap>
 
         <CategoriesFooter>
-          <CategoriesFooterItem href="./" title="기획전" content="진행중인 기획전을 만나보세요." />
-          <CategoriesFooterItem href="./" title="베스트" content="스타벅스 베스트 MD 상품만 모아보세요." />
+          <div onClick={() => close()}>
+            <CategoriesFooterItem href="./promotion" title="기획전" content="진행중인 기획전을 만나보세요." />
+          </div>
+          <div onClick={() => close()}>
+            <CategoriesFooterItem href="./best" title="베스트" content="스타벅스 베스트 MD 상품만 모아보세요." />
+          </div>
         </CategoriesFooter>
       </ModalWrap>
     </Modal>
@@ -66,10 +73,6 @@ function CategoriesWrap({ children }: React.PropsWithChildren) {
 
 function LinkWrap({ children }: React.PropsWithChildren) {
   return <div className="flex justify-end">{children}</div>;
-}
-
-function CategoryWrap({ children }: React.PropsWithChildren) {
-  return <ul className="grid grid-cols-3 gap-[21px]">{children}</ul>;
 }
 
 function CategoriesFooter({ children }: React.PropsWithChildren) {
