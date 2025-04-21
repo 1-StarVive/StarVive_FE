@@ -109,22 +109,21 @@ export default function ProductListInfinite({
 
   /* ---------- UI ---------- */
   return (
-    <section className="grid grid-cols-2 gap-4 p-4">
+    <section className="grid grid-cols-2 gap-3 px-6 pt-6">
       {products.length > 0 ? (
-        <>
-          {products.map((product) => (
-            <div key={product.productId} className="rounded border p-2">
-              <img src={product.imageThumbUrl} alt={product.imageThumbAlt ?? product.name} className="mb-2 w-full" />
-              <div className="text-sm font-semibold">{product.name}</div>
-              <div className="text-xs text-gray-500">{product.price.toLocaleString()}원</div>
-            </div>
-          ))}
-          {/* 무한 스크롤 센티널 */}
-          <div ref={sentinelRef} className="col-span-2 h-10" />
-        </>
+        products.map((product) => (
+          <div key={product.productId} className="rounded border">
+            <img src={product.imageThumbUrl} alt={product.name} className="w-full pb-3" />
+            <div className="pb-3 text-[15px] font-semibold">{product.name}</div>
+            <div className="font-bold">{product.price.toLocaleString()}원</div>
+          </div>
+        ))
       ) : (
         <div className="col-span-2 text-center text-gray-500">조건에 맞는 상품이 없습니다.</div>
       )}
+
+      {/* 무한 스크롤 센티널은 그대로 유지 */}
+      <div ref={sentinelRef} className="col-span-2 h-10" />
     </section>
   );
 }
