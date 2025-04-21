@@ -103,10 +103,18 @@ export default function ProductListInfinite({
   return (
     <section className="grid grid-cols-2 gap-3 px-6 pt-6">
       {products.length > 0 ? (
-        products.map((product) => <ProductCard key={product.productId} product={product} />)
+        products.map((product) => (
+          <div key={product.productId} className="rounded border">
+            <img src={product.imageThumbUrl} alt={product.name} className="w-full pb-3" />
+            <div className="pb-3 text-[15px] font-semibold">{product.name}</div>
+            <div className="font-bold">{product.price.toLocaleString()}원</div>
+          </div>
+        ))
       ) : (
         <div className="col-span-2 text-center text-gray-500">조건에 맞는 상품이 없습니다.</div>
       )}
+
+      {/* 무한 스크롤 센티널은 그대로 유지 */}
       <div ref={sentinelRef} className="col-span-2 h-10" />
     </section>
   );
