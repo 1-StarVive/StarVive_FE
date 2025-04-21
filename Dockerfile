@@ -42,7 +42,7 @@ COPY --from=deps --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=deps --chown=nextjs:nodejs /app/public ./public
 # standalone output might not automatically copy the static folder in older versions
 # If static assets are needed and not served correctly, uncomment the next line
-# COPY --from=deps --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=deps --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # 비-root 사용자로 전환
 USER nextjs
