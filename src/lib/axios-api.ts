@@ -8,6 +8,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(function setAuthHeader(config) {
+  console.log(config.baseURL, config.url);
   const store = useAuthStore.getState();
   if (store.auth) {
     config.headers.Authorization = `Bearer ${store.auth.accessToken}`;
@@ -17,8 +18,12 @@ api.interceptors.request.use(function setAuthHeader(config) {
 
 let refreshingPromise: Promise<RefreshResponse> | null = null;
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log("response!!");
+    return response;
+  },
   async (error) => {
+    console.log("error!!", error.response?.status, error.config.url);
     const store = useAuthStore.getState();
     if (axios.isAxiosError(error) && error.status === 401 && error.config && refreshingPromise === null && store.auth) {
       try {
