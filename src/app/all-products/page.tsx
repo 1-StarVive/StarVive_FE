@@ -17,11 +17,6 @@ type Product = {
   main?: boolean;
 };
 
-type TopCategory = {
-  topCategoryId: string;
-  name: string;
-};
-
 type MiddleCategory = {
   middleCategoryId: string;
   name: string;
