@@ -6,7 +6,7 @@ pipeline {
         // 프론트엔드 빌드 또는 실행에 필요한 환경 변수 (예: API 서버 주소)
         // NEXT_PUBLIC_API_URL = 'http://your-api-server.com' // Next.js는 NEXT_PUBLIC_ 접두사 사용
         CONTAINER_NAME = 'frontend-container-dev' // 백엔드와 구분되는 컨테이너 이름 (dev 환경)
-        SERVER_PORT = '3001' // Next.js 기본 포트 또는 Dockerfile에서 노출할 포트 -> 3001로 변경
+        SERVER_PORT = '3000' // Next.js 기본 포트 또는 Dockerfile에서 노출할 포트 -> 3001로 변경
         IMAGE_TAG = "dev-${BUILD_NUMBER}" // 빌드 번호를 포함한 이미지 태그 (dev 환경)
         IMAGE_NAME = "your-dockerhub-username/star-vive-fe" // Docker Hub 사용자명/앱 이름으로 변경 (Docker Hub 사용 시)
         // 백엔드 Jenkinsfile의 AWS 관련 변수 등을 필요에 따라 추가할 수 있습니다.
