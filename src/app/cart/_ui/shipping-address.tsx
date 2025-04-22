@@ -1,10 +1,32 @@
+"use client";
+
+import { getShippingAddress } from "@/lib/api/shipping-address";
+import { useQuery } from "@tanstack/react-query";
 import Link, { LinkProps } from "next/link";
 
 function ShippingAddress() {
+  const shippingAddress = useQuery({
+    queryKey: ["shipping-address"],
+    queryFn: getShippingAddress,
+    select: (data) => data.find(({ selectedBase }) => selectedBase === true),
+  });
+
   return (
     <section className="bg-[#F7F7F7] p-4">
       <div className="grid grid-cols-[1fr_auto] items-start">
-        {true ? <EmptyMessage /> : <span></span>}
+        {shippingAddress.data ? (
+          <div className="flex flex-col text-xs">
+            <span className="font-bold">
+              {shippingAddress.data.receiverName} ({shippingAddress.data.addressNickName})
+            </span>
+            <span>
+              ({shippingAddress.data.postalCode}) {shippingAddress.data.baseAddress}{" "}
+              {shippingAddress.data.detailAddress}
+            </span>
+          </div>
+        ) : (
+          <EmptyMessage />
+        )}
         <ShippingAddressLink href={"/shipping-address"}>배송지 변경</ShippingAddressLink>
       </div>
       <div></div>

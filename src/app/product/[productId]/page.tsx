@@ -36,7 +36,7 @@ function Product() {
       const doc = parser.parseFromString(htmlString, "text/html");
       const srcs = Array.from(doc.querySelectorAll("img"))
         .map((img) => img.src)
-        .map((src) => src.replace("http://localhost:3000", ""))
+        .map((src) => src.replace(/^.+https/, "https"))
         .map((src) => src.replace(/\/\%22/g, ""));
       setSrcs(srcs);
     }

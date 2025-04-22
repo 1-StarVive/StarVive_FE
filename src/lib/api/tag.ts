@@ -37,7 +37,6 @@ export async function getProductTagList(tagId: string): Promise<GetProductTagLis
   const res = await api.get<GetProductTagListResponse>("/v1/product-tag", {
     params: { tagId },
   });
-  console.log(res.data);
   const data = v.parse(getProductTagListResponse, res.data);
   return data;
 }

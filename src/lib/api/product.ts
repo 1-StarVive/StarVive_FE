@@ -24,6 +24,8 @@ export const getProductDetailResponse = v.object({
   productId: v.string(),
   name: v.string(),
   productStatus: v.string(),
+  productOptionId: v.string(),
+  optionName: v.string(),
   productDetailContent: v.string(),
   imageThumbUrl: v.string(),
   price: v.number(),

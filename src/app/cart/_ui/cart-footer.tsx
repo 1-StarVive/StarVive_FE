@@ -1,17 +1,23 @@
 import { Button } from "@/components/buttons/button";
 import FixedFooter from "@/components/footers/fixed-footer";
+import { CartListResponse } from "@/lib/api/cart";
 
-function CartFooter() {
+type CartFooterProps = {
+  cartList: CartListResponse;
+};
+function CartFooter({ cartList }: CartFooterProps) {
+  const discountedPrice = cartList.reduce((acc, { discountedPrice, quantity }) => acc + discountedPrice * quantity, 0);
+
   return (
     <FixedFooter>
       <div className="flex items-center justify-between">
         <div className="text-sm">
           <span>총 </span>
-          <span className="text-primary">0</span>
+          <span className="text-primary">{cartList.length}</span>
           <span>건</span>
         </div>
         <div>
-          <span className="text-2xl">312,3000원</span>
+          <span className="text-2xl">{discountedPrice.toLocaleString("ko-KR")}원</span>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2">
