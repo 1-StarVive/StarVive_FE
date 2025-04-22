@@ -1,54 +1,43 @@
-# Dockerfile
-
-# 1. 의존성 설치 및 빌드 스테이지
-FROM node:20-alpine AS deps
-WORKDIR /app
-
-# 빌드 인수로 API URL 받기
-ARG NEXT_PUBLIC_API_URL
-# 받은 빌드 인수를 환경 변수로 설정 (빌드 시점에 사용 가능)
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-
-# pnpm 설치
-RUN npm install -g pnpm
-
-# package.json, pnpm-lock.yaml 복사
-COPY package.json pnpm-lock.yaml ./
-# 의존성 설치 (프로덕션 의존성만) -> 이제 모든 의존성 설치
-# --frozen-lockfile ensures we install exactly what's in the lockfile
-RUN pnpm install --frozen-lockfile
-
-# 소스 코드 복사
-COPY . .
-# 빌드 (--no-daemon 옵션은 CI 환경에서 권장)
-RUN pnpm run build
-
-# 2. 프로덕션 이미지 스테이지
-FROM node:20-alpine AS runner
-WORKDIR /app
-
-# 프로덕션 환경 설정
-ENV NODE_ENV=production
-# Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
-
-# 그룹 및 사용자 생성 (보안 강화)
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# 빌드 스테이지에서 필요한 파일만 복사
-# standalone 모드 사용 시
-COPY --from=deps --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=deps --chown=nextjs:nodejs /app/public ./public
-# standalone output might not automatically copy the static folder in older versions
-# If static assets are needed and not served correctly, uncomment the next line
-COPY --from=deps --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# 비-root 사용자로 전환
-USER nextjs
-
-# 애플리케이션 실행 포트 노출 (Jenkinsfile의 SERVER_PORT와 매핑될 포트)
-EXPOSE 3000
-
-# 실행 명령어 (standalone 모드 - .next/standalone/server.js)
-CMD ["node", "server.js"] 
+# --- 1. deps 스테이지: 의존성 설치 & 빌드 ---
+    FROM node:20-alpine AS deps
+    WORKDIR /app
+    
+    # 1) 빌드 인수로 API URL 받기
+    ARG NEXT_PUBLIC_API_URL
+    # 2) 끝에 붙은 슬래시 제거해서 환경 변수로 설정
+    ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL%/}
+    
+    # pnpm 설치
+    RUN npm install -g pnpm
+    
+    # 의존성 설치
+    COPY package.json pnpm-lock.yaml ./
+    RUN pnpm install --frozen-lockfile
+    
+    # 소스 복사 & 빌드
+    COPY . .
+    RUN pnpm run build
+    
+    # --- 2. runner 스테이지: 런타임 이미지 ---
+    FROM node:20-alpine AS runner
+    WORKDIR /app
+    ENV NODE_ENV=production
+    # 보안용 non-root 유저
+    RUN addgroup --system --gid 1001 nodejs \
+     && adduser --system --uid 1001 nextjs
+    
+    # 1) standalone 출력물이 있으면 복사
+    COPY --from=deps /app/.next/standalone ./
+    # 2) static 자산
+    COPY --from=deps /app/public ./public
+    COPY --from=deps /app/.next/static ./.next/static
+    
+    # (선택) standalone 출력물이 없었다면, 전체 .next를 복사
+    # COPY --from=deps /app/.next ./.next
+    # COPY --from=deps /app/node_modules ./node_modules
+    # COPY --from=deps /app/package.json ./
+    
+    USER nextjs
+    EXPOSE 3000
+    CMD ["node", "server.js"]
+    
