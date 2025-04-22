@@ -1,15 +1,26 @@
 import PlusCircleIcon from "@/components/icons/plus-circle-icon";
 import MinusCircleIcon from "@/components/icons/minus-circle-icon";
+import { GetProductDetailResponse } from "@/lib/api/product";
 
-function SelectedItem() {
+export type SelectedItemProps = {
+  product: GetProductDetailResponse;
+  quantity: number;
+  handleClickIncrease: () => void;
+  handleClickDecrease: () => void;
+};
+function SelectedItem({ product, quantity, handleClickDecrease, handleClickIncrease }: SelectedItemProps) {
   return (
     <Wrap>
-      <Title>버라이어티로고 리유저블컵 세트 473ml(3p)</Title>
+      <Title>{product.name}</Title>
       <CountAndPriceWrap>
-        <MinusCircleIcon className="h-5 w-5 text-[#727272]" />
-        <Count>1</Count>
-        <PlusCircleIcon className="h-5 w-5 text-[#727272]" />
-        <Price>{9000}</Price>
+        <button onClick={handleClickDecrease}>
+          <MinusCircleIcon className="h-5 w-5 text-[#727272]" />
+        </button>
+        <Count>{quantity}</Count>
+        <button onClick={handleClickIncrease}>
+          <PlusCircleIcon className="h-5 w-5 text-[#727272]" />
+        </button>
+        <Price>{product.discountedPrice}</Price>
       </CountAndPriceWrap>
     </Wrap>
   );
