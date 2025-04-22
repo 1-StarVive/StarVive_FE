@@ -23,7 +23,9 @@ function ProductSections() {
     queryKey: ["featuredSectionProducts", featuredSectionIds] as const,
     queryFn: async ({ queryKey }) => {
       const [_, featuredSectionIds] = queryKey;
-      if (featuredSectionIds.length === 0) return [];
+      if (!featuredSectionIds || !Array.isArray(featuredSectionIds) || featuredSectionIds.length === 0) {
+        return [];
+      }
       return await getFeaturedSectionProducts({ featuredSectionIds });
     },
   });
