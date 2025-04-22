@@ -3,7 +3,7 @@ import { useAuthStore } from "../store/auth.store";
 import { refresh, RefreshResponse } from "./api/user";
 
 const api = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 5000,
 });
 
