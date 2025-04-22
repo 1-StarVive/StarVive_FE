@@ -50,7 +50,7 @@ function ProductFooter() {
       setQuantity(1);
       ImperativeUI.show((close) => <Alert content="장바구니에 담겼습니다." onClickButton={close} />);
       close();
-    } catch (e) {
+    } catch {
       ImperativeUI.show((close) => <Alert content="장바구니에 담는 중 오류가 발생했습니다." onClickButton={close} />);
     } finally {
       ImperativeUI.loading(false);
