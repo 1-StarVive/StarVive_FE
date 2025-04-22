@@ -26,7 +26,8 @@ pipeline {
                 // 프론트엔드용 Dockerfile을 사용하여 이미지 빌드
                 // Dockerfile이 프로젝트 루트에 있다고 가정
                 // NEXT_PUBLIC_API_URL 값을 빈 문자열로 설정 (Nginx가 경로 처리 가정)
-                sh "docker build --build-arg NEXT_PUBLIC_API_URL= -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                // --no-cache 옵션 추가하여 빌드 캐시 사용 안 함
+                sh "docker build --no-cache --build-arg NEXT_PUBLIC_API_URL= -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
 
