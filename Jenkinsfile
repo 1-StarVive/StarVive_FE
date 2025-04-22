@@ -25,8 +25,8 @@ pipeline {
             steps {
                 // 프론트엔드용 Dockerfile을 사용하여 이미지 빌드
                 // Dockerfile이 프로젝트 루트에 있다고 가정
-                // --build-arg NEXT_PUBLIC_API_URL 값을 /api 로 변경하여 Nginx 프록시를 사용하도록 설정
-                sh "docker build --build-arg NEXT_PUBLIC_API_URL=/api -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                // NEXT_PUBLIC_API_URL 값을 빈 문자열로 설정 (Nginx가 경로 처리 가정)
+                sh "docker build --build-arg NEXT_PUBLIC_API_URL= -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
 
