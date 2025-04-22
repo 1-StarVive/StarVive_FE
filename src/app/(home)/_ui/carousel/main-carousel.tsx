@@ -14,6 +14,7 @@ type Banner = {
   imageBannerAlt: string;
   postedAt: string;
   activated: boolean;
+  promotionId: string;
 };
 
 export default function MainCarousel(): JSX.Element {
@@ -51,7 +52,7 @@ export default function MainCarousel(): JSX.Element {
       >
         {banners.map((banner) => (
           <SwiperSlide key={banner.bannerId}>
-            <Link href={`/event/${banner.bannerId}`}>
+            <Link href={`/promotion?promotionId=${banner.promotionId}`}>
               <img src={banner.imageBannerUrl} alt={banner.imageBannerAlt} className="h-full w-full object-cover" />
             </Link>
           </SwiperSlide>
