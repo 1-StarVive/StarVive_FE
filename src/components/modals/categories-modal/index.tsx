@@ -8,8 +8,8 @@ import Modal from "../modal";
 import CategoriesHeader from "@/components/headers/categories-header";
 import { useQuery } from "@tanstack/react-query";
 import { getTopCategoriesAll } from "@/lib/api/top-categories";
-import Link from "next/link";
 import useCategoriesModalStore from "@/store/categories-modal.store";
+import Category from "./ui/category";
 
 function CategoriesModal() {
   const close = useCategoriesModalStore((s) => s.close);
@@ -35,13 +35,15 @@ function CategoriesModal() {
             </div>
           </LinkWrap>
 
-          <div className="flex flex-col items-center gap-2">
-            {topCategories.data?.map(({ name, topCategoryId }, i) => (
+          <CategoryWrap>
+            {topCategories.data?.map(({ name, topCategoryId, imageAlt, imageUrl }, i) => (
               <div key={i} onClick={() => close()}>
-                <Link href={`./all-products?top=${topCategoryId}`}>{name}</Link>
+                <Category src={imageUrl} alt={imageAlt} href={`./all-products?top=${topCategoryId}`}>
+                  {name}
+                </Category>
               </div>
             ))}
-          </div>
+          </CategoryWrap>
         </CategoriesWrap>
 
         <CategoriesFooter>
@@ -73,6 +75,10 @@ function CategoriesWrap({ children }: React.PropsWithChildren) {
 
 function LinkWrap({ children }: React.PropsWithChildren) {
   return <div className="flex justify-end">{children}</div>;
+}
+
+function CategoryWrap({ children }: React.PropsWithChildren) {
+  return <ul className="grid grid-cols-3 gap-[21px]">{children}</ul>;
 }
 
 function CategoriesFooter({ children }: React.PropsWithChildren) {
