@@ -31,7 +31,7 @@ export default TagSection;
 TagSection.Skeleton = TagSectionSkeleton;
 
 function SectionWrap({ children }: React.PropsWithChildren) {
-  return <section className="flex flex-col gap-[30px]">{children}</section>;
+  return <section className="flex flex-col gap-[10px]">{children}</section>;
 }
 
 function TagsWrap({ children }: React.PropsWithChildren) {
