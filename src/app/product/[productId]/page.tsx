@@ -9,10 +9,14 @@ import StaticFooter from "@/components/footers/static-footer";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getProductDetail } from "@/lib/api/product";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import Wish from "./_ui/wish";
+import { ErrorBoundary } from "@/components/error-boundary";
+import { useAuthStore } from "@/store/auth.store";
 
 function Product() {
   const [srcs, setSrcs] = useState<string[]>([]);
+  const auth = useAuthStore((s) => s.auth);
 
   const params = useParams();
 
@@ -45,6 +49,15 @@ function Product() {
       <main className="flex flex-col gap-[20px]">
         <ImageWrap>
           <Image src={`${product.data.imageThumbUrl}`} alt="" sizes="400px" fill priority />
+          <div className="absolute right-5 bottom-5 z-1">
+            {auth && (
+              <ErrorBoundary>
+                <Suspense fallback={<div>...</div>}>
+                  <Wish productId={product.data.productId} />
+                </Suspense>
+              </ErrorBoundary>
+            )}
+          </div>
         </ImageWrap>
 
         <ProductInfo
