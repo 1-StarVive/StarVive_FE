@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import ChevronDownIcon from "./icons/chevron-down-icon";
 import { cn } from "@/lib/utils";
 import useFlodable from "@/hooks/use-foldable";
