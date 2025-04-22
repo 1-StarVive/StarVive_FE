@@ -5,41 +5,29 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import Title from "./title";
 import Product from "@/components/product";
 import { getFeaturedSectionAll, getFeaturedSectionProducts } from "@/lib/api/featured-section";
-import { useMemo, Suspense } from "react";
+import { useMemo } from "react";
 import * as F from "fp-ts/function";
 import * as NEA from "fp-ts/NonEmptyArray";
 import * as R from "fp-ts/Record";
 
-function ProductSectionsContent() {
+function ProductSections() {
   const featuredSections = useSuspenseQuery({
     queryKey: ["featuredSectionAll"],
     queryFn: getFeaturedSectionAll,
   });
-
   const featuredSectionIds = useMemo(
-    () => featuredSections.data?.map((o) => o.featuredSectionId) ?? [],
+    () => featuredSections.data.map((o) => o.featuredSectionId),
     [featuredSections.data],
   );
-
   const featuredSectionProducts = useSuspenseQuery({
     queryKey: ["featuredSectionProducts", featuredSectionIds] as const,
     queryFn: async ({ queryKey }) => {
-      const [_, ids] = queryKey;
-      if (!ids || !Array.isArray(ids) || ids.length === 0) {
-        return [];
-      }
-      try {
-        return await getFeaturedSectionProducts({ featuredSectionIds: ids });
-      } catch (error) {
-        console.error("Failed to fetch featured section products:", error);
-        return [];
-      }
+      const [_, featuredSectionIds] = queryKey;
+      if (featuredSectionIds.length === 0) return [];
+      return await getFeaturedSectionProducts({ featuredSectionIds });
     },
   });
-
   const datas = useMemo(() => {
-    if (!featuredSections.data || !featuredSectionProducts.data) return [];
-    
     const productsByFeaturedSectionsId = F.pipe(
       featuredSectionProducts.data,
       NEA.groupBy((o) => o.featuredSectionsId),
@@ -70,14 +58,6 @@ function ProductSectionsContent() {
         </SectionWrap>
       ))}
     </>
-  );
-}
-
-function ProductSections() {
-  return (
-    <Suspense fallback={<ProductSections.Skeleton />}>
-      <ProductSectionsContent />
-    </Suspense>
   );
 }
 
