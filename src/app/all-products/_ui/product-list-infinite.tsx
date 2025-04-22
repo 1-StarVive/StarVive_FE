@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import ProductCard from "./product-card"; // 위치에 맞게 경로 조정
+import ProductCard from "./product-card";
 
 /* ---------- 타입 ---------- */
 export type Product = {
@@ -33,14 +33,17 @@ export default function ProductListInfinite({
   selectedMiddleId,
   selectedBottomId,
 }: Props) {
+  /* ---------- 상태 ---------- */
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [, setCursor] = useState<string | null>(initialCursor);
   const [hasMore, setHasMore] = useState(initialHasNext);
   const [loading, setLoading] = useState(false);
 
+  /* ---------- refs ---------- */
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const cursorRef = useRef<string | null>(initialCursor);
 
+  /* ---------- 필터 변경 시 초기화 ---------- */
   useEffect(() => {
     setProducts(initialProducts);
 
@@ -53,6 +56,7 @@ export default function ProductListInfinite({
     setLoading(false);
   }, [initialProducts]);
 
+  /* ---------- 상품 추가 호출 ---------- */
   const fetchMoreProducts = useCallback(async () => {
     if (loading) return;
 
@@ -83,9 +87,10 @@ export default function ProductListInfinite({
     setLoading(false);
   }, [loading, selectedTopId, selectedMiddleId, selectedBottomId]);
 
+  /* ---------- IntersectionObserver ---------- */
   useEffect(() => {
     const el = sentinelRef.current;
-    if (!el || !hasMore) return () => {};
+    if (!el || !hasMore) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -100,21 +105,16 @@ export default function ProductListInfinite({
     return () => observer.unobserve(el);
   }, [fetchMoreProducts, hasMore]);
 
+  /* ---------- UI ---------- */
   return (
     <section className="grid grid-cols-2 gap-3 px-6 pt-6">
       {products.length > 0 ? (
-        products.map((product) => (
-          <div key={product.productId} className="rounded border">
-            <img src={product.imageThumbUrl} alt={product.name} className="w-full pb-3" />
-            <div className="pb-3 text-[15px] font-semibold">{product.name}</div>
-            <div className="font-bold">{product.price.toLocaleString()}원</div>
-          </div>
-        ))
+        products.map((product) => <ProductCard key={product.productId} product={product} />)
       ) : (
         <div className="col-span-2 text-center text-gray-500">조건에 맞는 상품이 없습니다.</div>
       )}
 
-      {/* 무한 스크롤 센티널은 그대로 유지 */}
+      {/* 무한 스크롤 센티널 */}
       <div ref={sentinelRef} className="col-span-2 h-10" />
     </section>
   );
