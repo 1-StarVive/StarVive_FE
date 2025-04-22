@@ -70,7 +70,7 @@ export default function ProductListInfinite({
     if (selectedBottomId) params.set("bottomId", selectedBottomId);
     if (currentCursor) params.set("lastProductId", currentCursor);
 
-    const url = `http://52.78.250.41:8082/api/v1/product-category?${params.toString()}`;
+    const url = `https://starvive.store/api/v1/product-category?${params.toString()}`;
     const res = await fetch(url);
     const { content: newProducts = [], hasNext = false } = await res.json();
 

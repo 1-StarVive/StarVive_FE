@@ -23,7 +23,7 @@ export default function MainCarousel(): JSX.Element {
   useEffect(() => {
     async function fetchBanners() {
       try {
-        const res = await fetch("http://52.78.250.41:8082/api/v1/banner/all");
+        const res = await fetch("https://starvive.store/api/v1/banner/all");
         if (!res.ok) {
           throw new Error("배너 데이터를 불러오는 데 실패했습니다");
         }
