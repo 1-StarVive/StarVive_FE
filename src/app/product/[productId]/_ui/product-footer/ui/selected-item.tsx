@@ -20,7 +20,7 @@ function SelectedItem({ product, quantity, handleClickDecrease, handleClickIncre
         <button onClick={handleClickIncrease}>
           <PlusCircleIcon className="h-5 w-5 text-[#727272]" />
         </button>
-        <Price>{product.discountedPrice}</Price>
+        <Price>{product.discountedPrice * quantity}</Price>
       </CountAndPriceWrap>
     </Wrap>
   );
