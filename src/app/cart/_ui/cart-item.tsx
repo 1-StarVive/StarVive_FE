@@ -26,7 +26,7 @@ function CartItem({ cartItem }: CartItemProps) {
     try {
       ImperativeUI.loading(true);
       await deleteCartMutation.mutateAsync({
-        cartItemIds: cartItem.cartId,
+        cartItemIds: [cartItem.cartId],
       });
       await queryClient.invalidateQueries({ queryKey: ["getCartList"] });
     } catch {
