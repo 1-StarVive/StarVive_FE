@@ -25,3 +25,15 @@ pnpm run dev # 개발모드로 실행
 pnpm run build # 빌드
 pnpm run start # 실행
 ```
+
+# 🚀 기술 스택
+
+- nextjs 15
+- react 19
+- typescript
+- tailwindcss
+- axios
+- react-hook-form
+- valibot
+- zustand
+- @tanstack/react-query
