@@ -116,13 +116,16 @@ function UpdateShippingAddressModal() {
                 )}
               />
             </div>
-            <LabeledCheckbox
-              label={<span className="text-xs">기본배송지로 설정</span>}
-              {...form.register("selectedBase")}
-            />
+
+            {!shippingAddress.data.selectedBase && (
+              <LabeledCheckbox
+                label={<span className="text-xs">기본배송지로 설정</span>}
+                {...form.register("selectedBase")}
+              />
+            )}
 
             <FixedFooter>
-              <Button type="submit">추가하기</Button>
+              <Button type="submit">수정하기</Button>
             </FixedFooter>
           </form>
         )}
