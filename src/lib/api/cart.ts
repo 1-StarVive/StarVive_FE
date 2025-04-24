@@ -66,14 +66,14 @@ export async function updateCarts(input: UpdateCartsRequest): Promise<void> {
 }
 
 export const deleteCartRequest = v.object({
-  cartItemIds: v.string(),
+  cartItemIds: v.array(v.string()),
 });
 
 export type DeleteCartRequest = v.InferOutput<typeof deleteCartRequest>;
 
 export async function deleteCart(input: DeleteCartRequest): Promise<void> {
   await api.delete<void>("/v1/cart/items", {
-    data: { cartItemIds: [input.cartItemIds] },
+    data: { cartItemIds: input.cartItemIds },
     paramsSerializer: { indexes: null },
   });
 }

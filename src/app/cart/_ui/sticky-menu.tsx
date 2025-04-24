@@ -2,7 +2,7 @@ import { headerHeight } from "@/components/headers/utils/const";
 import TextButton from "../../../components/buttons/text-button";
 import LabeledCheckbox from "@/components/checkboxes/labeled-checkbox";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCartList, updateCarts } from "@/lib/api/cart";
+import { deleteCart, getCartList, updateCarts } from "@/lib/api/cart";
 import ImperativeUI from "@/components/imperative-ui";
 
 function StickyMenu() {
@@ -13,6 +13,10 @@ function StickyMenu() {
 
   const updateCartsMutation = useMutation({
     mutationFn: updateCarts,
+  });
+
+  const deleteCartsMutation = useMutation({
+    mutationFn: deleteCart,
   });
 
   const checkedAll = cartList.data?.every(({ checked }) => checked) ?? false;
@@ -35,12 +39,46 @@ function StickyMenu() {
     }
   };
 
+  const handleClickDeleteChecked = async () => {
+    if (!cartList.data) return;
+    const selected = cartList.data.filter(({ checked }) => checked).map(({ cartId }) => cartId);
+    if (selected.length === 0) return;
+    try {
+      ImperativeUI.loading(true);
+
+      await deleteCartsMutation.mutateAsync({
+        cartItemIds: selected,
+      });
+      await cartList.refetch();
+    } catch {
+    } finally {
+      ImperativeUI.loading(false);
+    }
+  };
+
+  const handleClickDeleteAll = async () => {
+    if (!cartList.data) return;
+    if (cartList.data.length === 0) return;
+    try {
+      ImperativeUI.loading(true);
+      await deleteCartsMutation.mutateAsync({
+        cartItemIds: cartList.data.map(({ cartId }) => cartId),
+      });
+      await cartList.refetch();
+    } catch {
+    } finally {
+      ImperativeUI.loading(false);
+    }
+  };
+
   return (
     <Wrap>
       <LabeledCheckbox label={"전체 선택"} checked={checkedAll} onChange={() => {}} onClick={handleClickAll} />
       <ButtonsWrap>
-        <TextButton color="primary">선택 삭제</TextButton>
-        <TextButton>전체 삭제</TextButton>
+        <TextButton color="primary" onClick={handleClickDeleteChecked}>
+          선택 삭제
+        </TextButton>
+        <TextButton onClick={handleClickDeleteAll}>전체 삭제</TextButton>
       </ButtonsWrap>
     </Wrap>
   );
